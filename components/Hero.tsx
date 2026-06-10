@@ -22,21 +22,53 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
-      {/* 1 — BACKGROUND SLOT */}
+      {/* ════════════════════════════════════════════════
+          LAYER 1 — BACKGROUND  (data-driven)
+          For video: 25% opacity + 3px blur per brief, atmospheric only.
+          Mobile renders the poster JPG instead of autoplaying the video.
+          ════════════════════════════════════════════════ */}
       <div className="absolute inset-0 z-0">
         {bg.kind === "image" && bg.src && (
           <Image src={bg.src} alt="" fill priority className="object-cover" />
         )}
         {bg.kind === "video" && bg.src && (
-          <video
-            src={bg.src}
-            poster={bg.poster}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-          />
+          <>
+            {/* Desktop / tablet — autoplay muted loop */}
+            <video
+              src={bg.src}
+              poster={bg.poster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              aria-hidden
+              className="
+                hidden md:block
+                absolute inset-0 w-full h-full object-cover scale-105
+              "
+              style={{
+                opacity: 0.25,
+                filter: "blur(3px)",
+              }}
+            />
+            {/* Mobile — static poster only, no video decode */}
+            {bg.poster && (
+              <img
+                src={bg.poster}
+                alt=""
+                aria-hidden
+                className="
+                  md:hidden
+                  absolute inset-0 w-full h-full object-cover scale-105
+                "
+                style={{
+                  opacity: 0.25,
+                  filter: "blur(3px)",
+                }}
+              />
+            )}
+          </>
         )}
         {bg.kind === "empty" && (
           // Subtle ambient field — a slot you can replace later.
@@ -45,25 +77,46 @@ export function Hero() {
         )}
       </div>
 
-      {/* 2 — atmosphere: vignette + grain */}
+      {/* ════════════════════════════════════════════════
+          LAYER 2 — DARK OVERLAY  rgba(0,0,0,0.75)
+          Anchors text legibility on top of the video.
+          ════════════════════════════════════════════════ */}
+      {bg.kind === "video" && (
+        <div
+          aria-hidden
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{ background: "rgba(0,0,0,0.75)" }}
+        />
+      )}
+
+      {/* atmosphere: vignette + grain (kept — part of existing DA) */}
       {bg.ambient && (
         <>
-          <div className="absolute inset-0 z-[1] vignette pointer-events-none" />
-          <div className="absolute inset-0 z-[2] grain pointer-events-none" />
+          <div className="absolute inset-0 z-[2] vignette pointer-events-none" />
+          <div className="absolute inset-0 z-[3] grain pointer-events-none" />
         </>
       )}
 
-      {/* 3 — overlay to anchor left text */}
+      {/* ════════════════════════════════════════════════
+          LAYER 3 — GRID OVERLAY  (preserved from existing DA)
+          Faint white wireframe — was inside AmbientField when slot empty,
+          extracted here so it remains visible above the video.
+          ════════════════════════════════════════════════ */}
+      <HeroGrid />
+
+      {/* overlay to anchor left text (kept) */}
       <div
         aria-hidden
-        className="absolute inset-0 z-[3] pointer-events-none"
+        className="absolute inset-0 z-[5] pointer-events-none"
         style={{
           background:
             "linear-gradient(to right, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.7) 28%, rgba(5,5,5,0.0) 55%)",
         }}
       />
 
-      {/* 4 — CONTENT */}
+      {/* ════════════════════════════════════════════════
+          LAYER 4 — CONTENT
+          ════════════════════════════════════════════════ */}
       <div className="relative z-10 page-x pt-[calc(var(--nav-h)+44px)] pb-24">
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 lg:col-span-7 xl:col-span-6">
@@ -207,6 +260,37 @@ function AmbientField() {
       <div
         className="absolute -right-1/4 top-1/3 w-[60vw] h-[60vw] rounded-full blur-3xl"
         style={{ background: "radial-gradient(circle, rgba(255,46,136,0.18), transparent 60%)" }}
+      />
+    </div>
+  );
+}
+
+/**
+ * Persistent grid overlay — always rendered, sits above any background
+ * (video, image or empty). Preserves the wireframe + faint pink flare
+ * that were previously only visible when the slot was empty.
+ */
+function HeroGrid() {
+  return (
+    <div className="absolute inset-0 z-[4] pointer-events-none">
+      {/* Faint grid */}
+      <div
+        className="absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
+          backgroundSize: "80px 80px",
+          maskImage:
+            "radial-gradient(ellipse at center, black 30%, transparent 70%)",
+        }}
+      />
+      {/* Pink diagonal flare */}
+      <div
+        className="absolute -right-1/4 top-1/3 w-[60vw] h-[60vw] rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(255,46,136,0.18), transparent 60%)",
+        }}
       />
     </div>
   );

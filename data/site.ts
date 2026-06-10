@@ -54,9 +54,9 @@ export const site = {
      *  - kind: "lottie"  → reserved for future Lottie/JSON
      */
     background: {
-      kind: "empty" as "empty" | "image" | "video" | "lottie",
-      src: "",
-      poster: "",
+      kind: "video" as "empty" | "image" | "video" | "lottie",
+      src: "/videos/showreel-hero-bg.mp4",
+      poster: "/videos/showreel-hero-poster.jpg",
       // Show subtle ambient grain + vignette so the slot has atmosphere
       // even before you populate it.
       ambient: true,
