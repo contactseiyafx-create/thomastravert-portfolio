@@ -80,7 +80,7 @@ export function ServicesHero() {
                   <p className="mt-1 font-mono text-[11px] tracking-[0.18em] text-bone uppercase">
                     {m.value}
                   </p>
-                  {m.jp && (
+                  {"jp" in m && m.jp && (
                     <p className="mt-1 font-jp text-[11px] tracking-[0.14em] text-bone-dim">
                       {m.jp}
                     </p>
