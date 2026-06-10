@@ -10,9 +10,9 @@ export type Social = {
 };
 
 export const socials: Social[] = [
-  { label: "Instagram", icon: "instagram", href: "https://instagram.com/thomastravert" },
-  { label: "Dribbble", icon: "dribbble", href: "https://dribbble.com/thomastravert" },
-  { label: "Vimeo", icon: "vimeo", href: "https://vimeo.com/thomastravert" },
+  { label: "LinkedIn",  icon: "linkedin",  href: "https://www.linkedin.com/in/tvtthomas/" },
+  { label: "Instagram", icon: "instagram", href: "https://www.instagram.com/tvtthomas/" },
+  { label: "Dribbble",  icon: "dribbble",  href: "https://dribbble.com/tvtthomas" },
 ];
 
 /* Contact channels — used on /contact and /footer */

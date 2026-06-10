@@ -18,6 +18,14 @@ export type ServiceCardData = {
   includes: string[];
   /** Pricing line — appears next to "STARTING AT:" */
   price: string;
+  /**
+   * Optional small secondary price line — used to show the rough
+   * USD/EUR equivalent under the yen price. Kept editable so you can
+   * refresh it when FX rates drift.
+   *
+   * Example: "≈ $380 · €325"
+   */
+  priceSecondary?: string;
   /** Optional override of the price label (defaults to "STARTING AT:") */
   priceLabel?: string;
   /**
@@ -45,6 +53,8 @@ export type CompactCardData = {
   priceLabel: string;
   /** Bottom main value (e.g. "CUSTOM QUOTE" or "¥8,000 – ¥20,000 / HOUR") */
   price: string;
+  /** Optional secondary price line (USD/EUR equivalent). See ServiceCardData.priceSecondary. */
+  priceSecondary?: string;
   /** CTA — see ServiceCardData.cta */
   cta?: {
     label: string;
@@ -92,12 +102,10 @@ export const services = {
         "Presentation Design",
       ],
       price: "¥60,000+",
-      // TODO: replace with the real GRAPHIC DESIGN Google Form URL.
-      // Pre-fill the form header with the service title, description, includes
-      // list and price so the client opens it already in context.
+      priceSecondary: "≈ $380 · €325",
       cta: {
         label: "START REQUEST",
-        href: "https://forms.gle/graphic-design",
+        href: "https://forms.gle/QVZUy6ZAXkmu3A9a6",
       },
     },
     {
@@ -115,10 +123,10 @@ export const services = {
         "Cinematic Motion Direction",
       ],
       price: "¥120,000+",
-      // TODO: replace with the real MOTION DESIGN Google Form URL.
+      priceSecondary: "≈ $755 · €650",
       cta: {
         label: "START REQUEST",
-        href: "https://forms.gle/motion-design",
+        href: "https://forms.gle/h2X37AiCMf1vqhWT9",
       },
     },
     {
@@ -135,10 +143,10 @@ export const services = {
         "Motion / Visual Direction",
       ],
       price: "¥250,000+",
-      // TODO: replace with the real ART DIRECTION / CGI Google Form URL.
+      priceSecondary: "≈ $1,570 · €1,350",
       cta: {
         label: "START REQUEST",
-        href: "https://forms.gle/art-direction",
+        href: "https://forms.gle/C8yy5a28pV8z1xC2A",
       },
     },
   ] satisfies ServiceCardData[],
@@ -186,16 +194,14 @@ export const services = {
       "Premium Art Direction",
     ],
     price: "¥350,000+",
+    priceSecondary: "≈ $2,200 · €1,900",
     priceLabel: "STARTING AT:",
     /** Bottom-right archive footer label */
     footerLabel: "2070 ARCHIVE",
     footerSubLabel: "FUTURE VISUAL SYSTEMS",
-    // TODO: replace with the real 2070 VISUALS Google Form URL.
-    // This form is the signature commission — it should feel premium and
-    // exclusive, pre-loaded with the SIGNATURE PACKAGE context.
     cta: {
       label: "START REQUEST",
-      href: "https://forms.gle/2070-visuals",
+      href: "https://forms.gle/atppouSN1NFEWgmk7",
     },
   },
 
@@ -215,10 +221,9 @@ export const services = {
     ],
     priceLabel: "MONTHLY RETAINER",
     price: "CUSTOM QUOTE",
-    // TODO: replace with the real CREATIVE PARTNERSHIP Google Form URL.
     cta: {
       label: "START REQUEST",
-      href: "https://forms.gle/creative-partnership",
+      href: "https://forms.gle/WbtEc6sJuu6BgWUf8",
     },
   } satisfies CompactCardData,
 
@@ -235,10 +240,10 @@ export const services = {
     ],
     priceLabel: "",
     price: "¥8,000 — ¥20,000 / HOUR",
-    // TODO: replace with the real CONSULTING Google Form URL.
+    priceSecondary: "≈ $50–125 · €45–110 / hour",
     cta: {
       label: "BOOK SESSION",
-      href: "https://forms.gle/consulting",
+      href: "https://forms.gle/yPDYGpHdVjDBMLJG7",
     },
   } satisfies CompactCardData,
 

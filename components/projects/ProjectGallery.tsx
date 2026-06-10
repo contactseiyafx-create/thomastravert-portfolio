@@ -71,13 +71,7 @@ function FullWidthFrame({ img, i }: { img: ProjectImage; i: number }) {
         className="relative w-full overflow-hidden bg-ink-700"
         style={{ aspectRatio: img.ratio ?? "16/9" }}
       >
-        <Image
-          src={img.src}
-          alt={img.alt}
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
+        <MediaFrame img={img} sizes="100vw" />
       </div>
       {img.caption && (
         <figcaption className="mt-4 flex items-center gap-4">
@@ -123,12 +117,9 @@ function SplitFrame({
           ].join(" ")}
           style={{ aspectRatio: img.ratio ?? "4/3" }}
         >
-          <Image
-            src={img.src}
-            alt={img.alt}
-            fill
+          <MediaFrame
+            img={img}
             sizes="(min-width: 1024px) 66vw, 100vw"
-            className="object-cover"
           />
         </motion.div>
 
@@ -197,5 +188,47 @@ export function MotionSection({ project }: { project: Project }) {
         </p>
       )}
     </section>
+  );
+}
+
+/* ────────────────────────────────────────────────
+   MEDIA FRAME — image OR video
+   Same dimensions, same object-cover.  Only the inner element swaps.
+   Videos autoplay, loop, are muted (required for autoplay on iOS), and
+   use `playsInline` so they don't fullscreen on mobile.  The still
+   `img.src` doubles as the poster frame so the gallery looks identical
+   before the video is decoded.
+   ──────────────────────────────────────────────── */
+
+function MediaFrame({
+  img,
+  sizes,
+}: {
+  img: ProjectImage;
+  sizes: string;
+}) {
+  if (img.video) {
+    return (
+      <video
+        src={img.video.src}
+        poster={img.src}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        aria-label={img.alt}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+    );
+  }
+  return (
+    <Image
+      src={img.src}
+      alt={img.alt}
+      fill
+      sizes={sizes}
+      className="object-cover"
+    />
   );
 }

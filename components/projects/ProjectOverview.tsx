@@ -35,6 +35,17 @@ export function ProjectOverview({ project }: { project: Project }) {
               {project.longDescription}
             </p>
           </HoverReveal>
+          {project.disclaimer && (
+            <HoverReveal y={10} delay={0.32}>
+              <p className="mt-6 flex items-start gap-3 max-w-xl font-mono text-[11px] tracking-[0.14em] uppercase text-bone-muted leading-relaxed">
+                <span
+                  aria-hidden
+                  className="block w-1.5 h-1.5 rounded-full bg-signal mt-1.5 shrink-0"
+                />
+                <span>{project.disclaimer}</span>
+              </p>
+            </HoverReveal>
+          )}
         </div>
 
         {/* RIGHT — deliverables */}

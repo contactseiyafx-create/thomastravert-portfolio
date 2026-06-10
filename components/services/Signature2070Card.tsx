@@ -204,6 +204,14 @@ export function Signature2070Card() {
             >
               {s.price}
             </p>
+            {s.priceSecondary && (
+              <p
+                className="mt-2 font-mono text-[11px] tracking-[0.16em]"
+                style={{ color: ACCENT, opacity: 0.7 }}
+              >
+                {s.priceSecondary}
+              </p>
+            )}
           </div>
         </div>
 

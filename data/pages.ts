@@ -64,6 +64,29 @@ export const pages = {
       year: "2025",
     },
     /**
+     * Featured reel — single editorial video player sitting between the
+     * page hero and the YouTube archive. Mirrors the playlist section's
+     * rhythm (eyebrow JP → display title → meta column → 16:9 framed
+     * player → meta strip) so the two sections read as siblings.
+     *
+     * Currently wired to the Sorare Motion Reel (2023).
+     */
+    featuredReel: {
+      eyebrowJp: "リール",
+      sectionLabel: "FEATURED REEL · CLIENT WORK",
+      countLabel: "MOTION 001",
+      title: "SORARE\nMOTION REEL",
+      author: "Thomas Travert — 2023",
+      client: "Sorare",
+      category: "MOTION DESIGN / REEL",
+      intro:
+        "Motion direction and editing for Sorare — a 2023 reel cut across product launches, on-card moments and brand films.",
+      src: "/motion/sorare-motion-reel-2023.mp4",
+      poster: "/motion/sorare-motion-reel-2023-poster.jpg",
+      type: "video/mp4",
+      duration: "00:37",
+    },
+    /**
      * Embedded YouTube playlist shown below the reel.
      * Source: https://www.youtube.com/watch?v=WeA7yYSCiRE&list=PLebI-4WHDYtPRza1qxkr6G-FWKxcfMVST
      */

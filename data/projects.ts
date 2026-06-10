@@ -19,15 +19,28 @@ export type ProjectCategory =
   | "CGI"
   | "ILLUSTRATION"
   | "BRANDING"
-  | "BRANDING / MERCH";
+  | "BRANDING / MERCH"
+  | "CLIENT PROJECT";
 
 export type ProjectImage = {
+  /** Image src — used as the poster frame when `video` is present. */
   src: string;
   alt: string;
   /** Aspect ratio hint for layouts that respect it, e.g. "16/9", "21/9", "1/1" */
   ratio?: string;
   /** Optional caption for the gallery */
   caption?: string;
+  /**
+   * Optional video. When set, the gallery renders an autoplay-loop-muted
+   * <video> using `src` (above) as the poster frame and `video.src` as
+   * the playable mp4.  Same frame dimensions, same animations — only the
+   * inner element swaps.
+   */
+  video?: {
+    src: string;
+    /** Defaults to "video/mp4" */
+    type?: string;
+  };
 };
 
 export type Highlight = {
@@ -68,6 +81,12 @@ export type Project = {
   gallery: ProjectImage[];
   /** Optional bullet-highlights block */
   highlights?: Highlight[];
+  /**
+   * Optional disclaimer / rights notice — rendered as a small caveat below
+   * the overview block.  Used for client projects whose IP belongs to the
+   * client (e.g. "All concepts remain the property of <client>.").
+   */
+  disclaimer?: string;
   /** Optional motion / video block — hides cleanly if undefined */
   motion?: {
     src: string;
@@ -298,6 +317,306 @@ export const projects: Project[] = [
     tags: ["F1", "Merch", "Illustration"],
     featured: true,
   },
+  {
+    slug: "pewdiepie-rhinoshield",
+    index: "04",
+    title: "PEWDIEPIE × RHINOSHIELD",
+    subtitle: "JAPANESE VISUAL DIRECTION · CASE CAPSULE",
+    category: "CLIENT PROJECT",
+    shortDescription:
+      "JAPANESE VISUAL DIRECTION\nFOR A CASE CAPSULE",
+    longDescription:
+      "Thomas Travert designed for the PewDiePie × Rhinoshield collaboration with a Japanese visual direction, exploring multiple stylistic territories ranging from cyber aesthetics and neon Tokyo atmospheres to Edo-inspired compositions, kawaii visuals and retro 80's inspired concepts. The project investigated collectible visual systems adapted to product design and community-driven branding.",
+    year: "2020",
+    client: "Rhinoshield × PewDiePie",
+    role: ["Graphic Design", "Illustration", "Marketing"],
+    deliverables: [
+      "Edo Wave concept boards",
+      "Ninja Pewds illustrations",
+      "Neon City / Futuristic Tokyo",
+      "Konbini Neon storefront",
+      "Pewds Arcade scene",
+      "Final case capsule (10 designs)",
+    ],
+    thumbnail: {
+      src: "/projects/pewdiepie-rhinoshield/thumb.png",
+      alt: "PewDiePie × Rhinoshield — final case capsule board",
+      ratio: "1/1",
+    },
+    hero: {
+      // Brief: hero section uses ONLY herosectionpewd.png. Keep original
+      // 16:9 proportions, no deformation. ProjectHero applies object-cover.
+      src: "/projects/pewdiepie-rhinoshield/hero.png",
+      alt: "PewDiePie × Rhinoshield — rooftop case shot, torii + Edo wave + neon city pop-out",
+      ratio: "16/9",
+    },
+    gallery: [
+      // Brief: gallery uses ONLY the five Pewds_*.png files.
+      // Thumbnail (4.png) and hero (herosectionpewd.png) are deliberately
+      // NOT included here — strict role separation per the brief.
+      {
+        src: "/projects/pewdiepie-rhinoshield/01-pewds-1.png",
+        alt: "Edo Aera — Hokusai Wave proposals",
+        ratio: "1920/1357",
+        caption: "Edo Aera — Hokusai Wave, two propositions and case studies.",
+      },
+      {
+        src: "/projects/pewdiepie-rhinoshield/02-pewds-2.png",
+        alt: "Ninja Pewds and Futuristic / Neon City — concept boards",
+        ratio: "4/5",
+        caption: "Ninja Pewds & Futuristic City — character and worldbuilding studies.",
+      },
+      {
+        src: "/projects/pewdiepie-rhinoshield/03-pewds-3.png",
+        alt: "Konbini Neon and Pewds Arcade — concept boards",
+        ratio: "4/5",
+        caption: "Konbini Neon & Pewds Arcade — neon-noir scene design.",
+      },
+      {
+        src: "/projects/pewdiepie-rhinoshield/04-pewds-4.png",
+        alt: "PewDiePie × Rhinoshield — final case capsule, ten designs",
+        ratio: "1920/1690",
+        caption: "Final capsule — ten case designs across five universes.",
+      },
+      {
+        src: "/projects/pewdiepie-rhinoshield/05-pewds-last.png",
+        alt: "PewDiePie × Rhinoshield — lifestyle campaign visuals",
+        ratio: "4/3",
+        caption:
+          "Lifestyle campaign — product in context, cherry blossoms, Japanese food atmospheres.",
+      },
+    ],
+    highlights: [
+      {
+        title: "FIVE UNIVERSES, ONE CAPSULE",
+        body: "Cyber / Mecha · Neon Tokyo · Edo Print · Kawaii Ramen · 80's Retro · Ninja Pewds — held together by a single Japanese editorial language.",
+      },
+      {
+        title: "PRODUCT-FIRST THINKING",
+        body: "Every artwork stress-tested against the case form factor, camera cutout, and back-of-phone composition before final selection.",
+      },
+      {
+        title: "COMMUNITY-DRIVEN ICONOGRAPHY",
+        body: "Floor Gang, Edgar, brofist marks and PewDiePie codes woven into the visual fabric without breaking the editorial frame.",
+      },
+    ],
+    /**
+     * Disclaimer rendered in the meta sidebar via `tags`.
+     * Brief explicitly requests this attribution.
+     */
+    tags: [
+      "Rhinoshield · client property",
+      "Capsule",
+      "2020",
+    ],
+    disclaimer:
+      "All concepts and designs — accepted or not — remain the property of Rhinoshield.",
+    featured: false,
+  },
+  {
+    slug: "atletec-tv-rebranding",
+    index: "05",
+    title: "ATLETEC TV — REBRANDING",
+    subtitle: "ESPORTS WEBTV · COMPLETE BRAND SYSTEM",
+    category: "CLIENT PROJECT",
+    shortDescription:
+      "COMPLETE ARTISTIC DIRECTION\nFOR AN ESPORTS WEBTV",
+    longDescription:
+      "Complete artistic direction for the ATLETEC WEBTV ecosystem. The system was built around the channel's editorial pillars — Culture, Entertainment, Let's Play and Sport — combining logo evolution, category coding, motion-ready visual language, 2D / 3D icon systems, social-media communication assets and broadcast direction into a single coherent esports universe. ATLETEC is a professional esports structure placing human values at the center of its activities to create a healthy environment promoting performance, learning and fulfillment.",
+    year: "2024",
+    client: "Atletec",
+    role: ["Art Direction", "Graphic Design", "Motion Design 2D / 3D"],
+    deliverables: [
+      "Logo system & construction",
+      "Category coding (4 pillars)",
+      "3D object library",
+      "Pictogram icon set",
+      "Styleframes & moodboard",
+      "Social-media template system",
+      "Broadcast / WebTV direction",
+      "Motion identity",
+    ],
+    thumbnail: {
+      src: "/projects/atletec-tv/thumb.png",
+      alt: "ATLETEC TV — webtv branding preview",
+      ratio: "859/464",
+    },
+    hero: {
+      src: "/projects/atletec-tv/02-logo-system.png",
+      alt: "ATLETEC TV — logo construction system",
+      ratio: "1920/1294",
+    },
+    gallery: [
+      {
+        src: "/projects/atletec-tv/04-logo-construction-poster.jpg",
+        alt: "Logo construction — Atletec mark + REC dot + TV roundel",
+        ratio: "16/9",
+        caption:
+          "Logo system — construction, category variants (Général · Culture · Divertissement · Jeux Vidéo · Sport).",
+        video: { src: "/projects/atletec-tv/04-logo-construction.mp4" },
+      },
+      {
+        src: "/projects/atletec-tv/02-logo-system.png",
+        alt: "Logo system — full construction board with category colour codes",
+        ratio: "1920/1294",
+        caption:
+          "Brand book — full construction board, five category roundels, hex codes.",
+      },
+      {
+        src: "/projects/atletec-tv/03-3d-icons.png",
+        alt: "3D objects to pictograms — speaker, mic, headphones, joystick, ball",
+        ratio: "1920/799",
+        caption:
+          "3D object system — speaker, microphone, headset, joystick, ball — reproduced as pictograms for immediate recognition and pattern use.",
+      },
+      {
+        src: "/projects/atletec-tv/07-3d-objects-poster.jpg",
+        alt: "3D objects — animated turntable loop",
+        ratio: "1400/788",
+        caption: "3D object library — turntable studies.",
+        video: { src: "/projects/atletec-tv/07-3d-objects.mp4" },
+      },
+      {
+        src: "/projects/atletec-tv/05-styleframe.png",
+        alt: "Styleframe — Warzone & FIFA social-media compositions, pattern system",
+        ratio: "1920/2160",
+        caption:
+          "Styleframes — WARZONE, FIFA, ON EST EN LIVE — neon-green / magenta / black pattern language.",
+      },
+      {
+        src: "/projects/atletec-tv/06-social-media.png",
+        alt: "Social-media ecosystem — Instagram, stream planning, banners",
+        ratio: "1920/2271",
+        caption:
+          "Social-media ecosystem — live stories, stream planning grid, channel banners across formats.",
+      },
+      {
+        src: "/projects/atletec-tv/08-broadcast-scene-poster.jpg",
+        alt: "3D broadcast scene — animated branding",
+        ratio: "16/9",
+        caption: "3D broadcast scene — branded environment for on-air segments.",
+        video: { src: "/projects/atletec-tv/08-broadcast-scene.mp4" },
+      },
+      {
+        src: "/projects/atletec-tv/09-final-branding-poster.jpg",
+        alt: "ATLETEC WEBTV — final branding visual",
+        ratio: "16/9",
+        caption:
+          "WebTV final — ATLETEC × Twitch destination, planning grid, partners line-up.",
+        video: { src: "/projects/atletec-tv/09-final-branding.mp4" },
+      },
+    ],
+    highlights: [
+      {
+        title: "FOUR EDITORIAL PILLARS",
+        body: "Culture · Divertissement · Jeux Vidéo · Sport — each pillar carries its own colour roundel sitting inside the same Atletec mark, so the system reads as one channel with four moods.",
+      },
+      {
+        title: "3D → PICTOGRAM",
+        body: "Every studio object — speaker, mic, headset, joystick, ball — modelled and textured from scratch, then reduced to a pictogram for icon use and pattern fills.",
+      },
+      {
+        title: "MODULAR, BROADCAST-READY",
+        body: "The same identity flexes across stream banners, story templates, planning grids, partner line-ups and live-scene 3D environments — without losing the editorial frame.",
+      },
+    ],
+    tags: ["Esports", "Broadcast", "2024"],
+    disclaimer:
+      "Project produced for Atletec — visuals shown for portfolio purposes; rights remain with Atletec.",
+    featured: false,
+  },
+  {
+    slug: "xbox-wire",
+    index: "06",
+    title: "XBOX WIRE",
+    subtitle: "MONTHLY LIVE SHOW · IDENTITY & BROADCAST",
+    category: "CLIENT PROJECT",
+    shortDescription:
+      "IDENTITY & BROADCAST DESIGN\nFOR A MONTHLY XBOX LIVE SHOW",
+    longDescription:
+      "Xbox Wire is a monthly live show produced by Xbox, featuring guests such as Le Joueur du Grenier, Domingo, Kadidiatou Diani and Ina Gilbert. The program focuses on gaming culture, industry discussions, entertainment and community topics surrounding the world of video games, with recurring segments including Autour du Vert, Le Défi and La Xboîte. My role covered art direction, graphic design, motion design and visual branding across the show's identity, broadcast graphics, on-set screens and communication materials.",
+    year: "2024",
+    client: "Xbox",
+    role: ["Art Direction", "Graphic Design", "Motion Design"],
+    deliverables: [
+      "Show identity & logo lockup",
+      "On-air broadcast graphics",
+      "On-set screen visuals",
+      "Segment graphics (Autour du Vert · Le Défi · La Xboîte)",
+      "Social-media communication assets",
+      "Episode key visuals",
+    ],
+    thumbnail: {
+      // Brief: this file is for thumbnail + hero ONLY. Used for nothing else.
+      src: "/projects/xbox-wire/thumb.jpg",
+      alt: "Xbox Wire — show identity key visual",
+      ratio: "16/9",
+    },
+    hero: {
+      // Brief: same key visual as the thumbnail, fullscreen hero with original
+      // 16:9 proportions preserved. ProjectHero applies object-cover only.
+      src: "/projects/xbox-wire/hero.jpg",
+      alt: "Xbox Wire — show identity key visual",
+      ratio: "16/9",
+    },
+    gallery: [
+      // Brief: gallery uses ONLY the five "full" images. Hero/thumb deliberately
+      // excluded — strict role separation.
+      {
+        src: "/projects/xbox-wire/01-facebook-spread.jpg",
+        alt: "Xbox Wire #3 — Spéciale Jeux Indés · Facebook live spread",
+        ratio: "1400/727",
+        caption:
+          "Xbox Wire #3 — Spéciale Jeux Indés · Le Défi · live broadcast on social channels.",
+      },
+      {
+        src: "/projects/xbox-wire/02-youtube-clairefontaine.jpg",
+        alt: "Visit of Clairefontaine + Xbox Wire #XboxDay · YouTube cut",
+        ratio: "1400/680",
+        caption:
+          "Clairefontaine × Xbox Wire — #XboxDay episode with Domingo and Kadidiatou Diani.",
+      },
+      {
+        src: "/projects/xbox-wire/03-set-foosball.jpg",
+        alt: "Xbox Wire — on-set with foosball table and screen graphics",
+        ratio: "3/2",
+        caption:
+          "On-set environment — branded screens, foosball table, integrated broadcast graphics.",
+      },
+      {
+        src: "/projects/xbox-wire/04-set-wide.jpg",
+        alt: "Xbox Wire — wide hero shot of the Clairefontaine set",
+        ratio: "3/2",
+        caption:
+          "Wide hero shot — Clairefontaine salon dressed as the Xbox Wire studio.",
+      },
+      {
+        src: "/projects/xbox-wire/05-camera-bts.jpg",
+        alt: "Xbox Wire — behind-the-scenes from camera viewfinder",
+        ratio: "4/3",
+        caption:
+          "Behind the scenes — the set from the camera operator's viewfinder before rolling.",
+      },
+    ],
+    highlights: [
+      {
+        title: "MONTHLY BROADCAST IDENTITY",
+        body: "A flexible identity system carrying the same Xbox Wire signature across every monthly drop — broadcast, social, on-set screens — without ever looking like a repeat.",
+      },
+      {
+        title: "THREE RECURRING SEGMENTS",
+        body: "Autour du Vert, Le Défi and La Xboîte each carry their own treatment inside the same visual frame, signalling the segment at a glance.",
+      },
+      {
+        title: "ON-SET INTEGRATION",
+        body: "Brand assets designed in lockstep with the physical set — desk fronts, vertical screen pylons, neon Xbox console plinths — so on-air graphics meet the room itself.",
+      },
+    ],
+    tags: ["Xbox", "Broadcast", "2024"],
+    disclaimer:
+      "Project produced for Xbox / Microsoft — visuals shown for portfolio purposes; rights remain with Xbox.",
+    featured: false,
+  },
 ];
 
 /* ───────────────────────── Taxonomy + helpers ───────────────────────── */
@@ -312,6 +631,7 @@ export const projectFilters: Array<"ALL" | ProjectCategory> = [
   "CGI",
   "ILLUSTRATION",
   "BRANDING / MERCH",
+  "CLIENT PROJECT",
 ];
 
 export function getProject(slug: string): Project | undefined {

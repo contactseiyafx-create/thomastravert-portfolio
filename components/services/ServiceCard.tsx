@@ -97,12 +97,19 @@ export function ServiceCard({
           {card.priceLabel ?? "STARTING AT:"}
         </p>
         <div className="mt-2 flex items-end justify-between gap-3">
-          <p
-            className="h-display tracking-tight text-signal"
-            style={{ fontSize: "clamp(1.6rem, 2.4vw, 2rem)" }}
-          >
-            {card.price}
-          </p>
+          <div className="min-w-0">
+            <p
+              className="h-display tracking-tight text-signal"
+              style={{ fontSize: "clamp(1.6rem, 2.4vw, 2rem)" }}
+            >
+              {card.price}
+            </p>
+            {card.priceSecondary && (
+              <p className="mt-1 font-mono text-[10.5px] tracking-[0.14em] text-bone-dim">
+                {card.priceSecondary}
+              </p>
+            )}
+          </div>
           <ArrowUpRight />
         </div>
       </div>
@@ -206,12 +213,19 @@ export function CompactCard({
           </p>
         )}
         <div className="mt-2 flex items-end justify-between gap-3">
-          <p
-            className="h-display tracking-tight text-signal"
-            style={{ fontSize: "clamp(1.4rem, 2vw, 1.85rem)" }}
-          >
-            {card.price}
-          </p>
+          <div className="min-w-0">
+            <p
+              className="h-display tracking-tight text-signal"
+              style={{ fontSize: "clamp(1.4rem, 2vw, 1.85rem)" }}
+            >
+              {card.price}
+            </p>
+            {card.priceSecondary && (
+              <p className="mt-1 font-mono text-[10.5px] tracking-[0.14em] text-bone-dim">
+                {card.priceSecondary}
+              </p>
+            )}
+          </div>
           <ArrowUpRight />
         </div>
       </div>
