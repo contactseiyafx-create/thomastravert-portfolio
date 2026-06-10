@@ -1,34 +1,207 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Thomas Travert — Portfolio
 
-## Getting Started
+A premium, Tokyo-flavoured creative portfolio built on **Next.js App Router**, **TailwindCSS**, **Framer Motion**, and **Lenis** smooth-scroll.
 
-First, run the development server:
+---
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install        # or pnpm install / yarn
+npm run dev        # local at http://localhost:3000
+npm run build      # production build
+npm start          # serve production build
+npm run typecheck  # tsc --noEmit
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Deploy on **Netlify** or **Vercel** — both work out of the box. No environment variables are required.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+---
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## The editable data system
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Every piece of copy and every project lives in `/data/`. **Components only render data; no copy is hardcoded.**
 
-## Learn More
+```
+/data
+├── site.ts        ← site identity, hero, footer, quote, CTAs
+├── navigation.ts  ← main menu + footer links
+├── socials.ts     ← social links + contact channels
+├── projects.ts    ← every project (add new ones here)
+└── pages.ts       ← per-page copy (about, motion, contact, 2070)
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Changing the hero
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open `data/site.ts`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```ts
+hero: {
+  eyebrow: "TOKYO BASED",
+  titleLine1: "THOMAS",
+  titleLine2: "TRAVERT",
+  intro: [
+    "I craft visuals that move people.",
+    "From concept to final pixel,",
+    "I build stories that leave a mark.",
+  ],
+  primaryCta: { label: "VIEW MY WORK", href: "/work" },
+  // ...
+}
+```
 
-## Deploy on Vercel
+### Replacing the hero background with your After Effects composition
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The hero is built as a **background slot**. To drop in your animation:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```ts
+// data/site.ts
+hero: {
+  // ...
+  background: {
+    kind: "video",           // ← change from "empty" to "video"
+    src: "/hero/bg.mp4",     // ← place your file in /public/hero/
+    poster: "/hero/poster.jpg",
+    ambient: true,
+  },
+}
+```
+
+Supported `kind` values: `"empty" | "image" | "video" | "lottie"`.
+
+### Adding a new project
+
+1. Drop images into `/public/projects/<slug>/`.
+2. Duplicate a project object in `data/projects.ts`:
+
+```ts
+{
+  slug: "my-new-project",
+  index: "04",
+  title: "MY NEW PROJECT",
+  category: "ART DIRECTION",
+  shortDescription: "ONE LINE\nAND ANOTHER",
+  longDescription: "Long-form description used on the detail page...",
+  year: "2025",
+  client: "Client name",
+  role: ["Art Direction", "Motion"],
+  thumbnail: { src: "/projects/my-new-project/thumb.jpg", alt: "...", ratio: "21/9" },
+  hero:      { src: "/projects/my-new-project/hero.jpg",  alt: "..."  },
+  gallery: [
+    { src: "/projects/my-new-project/01.jpg", alt: "...", caption: "Optional caption" },
+    { src: "/projects/my-new-project/02.jpg", alt: "..." },
+  ],
+  featured: true,             // ← shows on the home strip
+}
+```
+
+The new project automatically:
+
+- Appears on the **work page** with the correct filter.
+- Has its own page at `/work/my-new-project` (statically generated at build time).
+- Shows up in the home **Featured Projects** strip if `featured: true` and its slug is listed in `site.ts → featuredProjects`.
+
+### Changing navigation
+
+Edit `data/navigation.ts`. Order matters; `accent: true` paints a link pink.
+
+```ts
+{ label: "2070 PROJECTS", href: "/2070", accent: true }
+```
+
+### Editing the about / contact / motion / 2070 pages
+
+`data/pages.ts` — every page has its own block.
+
+### Social links
+
+`data/socials.ts`. Add a new social by extending the `icon` union and adding an `<SocialIcon name="…" />` case in `components/SocialIcon.tsx`.
+
+---
+
+## File architecture
+
+```
+/app
+  ├── layout.tsx               ← root layout, fonts, navbar, sidebar, footer
+  ├── page.tsx                 ← home
+  ├── work/
+  │   ├── page.tsx             ← work index
+  │   └── [slug]/page.tsx      ← project detail
+  ├── about/page.tsx
+  ├── motion/page.tsx
+  ├── contact/page.tsx
+  ├── 2070/page.tsx
+  ├── not-found.tsx
+  └── globals.css
+
+/components
+  ├── Navbar.tsx               ← scroll-aware top nav
+  ├── SideRail.tsx             ← fixed left rail (rotated labels + socials)
+  ├── Logo.tsx
+  ├── Hero.tsx                 ← background-slot architecture
+  ├── CharacterPortrait.tsx    ← /about character slot + elegant placeholder
+  ├── Footer.tsx
+  ├── ComingSoon2070.tsx
+  ├── CTAButton.tsx            ← magnetic + fill hover
+  ├── Burger.tsx               ← morphing burger icon
+  ├── MobileMenu.tsx           ← full-screen drawer
+  ├── PageTransition.tsx       ← per-route fade
+  ├── HoverReveal.tsx          ← LineReveal + HoverReveal utilities
+  ├── SmoothScroll.tsx         ← Lenis wrapper
+  ├── SocialIcon.tsx           ← inline SVG icon set
+  └── projects/                ← project system (Part 2)
+       ├── ProjectCard.tsx     ← ProjectRow + ProjectGridCard + ProjectFeatureCard
+       ├── ProjectGrid.tsx     ← work-page filter + list/grid view toggle
+       ├── ProjectHero.tsx     ← detail-page hero (title, meta, parallax image)
+       ├── ProjectOverview.tsx ← deliverables + highlights cards
+       ├── ProjectGallery.tsx  ← alternating gallery + MotionSection
+       └── NextProject.tsx     ← bottom-of-page next-project banner
+
+/data                          ← edit everything here
+/public/projects               ← project images (nexbank, alpine, luxurygarden)
+/public/logos                  ← trusted-client logo slots
+/tailwind.config.ts            ← color, font and spacing tokens
+```
+
+---
+
+## Design system
+
+| Token        | Hex       | Use                                       |
+| ------------ | --------- | ----------------------------------------- |
+| `ink`        | `#050505` | Primary background                        |
+| `ink-700`    | `#111111` | Cards, secondary surfaces                 |
+| `ink-600`    | `#151515` | Hover lifts                               |
+| `bone`       | `#FFFFFF` | Primary text                              |
+| `bone-dim`   | `#BEBEBE` | Body copy                                 |
+| `bone-line`  | `#222222` | Dividers, borders                         |
+| `signal`     | `#FF2E88` | Electric pink — the single accent colour  |
+
+### Fonts (loaded via `next/font`, no external requests at runtime)
+
+| Family            | Variable          | Use                                |
+| ----------------- | ----------------- | ---------------------------------- |
+| **Anton**         | `--font-display`  | Massive condensed titles           |
+| **DM Sans**       | `--font-sans`     | Body / UI                          |
+| **JetBrains Mono**| `--font-mono`     | Eyebrows, micro labels, technical  |
+| **Noto Sans JP**  | `--font-jp`       | Japanese characters                |
+
+Swap families in `app/layout.tsx`. Tailwind reads the CSS variables.
+
+---
+
+## Animation principles
+
+- **One easing curve does most of the work**: `cubic-bezier(0.16, 1, 0.3, 1)` — calm, expensive feel.
+- **Lenis smooth scroll** is mounted once at the root and skipped for `prefers-reduced-motion`.
+- **Hover** uses fill-up, magnetic motion, and underline expansion — never bounce.
+- **Reveals** are mask-based: text rises behind `overflow-hidden` parents.
+
+---
+
+## Notes
+
+- The `2070` route is intentionally a coming-soon placeholder — per spec, that universe is not being built yet.
+- Project images use Next/Image; missing files fall back to a polished `+ image` placeholder so the layout never breaks while you sequence the asset pipeline.
+- The hero is **not** an illustration — it's a slot you fill with your AE composition. Don't try to recreate the character from `ref.png` here; that's yours to drop in.

@@ -1,0 +1,335 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   ROOT TOKENS
+   ───────────────────────────────────────────── */
+:root {
+  --ink: #050505;
+  --ink-700: #111111;
+  --ink-600: #151515;
+  --bone: #ffffff;
+  --bone-dim: #bebebe;
+  --bone-muted: #7a7a7a;
+  --bone-line: #222222;
+  --signal: #ff2e88;
+  --signal-deep: #b81f61;
+
+  --easing-cinema: cubic-bezier(0.65, 0, 0.35, 1);
+  --easing-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* layout */
+  --rail-w: 56px;
+  --gutter: clamp(20px, 3vw, 48px);
+  --nav-h: 72px;
+}
+
+/* ─────────────────────────────────────────────
+   BASE
+   ───────────────────────────────────────────── */
+html,
+body {
+  background: var(--ink);
+  color: var(--bone);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Selection */
+::selection {
+  background: var(--signal);
+  color: var(--ink);
+}
+
+/* Disable the dotted focus ring; we paint our own where it matters */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 1px solid var(--signal);
+  outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY UTILITIES
+   ───────────────────────────────────────────── */
+@layer components {
+  /* Massive condensed display title */
+  .h-display {
+    font-family: var(--font-display), Impact, sans-serif;
+    font-weight: 400;
+    line-height: 0.84;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    color: var(--bone);
+  }
+
+  /* Eyebrow / micro-label */
+  .h-eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--signal);
+  }
+  .h-eyebrow-dim {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+
+  /* Body copy */
+  .body-lead {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--bone-dim);
+  }
+  .body-sm {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--bone-dim);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   GRAIN — sits on top of dark surfaces to add film grain
+   Pure SVG noise — no extra HTTP request.
+   ───────────────────────────────────────────── */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Scanline atmosphere (very subtle) */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 11;
+  opacity: 0.03;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 255, 255, 0.5) 2px,
+    rgba(255, 255, 255, 0.5) 3px
+  );
+}
+
+/* Vignette ─ darken edges, lifts the centre */
+.vignette::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+/* ─────────────────────────────────────────────
+   HOVER UNDERLINE — used on nav links
+   ───────────────────────────────────────────── */
+.nav-underline {
+  position: relative;
+}
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1.5px;
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--easing-expo);
+}
+.nav-underline:hover::after,
+.nav-underline[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+/* ─────────────────────────────────────────────
+   MARQUEE
+   ───────────────────────────────────────────── */
+.marquee-track {
+  display: inline-flex;
+  gap: 4rem;
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────
+   PROJECT-CARD HOVER (used in WORK list rows)
+   ───────────────────────────────────────────── */
+.project-row {
+  position: relative;
+  isolation: isolate;
+}
+.project-row .row-image {
+  transition: transform 0.9s var(--easing-expo), filter 0.6s var(--easing-expo);
+  will-change: transform;
+}
+.project-row:hover .row-image {
+  transform: scale(1.04);
+  filter: brightness(1.05) saturate(1.1);
+}
+.project-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-top: 1px solid var(--bone-line);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.45s var(--easing-expo);
+  pointer-events: none;
+}
+.project-row:hover::before {
+  border-top-color: var(--signal);
+}
+
+/* ─────────────────────────────────────────────
+   PLUS BUTTON (work-row CTA)
+   ───────────────────────────────────────────── */
+.plus-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--signal);
+  display: grid;
+  place-items: center;
+  color: var(--signal);
+  transition: background 0.4s var(--easing-expo), color 0.4s var(--easing-expo),
+    transform 0.4s var(--easing-expo);
+}
+.plus-btn:hover {
+  background: var(--signal);
+  color: var(--ink);
+  transform: rotate(90deg);
+}
+
+/* ─────────────────────────────────────────────
+   PRIMARY CTA BUTTON — pink-bordered with arrow
+   ───────────────────────────────────────────── */
+.cta-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 26px;
+  border: 1px solid var(--signal);
+  color: var(--bone);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: color 0.5s var(--easing-expo);
+  background: transparent;
+}
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--signal);
+  transform: translateY(101%);
+  transition: transform 0.6s var(--easing-expo);
+  z-index: -1;
+}
+.cta-btn:hover {
+  color: var(--ink);
+}
+.cta-btn:hover::before {
+  transform: translateY(0%);
+}
+.cta-btn .arrow {
+  transition: transform 0.5s var(--easing-expo);
+}
+.cta-btn:hover .arrow {
+  transform: translate(4px, -4px);
+}
+
+/* ─────────────────────────────────────────────
+   LINK ARROW — used inline "VIEW PROJECT ↗"
+   ───────────────────────────────────────────── */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+.link-arrow .arrow {
+  transition: transform 0.4s var(--easing-expo);
+}
+.link-arrow:hover .arrow {
+  transform: translate(4px, -4px);
+}
+
+/* ─────────────────────────────────────────────
+   SCROLLBAR — slimmer + darker
+   ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--signal-deep);
+}
+
+/* ─────────────────────────────────────────────
+   LENIS — required class for the smooth scroll lib
+   ───────────────────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─────────────────────────────────────────────
+   UTILITY: page padding bound to side rail
+   ───────────────────────────────────────────── */
+.page-x {
+  padding-left: calc(var(--rail-w) + var(--gutter));
+  padding-right: var(--gutter);
+}
+@media (max-width: 768px) {
+  .page-x {
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+}
