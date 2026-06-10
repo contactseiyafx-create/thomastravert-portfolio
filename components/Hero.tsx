@@ -48,8 +48,8 @@ export function Hero() {
                 absolute inset-0 w-full h-full object-cover scale-105
               "
               style={{
-                opacity: 0.25,
-                filter: "blur(3px)",
+                opacity: 0.75,
+filter: "blur(0px)",
               }}
             />
             {/* Mobile — static poster only, no video decode */}
@@ -78,14 +78,14 @@ export function Hero() {
       </div>
 
       {/* ════════════════════════════════════════════════
-          LAYER 2 — DARK OVERLAY  rgba(0,0,0,0.75)
+          LAYER 2 — DARK OVERLAY  rgba(0, 0, 0, 0.44)
           Anchors text legibility on top of the video.
           ════════════════════════════════════════════════ */}
       {bg.kind === "video" && (
         <div
           aria-hidden
           className="absolute inset-0 z-[1] pointer-events-none"
-          style={{ background: "rgba(0,0,0,0.75)" }}
+          style={{ background: "rgba(0,0,0,0.25)" }}
         />
       )}
 
