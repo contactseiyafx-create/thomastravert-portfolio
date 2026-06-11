@@ -114,7 +114,7 @@ export const pages = {
     eyebrow: "CONTACT",
     title: "LET'S\nCREATE.",
     intro:
-      "Currently booking projects for Q3 — Q4 2025. Brand systems, motion campaigns, and CGI direction.",
+      "Available worldwide for creative collaborations. Art Direction, Motion Design, Branding, Illustration and Digital Experiences.",
     inquiryTypes: ["Brand identity", "Motion / Reel", "Art Direction", "CGI", "Other"],
     response: "Replies inside one working day · JST",
   },
