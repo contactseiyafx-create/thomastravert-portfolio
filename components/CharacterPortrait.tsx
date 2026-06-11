@@ -34,7 +34,7 @@ export function CharacterPortrait({ src, alt, enabled = false }: Props) {
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 40vw"
-          className="object-cover object-bottom"
+          className="object-cover object-top"
           onError={() => setErrored(true)}
         />
       ) : (
