@@ -11,7 +11,7 @@ import AboutClient from "@/components/AboutClient";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Tokyo-based graphic / motion designer & CGI art director crafting cinematic visual experiences.",
+    "Tokyo-based art director & multimedia designer crafting visual experiences across art direction, motion design, branding and illustration.",
 };
 
 export default function AboutPage() {

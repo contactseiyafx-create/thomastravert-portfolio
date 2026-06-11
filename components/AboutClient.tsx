@@ -99,7 +99,7 @@ function AboutSidebar() {
         <div className="relative flex-1 min-h-0 pt-[var(--nav-h)]">
           <div
             className="absolute inset-0 top-[var(--nav-h)]"
-            style={{ transform: "translateY(120px)" }}
+            style={{ transform: "translateY(70px)" }}
           >
             <CharacterPortrait
               src={s.character.src}

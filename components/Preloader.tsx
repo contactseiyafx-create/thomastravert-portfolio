@@ -69,7 +69,7 @@ export function Preloader() {
               THOMAS TRAVERT
             </motion.h1>
 
-            {/* SENIOR GRAPHIC / MOTION DESIGNER & ART DIRECTOR */}
+            {/* ART DIRECTOR / & MULTIMEDIA DESIGNER — stacked */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -77,9 +77,12 @@ export function Preloader() {
               className="
                 mt-5 font-mono text-[10px] sm:text-[11px]
                 tracking-[0.28em] uppercase text-bone-dim
+                leading-[1.7]
               "
             >
-              SENIOR GRAPHIC / MOTION DESIGNER &amp; ART DIRECTOR
+              ART DIRECTOR
+              <br />
+              &amp; MULTIMEDIA DESIGNER
             </motion.p>
 
             {/* INITIALIZING… — blinking signal pink */}

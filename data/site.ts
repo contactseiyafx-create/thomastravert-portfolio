@@ -12,7 +12,7 @@ export const site = {
   domain: "thomastravert.com",
   url: "https://thomastravert.com",
   description:
-    "Tokyo-based graphic / motion designer & illustrator. Crafting visuals that move people — from concept to final pixel.",
+    "Tokyo-based art director & multimedia designer. Crafting visuals that move people — from concept to final pixel.",
   ogImage: "/images/og.jpg",
   locale: "en_US",
 
@@ -32,8 +32,8 @@ export const site = {
     titleLine1: "THOMAS",
     titleLine2: "TRAVERT",
     nameJp: "トラバト・トーマス",
-    role: "GRAPHIC / MOTION DESIGNER",
-    roleLine2: "& ILLUSTRATOR",
+    role: "ART DIRECTOR",
+    roleLine2: "& MULTIMEDIA DESIGNER",
     intro: [
       "I craft visuals that move people.",
       "From concept to final pixel,",
