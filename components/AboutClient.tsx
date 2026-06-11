@@ -1,5 +1,7 @@
 "use client";
 
+import { Fragment } from "react";
+
 /**
  * AboutClient
  * ────────────────────────────────────────────────
@@ -95,22 +97,15 @@ function AboutSidebar() {
       >
         {/* CHARACTER — fills the flex zone */}
         <div className="relative flex-1 min-h-0 pt-[var(--nav-h)]">
-          <div className="absolute inset-0 top-[var(--nav-h)]">
+          <div
+            className="absolute inset-0 top-[var(--nav-h)]"
+            style={{ transform: "translateY(60px)" }}
+          >
             <CharacterPortrait
               src={s.character.src}
               alt={s.character.alt}
               enabled={s.character.enabled}
             />
-          </div>
-
-          {/* Top-left: TVT badge */}
-          <div className="absolute top-[calc(var(--nav-h)+20px)] left-5 z-20">
-            <div className="w-12 h-12 grid place-items-center border border-signal/70">
-              <span className="font-display text-signal text-[11px] tracking-[0.05em] leading-[0.95] text-center">
-                T<span className="inline-block w-1.5" />V
-                <br />V<span className="inline-block w-1.5" />T
-              </span>
-            </div>
           </div>
 
           {/* Mid-left: vertical "TOKYO BASED" + year mark */}
@@ -249,9 +244,7 @@ function AwardsSection() {
             >
               {/* Mark / brand zone */}
               <div className="aspect-[5/2] grid place-items-center mb-5">
-                <span className="font-display text-2xl md:text-[28px] tracking-tight text-signal">
-                  {award.mark}
-                </span>
+                <AwardMark award={award} />
               </div>
               <h3 className="font-display text-base md:text-lg leading-tight text-bone uppercase tracking-tight">
                 {award.title}
@@ -584,5 +577,74 @@ function SectionEyebrow({ label }: { label: string }) {
         {label}
       </p>
     </HoverReveal>
+  );
+}
+
+/* ════════════════════════════════════════════════
+   AWARD MARK
+   ────────────────────────────────────────────────
+   Renders the brand mark on each award card.
+   When `markLogos` is provided, lays out the glyphs side-by-side with a
+   × separator — each glyph is either a logo image (`src`) or a
+   typographic mark (`text`) rendered in the display font.
+   Falls back to the plain text `mark` field for legacy entries.
+   ════════════════════════════════════════════════ */
+function AwardMark({
+  award,
+}: {
+  award: {
+    mark: string;
+    markLogos?: Array<{ src?: string; text?: string; alt: string }>;
+  };
+}) {
+  if (award.markLogos && award.markLogos.length > 0) {
+    return (
+      <div className="flex items-center justify-center gap-4 md:gap-5 w-full px-2">
+        {award.markLogos.map((logo, i) => (
+          <Fragment key={i}>
+            {i > 0 && (
+              <span
+                aria-hidden
+                className="font-display text-signal/70 text-2xl md:text-[28px] leading-none"
+              >
+                ×
+              </span>
+            )}
+            {logo.src ? (
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={160}
+                height={64}
+                loading="lazy"
+                sizes="(min-width: 1024px) 12vw, 28vw"
+                className="
+                  max-h-9 md:max-h-11
+                  w-auto h-auto object-contain
+                  opacity-95 select-none pointer-events-none
+                "
+              />
+            ) : (
+              <span
+                aria-label={logo.alt}
+                className="
+                  font-display text-signal
+                  text-2xl md:text-[28px]
+                  tracking-tight leading-none
+                "
+              >
+                {logo.text}
+              </span>
+            )}
+          </Fragment>
+        ))}
+      </div>
+    );
+  }
+  // Legacy text-only fallback
+  return (
+    <span className="font-display text-2xl md:text-[28px] tracking-tight text-signal">
+      {award.mark}
+    </span>
   );
 }

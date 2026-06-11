@@ -11,8 +11,19 @@
  */
 
 export type AwardItem = {
-  /** Short brand or trophy mark — shown big on the card */
+  /** Short brand or trophy mark — shown big on the card (text fallback) */
   mark: string;
+  /**
+   * Optional rich mark composition — array of brand glyphs rendered side by
+   * side with a × separator. Each glyph is either an image (`src`) or a
+   * typographic mark (`text`). When present, this overrides `mark`.
+   */
+  markLogos?: Array<{
+    src?: string;
+    text?: string;
+    /** Required for accessibility */
+    alt: string;
+  }>;
   /** Card title (uppercased automatically) */
   title: string;
   /** One-line subtitle */
@@ -67,8 +78,8 @@ export const about = {
     /** Handwritten script overlay under the title */
     signature: "Thomas Travert",
     eyebrow: "TOKYO BASED",
-    roles: ["GRAPHIC / MOTION DESIGNER", "CGI ART DIRECTOR"],
-    bio: "I craft cinematic visual experiences blending CGI, motion design and futuristic storytelling inspired by Tokyo nightlife, technology and digital culture.",
+    roles: ["ART DIRECTOR", "& MULTIMEDIA DESIGNER"],
+    bio: "I create visual experiences through art direction, motion design, branding and illustration, adapting each project to the unique needs of its industry, audience and goals.",
   },
 
   /* ───────── awards (3-col cards) ───────── */
@@ -77,6 +88,10 @@ export const about = {
     items: [
       {
         mark: "A×S",
+        markLogos: [
+          { src: "/logos/adobe.png", alt: "Adobe" },
+          { text: "SONY", alt: "Sony" },
+        ],
         title: "ADOBE × SONY ANIMATIONS",
         subtitle: "Spider-Verse Contest Winner",
         year: "2023",
@@ -89,6 +104,7 @@ export const about = {
       },
       {
         mark: "XP PEN",
+        markLogos: [{ src: "/logos/xppen.png", alt: "XP-Pen" }],
         title: "XP PEN FRANCE",
         subtitle: "Ambassador",
         year: "2024",
