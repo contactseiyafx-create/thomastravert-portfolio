@@ -1,0 +1,112 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+/**
+ * PRELOADER
+ * ────────────────────────────────────────────────
+ * Fullscreen black intro card — fades in the name + subtitle, runs a
+ * subtle blinking INITIALIZING…, then fades the whole layer out into
+ * the homepage. Total runtime ≈ 2s.
+ *
+ * Plays once per browser session via sessionStorage so it doesn't
+ * re-fire on every route change. Cleared when the user closes the tab.
+ */
+
+const STORAGE_KEY = "tt.preloader.seen";
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+export function Preloader() {
+  // `null` = SSR / not-yet-decided, prevents server/client mismatch flash.
+  // `true` = show, `false` = skip (already seen this session).
+  const [show, setShow] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    // Client-only sessionStorage check.
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem(STORAGE_KEY) === "1";
+    } catch {
+      // sessionStorage can throw in private mode / sandbox — just play once.
+    }
+    if (seen) {
+      setShow(false);
+      return;
+    }
+    setShow(true);
+    try {
+      sessionStorage.setItem(STORAGE_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    // Auto-dismiss after 2000ms total
+    const t = setTimeout(() => setShow(false), 2000);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          key="preloader"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.55, ease: EASE }}
+          // Sit above absolutely everything — Navbar, SideRail, Footer, etc.
+          className="fixed inset-0 z-[100] bg-ink grid place-items-center pointer-events-none"
+          aria-hidden
+        >
+          <div className="text-center px-6 max-w-[92vw]">
+            {/* THOMAS TRAVERT */}
+            <motion.h1
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+              className="h-display tracking-[-0.02em] text-bone leading-[0.95]"
+              style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
+            >
+              THOMAS TRAVERT
+            </motion.h1>
+
+            {/* SENIOR GRAPHIC / MOTION DESIGNER & ART DIRECTOR */}
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.5 }}
+              className="
+                mt-5 font-mono text-[10px] sm:text-[11px]
+                tracking-[0.28em] uppercase text-bone-dim
+              "
+            >
+              SENIOR GRAPHIC / MOTION DESIGNER &amp; ART DIRECTOR
+            </motion.p>
+
+            {/* INITIALIZING… — blinking signal pink */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0.4, 1, 0.4, 1] }}
+              transition={{
+                duration: 1.1,
+                ease: "easeInOut",
+                delay: 0.85,
+                times: [0, 0.2, 0.45, 0.7, 0.85, 1],
+              }}
+              className="
+                mt-9 inline-flex items-center gap-2.5
+                font-mono text-[10px] tracking-[0.32em] uppercase
+              "
+              style={{ color: "#FF2E88" }}
+            >
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full"
+                style={{ background: "#FF2E88" }}
+              />
+              INITIALIZING…
+            </motion.p>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
