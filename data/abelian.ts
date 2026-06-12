@@ -66,17 +66,18 @@ export const abelian = {
     lead:
       "Make quantum-safe cryptography feel inevitable — not intimidating.",
     body: [
-      "Abelian is a post-quantum blockchain building privacy-first, future-proof infrastructure for a world where today's encryption breaks. The technology is dense: lattice cryptography, quantum-resistant signatures, privacy at the protocol layer. The audience is broad: developers, miners, investors, and a fast-growing global community.",
-      "Across multiple years I owned the visual language that translated that complexity into something people could feel and act on — a single system stretched across brand marketing, social, motion, education, community campaigns, live events and an original mascot.",
+      "Abelian is a post-quantum blockchain building privacy-first, future-proof infrastructure for a world where today's encryption breaks. The ecosystem spans protocol development, education, community growth, hardware innovation and consumer-facing products such as Hako Metal Genesis, a quantum-resistant home mining device designed for everyday users.",
+      "Across multiple years, working closely with Allison Hung and the Abelian team, I developed and evolved a unified visual language that translated complex post-quantum concepts into experiences people could understand, trust and engage with. The system extended across brand marketing, motion, educational content, social campaigns, live events, product storytelling, hardware launches and the creation of Abelian's official mascot, Hako.",
     ],
     /** Disciplines — encodes the real scope of the engagement */
     disciplines: [
       "Brand Marketing",
-      "Social Media",
       "Motion Design",
       "Educational Content",
-      "Community Campaigns",
+      "Social Media",
       "Character Design",
+      "Product Marketing",
+      "Hardware Launches",
       "Event Design",
     ],
     /** Stat-line — a quiet metrics row, not a loud number wall */
@@ -358,6 +359,97 @@ export const abelian = {
       caption:
         "Post-Quantum Blockchain Day 2025 — event recap, including the Hako 'Q-Day Express' tuktuk installation.",
     },
+  },
+
+  /* ───────── SECTION 05 — Hako Metal Genesis (product marketing) ───────── */
+  hakoMetal: {
+    index: "05",
+    eyebrow: "PRODUCT MARKETING · HARDWARE LAUNCH",
+    title: "THE FIRST QUANTUM-RESISTANT\nHOME MINER.",
+    intro: [
+      "Hako Metal Genesis is Abelian's consumer-focused mining device, designed to bring post-quantum blockchain infrastructure into homes, studios and personal workspaces.",
+      "Unlike traditional mining hardware, the goal was to position the product as a premium consumer technology device — compact, approachable and visually desirable.",
+      "Working closely with Allison Hung and the Abelian team, I helped create the marketing system surrounding Hako Metal Genesis, spanning launch campaigns, product storytelling, referral programs, community growth initiatives and advertising assets.",
+    ],
+    /** full-width cinematic hero */
+    hero: {
+      src: "/projects/abelian/hm-hero.jpg",
+      alt: "Hako Metal Genesis — cinematic product hero",
+      ratio: "40/11",
+    } satisfies AbelianAsset,
+
+    /* ── subsection: product launch campaign ── */
+    launch: {
+      label: "PRODUCT LAUNCH CAMPAIGN",
+      title: "DESIGNED TO\nLIVE ON YOUR DESK.",
+      body: [
+        "Hako Metal Genesis was developed to challenge the perception of what mining hardware could be.",
+        "Rather than leaning into traditional industrial aesthetics, the product was presented through premium product photography, cinematic lighting and consumer-friendly messaging that emphasised accessibility, efficiency and everyday usability.",
+        "The visual language focused on making advanced post-quantum technology feel approachable without sacrificing technical credibility.",
+      ],
+      gallery: [
+        {
+          src: "/projects/abelian/hm-launch-1.jpg",
+          alt: "Hako Metal Genesis — ultra-efficient launch key visual",
+          ratio: "1/1",
+          kicker: "LAUNCH · KEY VISUAL",
+          caption: "Ultra-efficient — mine ABEL on the power of a light bulb.",
+        },
+        {
+          src: "/projects/abelian/hm-launch-2.jpg",
+          alt: "Hako Metal Genesis — built for the quantum era launch visual",
+          ratio: "1/1",
+          kicker: "LAUNCH · KEY VISUAL",
+          caption: "Built for the quantum era — hero product still.",
+        },
+      ] satisfies AbelianAsset[],
+    },
+
+    /* ── subsection: product marketing system (referral) ── */
+    system: {
+      label: "PRODUCT MARKETING SYSTEM",
+      title: "SHARE. REFER. EARN.",
+      body: [
+        "Beyond launch marketing, Hako Metal Genesis required a complete acquisition and community-growth system.",
+        "Referral campaigns, social assets and promotional mechanics were designed to encourage adoption while maintaining a consistent premium visual identity across every touchpoint.",
+        "The result was a scalable marketing framework connecting product awareness, community participation and user acquisition.",
+      ],
+      feature: {
+        src: "/projects/abelian/hm-referral.jpg",
+        alt: "Hako Metal Genesis — Share. Refer. Earn. referral campaign",
+        ratio: "16/9",
+        kicker: "REFERRAL · ACQUISITION",
+        caption: "Share. Refer. Earn. — 5% referral rewards campaign.",
+      } satisfies AbelianAsset,
+    },
+
+    /* ── subsection: product detail storytelling ── */
+    detail: {
+      label: "PRODUCT DETAIL STORYTELLING",
+      title: "BUILT FOR THE\nQUANTUM ERA.",
+      body: [
+        "Product storytelling extended beyond specifications.",
+        "Through detailed close-up photography, cinematic compositions and hardware-focused visual narratives, Hako Metal Genesis was positioned as both a functional mining device and a design-led technology product.",
+        "The objective was to elevate perception and create a stronger emotional connection between users and the hardware.",
+      ],
+      feature: {
+        src: "/projects/abelian/hm-detail.jpg",
+        alt: "Hako Metal Genesis — hardware detail and close-up storytelling",
+        ratio: "1/1",
+        kicker: "HARDWARE · DETAIL",
+        caption: "Close-up storytelling — hardware as a design object.",
+      } satisfies AbelianAsset,
+    },
+
+    /* ── capabilities, numbered (real scope of the chapter) ── */
+    capabilities: [
+      "Product Marketing",
+      "Art Direction",
+      "Campaign Design",
+      "Hardware Visualization",
+      "Social Campaigns",
+      "Community Growth",
+    ],
   },
 
   /* ───────── closing ───────── */

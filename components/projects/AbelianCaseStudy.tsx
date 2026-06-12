@@ -30,6 +30,7 @@ export default function AbelianCaseStudy() {
       <SectionEducation />
       <SectionHako />
       <SectionEvents />
+      <SectionHakoMetal />
       <Closing />
       <NextProject next={next} />
     </article>
@@ -624,6 +625,205 @@ function SectionEvents() {
           </p>
         </div>
       )}
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────
+   SECTION 05 — Hako Metal Genesis (product-marketing chapter)
+   Hero → launch campaign → marketing system → detail storytelling → capabilities
+   ──────────────────────────────────────────────── */
+function SectionHakoMetal() {
+  const s = abelian.hakoMetal;
+  return (
+    <section className="pt-24 md:pt-28">
+      {/* section head */}
+      <div className="page-x">
+        <HoverReveal y={8}>
+          <p className="flex items-baseline gap-4 h-eyebrow-dim">
+            <span className="h-display text-[clamp(2rem,4vw,3rem)] leading-none" style={{ color: "var(--brand)" }}>
+              {s.index}
+            </span>
+            <span>{s.eyebrow}</span>
+          </p>
+        </HoverReveal>
+        <div className="grid grid-cols-12 gap-8 mt-8">
+          <div className="col-span-12 lg:col-span-8">
+            <div className="overflow-hidden">
+              <HoverReveal y={60} delay={0.06}>
+                <h2 className="h-display text-[clamp(2.4rem,6.2vw,5.4rem)] leading-[0.9] whitespace-pre-line">
+                  {s.title}
+                </h2>
+              </HoverReveal>
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 grid grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-8 space-y-5 max-w-2xl">
+            {s.intro.map((p, i) => (
+              <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                <p className="body-lead leading-[1.7]">{p}</p>
+              </HoverReveal>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* HERO — full-width cinematic banner */}
+      <div className="page-x mt-12">
+        <Frame asset={s.hero} priority />
+      </div>
+
+      {/* SUBSECTION: product launch campaign */}
+      <div className="page-x mt-20">
+        <HoverReveal y={8}>
+          <p className="h-eyebrow-dim">
+            <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+            {s.launch.label}
+          </p>
+        </HoverReveal>
+        <div className="grid grid-cols-12 gap-8 mt-7">
+          <div className="col-span-12 lg:col-span-7">
+            <div className="overflow-hidden">
+              <HoverReveal y={50} delay={0.06}>
+                <h3 className="h-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[0.92] whitespace-pre-line">
+                  {s.launch.title}
+                </h3>
+              </HoverReveal>
+            </div>
+          </div>
+          <div className="col-span-12 lg:col-span-5 self-end space-y-4">
+            {s.launch.body.map((p, i) => (
+              <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                <p className="body-lead leading-[1.7] max-w-md">{p}</p>
+              </HoverReveal>
+            ))}
+          </div>
+        </div>
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {s.launch.gallery.map((a, i) => (
+            <Frame key={i} asset={a} delay={i * 0.1} />
+          ))}
+        </div>
+      </div>
+
+      {/* SUBSECTION: product marketing system (referral) */}
+      <div className="pt-20">
+        <div className="page-x">
+          <HoverReveal y={8}>
+            <p className="h-eyebrow-dim">
+              <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+              {s.system.label}
+            </p>
+          </HoverReveal>
+          <div className="grid grid-cols-12 gap-8 mt-7">
+            <div className="col-span-12 lg:col-span-7">
+              <div className="overflow-hidden">
+                <HoverReveal y={50} delay={0.06}>
+                  <h3 className="h-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[0.92]">
+                    {s.system.title}
+                  </h3>
+                </HoverReveal>
+              </div>
+            </div>
+            <div className="col-span-12 lg:col-span-5 self-end space-y-4">
+              {s.system.body.map((p, i) => (
+                <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                  <p className="body-lead leading-[1.7] max-w-md">{p}</p>
+                </HoverReveal>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="page-x mt-10">
+          <Frame asset={s.system.feature} />
+        </div>
+      </div>
+
+      {/* SUBSECTION: product detail storytelling */}
+      <div className="page-x mt-20">
+        <HoverReveal y={8}>
+          <p className="h-eyebrow-dim">
+            <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+            {s.detail.label}
+          </p>
+        </HoverReveal>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end mt-7">
+          <div className="lg:col-span-7 relative overflow-hidden bg-ink-700 group" style={{ aspectRatio: s.detail.feature.ratio ?? "1/1" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={s.detail.feature.src}
+                alt={s.detail.feature.alt}
+                fill
+                sizes="(min-width:1024px) 58vw, 100vw"
+                className="object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+              />
+            </motion.div>
+          </div>
+          <div className="lg:col-span-5 lg:pb-6">
+            <div className="overflow-hidden">
+              <HoverReveal y={40} delay={0.06}>
+                <h3 className="h-display text-[clamp(2rem,4.2vw,3.4rem)] leading-[0.95] whitespace-pre-line">
+                  {s.detail.title}
+                </h3>
+              </HoverReveal>
+            </div>
+            <div className="mt-5 space-y-4">
+              {s.detail.body.map((p, i) => (
+                <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                  <p className="body-lead leading-[1.7] max-w-md">{p}</p>
+                </HoverReveal>
+              ))}
+            </div>
+          </div>
+        </div>
+        <p className="mt-4 flex items-start gap-3">
+          <span className="block w-6 h-px mt-2 shrink-0" style={{ background: "var(--brand)" }} />
+          <span>
+            <span className="block font-mono text-[10px] tracking-[0.24em] uppercase" style={{ color: "var(--brand)" }}>
+              {s.detail.feature.kicker}
+            </span>
+            <span className="block mt-1 font-mono text-[11px] tracking-[0.14em] text-bone-dim uppercase leading-[1.5]">
+              {s.detail.feature.caption}
+            </span>
+          </span>
+        </p>
+      </div>
+
+      {/* CAPABILITIES — numbered chapter scope */}
+      <div className="page-x mt-20">
+        <HoverReveal y={8}>
+          <p className="h-eyebrow-dim">
+            <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+            CAPABILITIES
+          </p>
+        </HoverReveal>
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-px bg-bone-line border border-bone-line">
+          {s.capabilities.map((c, i) => (
+            <motion.div
+              key={c}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.6, delay: i * 0.05, ease: EASE }}
+              className="bg-ink p-5 md:p-6 flex items-baseline justify-between gap-3"
+            >
+              <span className="font-mono text-[12px] tracking-[0.1em] text-bone uppercase leading-tight">
+                {c}
+              </span>
+              <span className="font-mono text-[11px] tracking-[0.22em]" style={{ color: "var(--brand)" }}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
