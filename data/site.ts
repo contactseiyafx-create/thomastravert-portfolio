@@ -88,7 +88,7 @@ export const site = {
   },
 
   /* Featured-projects strip (home) — IDs map to projects.ts */
-  featuredProjects: ["nexbank", "luxury-garden", "alpine-rhinoshield"],
+  featuredProjects: ["abelian", "nexbank", "luxury-garden"],
 } as const;
 
 export type SiteConfig = typeof site;

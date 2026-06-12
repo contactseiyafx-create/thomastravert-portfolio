@@ -20,6 +20,7 @@ export type ProjectCategory =
   | "ILLUSTRATION"
   | "BRANDING"
   | "BRANDING / MERCH"
+  | "BRAND SYSTEM / MOTION / ILLUSTRATION"
   | "CLIENT PROJECT";
 
 export type ProjectImage = {
@@ -105,8 +106,49 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "nexbank",
+    slug: "abelian",
     index: "01",
+    title: "ABELIAN",
+    subtitle: "POST-QUANTUM BLOCKCHAIN · MULTI-YEAR PARTNERSHIP",
+    category: "BRAND SYSTEM / MOTION / ILLUSTRATION",
+    shortDescription:
+      "MULTI-YEAR BRAND SYSTEM FOR A\nPOST-QUANTUM BLOCKCHAIN",
+    longDescription:
+      "A multi-year creative partnership with Abelian, a post-quantum blockchain building privacy-first, future-proof infrastructure. I owned the visual language that translated dense cryptography into something people could feel and act on — across brand marketing, social, motion, education, community campaigns, live events and an original mascot.",
+    year: "2026",
+    client: "Abelian",
+    role: [
+      "Brand Marketing",
+      "Art Direction",
+      "Motion Design",
+      "Illustration",
+      "Character Design",
+    ],
+    deliverables: [
+      "Brand campaigns",
+      "Social system",
+      "Motion design",
+      "Educational visuals",
+      "Mascot (Hako)",
+      "Event design",
+    ],
+    thumbnail: {
+      src: "/projects/abelian/thumb.jpg",
+      alt: "Abelian — post-quantum blockchain brand system",
+      ratio: "16/9",
+    },
+    hero: {
+      src: "/projects/abelian/01-balanced-privacy.jpg",
+      alt: "Abelian — Balanced Privacy campaign",
+      ratio: "16/9",
+    },
+    gallery: [], // bespoke editorial page renders the full story
+    tags: ["Web3", "Brand System", "Motion"],
+    featured: true,
+  },
+  {
+    slug: "nexbank",
+    index: "02",
     title: "NEXBANK",
     category: "ART DIRECTION / UI DESIGN",
     shortDescription:
@@ -724,6 +766,7 @@ export const projects: Project[] = [
 /** Filter taxonomy for the work page — shown left-to-right exactly. */
 export const projectFilters: Array<"ALL" | ProjectCategory> = [
   "ALL",
+  "BRAND SYSTEM / MOTION / ILLUSTRATION",
   "ART DIRECTION",
   "ART DIRECTION / UI DESIGN",
   "3D ART DIRECTION",

@@ -12,7 +12,12 @@ import { NextProject } from "@/components/projects/NextProject";
 type Props = { params: { slug: string } };
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  // `abelian` has a bespoke editorial page at app/work/abelian/page.tsx,
+  // which takes precedence over this dynamic route. Exclude it here so
+  // the two never collide at build time.
+  return projects
+    .filter((p) => p.slug !== "abelian")
+    .map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }: Props): Metadata {
