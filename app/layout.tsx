@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Anton, DM_Sans, JetBrains_Mono, Noto_Sans_JP, Caveat } from "next/font/google";
+import { Space_Grotesk, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import { site } from "@/data/site";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -10,40 +10,27 @@ import { PageTransition } from "@/components/PageTransition";
 import { Preloader } from "@/components/Preloader";
 
 /* ─────────────────────────────────────────────
-   FONTS
-   • Anton           — massive condensed display
-   • DM Sans         — body / UI
-   • JetBrains Mono  — micro labels, eyebrows, technical
-   • Noto Sans JP    — JP characters
+   FONTS — single global typeface
+   ─────────────────────────────────────────────
+   Space Grotesk handles every Latin surface (display, body, mono labels,
+   script accents). One typeface, multiple weights — premium, contemporary,
+   editorial. Loaded with [300, 400, 500, 600, 700] to cover every weight
+   the typography hierarchy needs.
+
+   Noto Sans JP is kept ONLY for Japanese characters (連絡, 選集, リール, etc.).
+   Space Grotesk has no CJK glyphs — without Noto, those eyebrows would
+   fall back to OS defaults (Hiragino / MS Mincho / etc.) and break the DA.
    ───────────────────────────────────────────── */
-const fontDisplay = Anton({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
-});
-const fontSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-sans",
-  display: "swap",
-});
-const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-mono",
-  display: "swap",
+  variable: "--font-space-grotesk",
 });
 const fontJp = Noto_Sans_JP({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-jp",
-  display: "swap",
-});
-const fontScript = Caveat({
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  variable: "--font-script",
   display: "swap",
 });
 
@@ -86,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable} ${fontJp.variable} ${fontScript.variable}`}
+      className={`${spaceGrotesk.variable} ${fontJp.variable}`}
     >
       <body className="bg-ink text-bone font-sans antialiased min-h-screen">
         <Preloader />

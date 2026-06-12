@@ -16,6 +16,21 @@
   --signal: #ff2e88;
   --signal-deep: #b81f61;
 
+  /* ─── TYPOGRAPHY ─────────────────────────────
+     Single global typeface: Space Grotesk.
+     The legacy variable names (--font-display / --font-sans / --font-mono /
+     --font-script) are kept as aliases pointing at Space Grotesk so every
+     existing utility class, Tailwind family and raw var() reference across
+     the codebase continues working without a single component edit.
+     Two new explicit roles per brief: --font-heading + --font-body.
+     ─────────────────────────────────────────── */
+  --font-heading: var(--font-space-grotesk);
+  --font-body: var(--font-space-grotesk);
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-space-grotesk);
+  --font-script: var(--font-space-grotesk);
+
   --easing-cinema: cubic-bezier(0.65, 0, 0.35, 1);
   --easing-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -56,42 +71,46 @@ body {
    TYPOGRAPHY UTILITIES
    ───────────────────────────────────────────── */
 @layer components {
-  /* Massive condensed display title */
+  /* Display title — hero, section + project titles (weight 700 per brief) */
   .h-display {
-    font-family: var(--font-display), Impact, sans-serif;
-    font-weight: 400;
-    line-height: 0.84;
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 0.92;
     letter-spacing: -0.025em;
     text-transform: uppercase;
     color: var(--bone);
   }
 
-  /* Eyebrow / micro-label */
+  /* Eyebrow / micro-label — metadata weight 500 per brief, uppercase */
   .h-eyebrow {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-heading), system-ui, sans-serif;
     font-size: 11px;
+    font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--signal);
   }
   .h-eyebrow-dim {
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-family: var(--font-heading), system-ui, sans-serif;
     font-size: 11px;
+    font-weight: 500;
     letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--bone-dim);
   }
 
-  /* Body copy */
+  /* Body copy — weight 400 per brief */
   .body-lead {
-    font-family: var(--font-sans);
+    font-family: var(--font-body), system-ui, sans-serif;
     font-size: 15px;
+    font-weight: 400;
     line-height: 1.55;
     color: var(--bone-dim);
   }
   .body-sm {
-    font-family: var(--font-sans);
+    font-family: var(--font-body), system-ui, sans-serif;
     font-size: 13px;
+    font-weight: 400;
     line-height: 1.5;
     color: var(--bone-dim);
   }
