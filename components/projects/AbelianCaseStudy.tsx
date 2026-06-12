@@ -59,41 +59,60 @@ function HeroPlaceholder() {
         </span>
       </div>
 
-      {/* HERO PLACEHOLDER FRAME */}
+      {/* HERO — real visual when supplied, dashed placeholder otherwise */}
       <div className="page-x">
-        <div
-          className="relative w-full overflow-hidden border border-dashed border-bone-line grid place-items-center"
-          style={{
-            aspectRatio: "21/9",
-            background:
-              "radial-gradient(ellipse 70% 80% at 50% 40%, rgba(61,75,245,0.10), transparent 70%), #08080d",
-          }}
-        >
-          {/* faint grid */}
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-[0.06]"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)",
-              backgroundSize: "64px 64px",
-              maskImage:
-                "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-            }}
-          />
-          <div className="relative text-center px-6">
-            <span
-              className="inline-block w-2 h-2 rounded-full mb-5"
-              style={{ background: "var(--brand)" }}
+        {m.hero.enabled ? (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.95, ease: EASE }}
+            className="relative w-full overflow-hidden bg-ink-700"
+            style={{ aspectRatio: m.hero.ratio ?? "16/9" }}
+          >
+            <Image
+              src={m.hero.src}
+              alt={m.hero.alt}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
             />
-            <p className="font-mono text-[12px] md:text-[13px] tracking-[0.3em] text-bone uppercase">
-              [ ABELIAN HERO TO BE ADDED LATER ]
-            </p>
-            <p className="mt-3 font-mono text-[10px] tracking-[0.24em] text-bone-muted uppercase">
-              hero visual slot · supplied by Thomas
-            </p>
+          </motion.div>
+        ) : (
+          <div
+            className="relative w-full overflow-hidden border border-dashed border-bone-line grid place-items-center"
+            style={{
+              aspectRatio: "21/9",
+              background:
+                "radial-gradient(ellipse 70% 80% at 50% 40%, rgba(61,75,245,0.10), transparent 70%), #08080d",
+            }}
+          >
+            {/* faint grid */}
+            <div
+              aria-hidden
+              className="absolute inset-0 opacity-[0.06]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)",
+                backgroundSize: "64px 64px",
+                maskImage:
+                  "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+              }}
+            />
+            <div className="relative text-center px-6">
+              <span
+                className="inline-block w-2 h-2 rounded-full mb-5"
+                style={{ background: "var(--brand)" }}
+              />
+              <p className="font-mono text-[12px] md:text-[13px] tracking-[0.3em] text-bone uppercase">
+                [ ABELIAN HERO TO BE ADDED LATER ]
+              </p>
+              <p className="mt-3 font-mono text-[10px] tracking-[0.24em] text-bone-muted uppercase">
+                hero visual slot · supplied by Thomas
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* TITLE BLOCK — sits under the hero slot */}
@@ -437,6 +456,78 @@ function SectionHako() {
         </div>
       </div>
 
+      {/* ── SUBSECTION: MOTION & CONTENT — Hako as a content platform ── */}
+      <div className="pt-24">
+        <div className="page-x">
+          <HoverReveal y={8}>
+            <p className="h-eyebrow-dim">
+              <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+              {s.motion.label}
+            </p>
+          </HoverReveal>
+          <div className="grid grid-cols-12 gap-8 mt-7">
+            <div className="col-span-12 lg:col-span-7">
+              <div className="overflow-hidden">
+                <HoverReveal y={50} delay={0.06}>
+                  <h3 className="h-display text-[clamp(2.1rem,5vw,4rem)] leading-[0.92] whitespace-pre-line">
+                    {s.motion.title}
+                  </h3>
+                </HoverReveal>
+              </div>
+            </div>
+            <div className="col-span-12 lg:col-span-5 self-end space-y-4">
+              {s.motion.body.map((p, i) => (
+                <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                  <p className="body-lead leading-[1.7] max-w-md">{p}</p>
+                </HoverReveal>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* immersive featured video — full bleed within the gutter */}
+        <div className="page-x mt-12">
+          <motion.figure
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 1, ease: EASE }}
+            className="m-0"
+          >
+            <div className="relative w-full overflow-hidden bg-ink-700 aspect-video">
+              <video
+                src={s.motion.video.src}
+                poster={s.motion.video.poster}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={s.motion.video.caption}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              {/* subtle inner edge to seat the bright video in the dark page */}
+              <span
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}
+              />
+            </div>
+            <figcaption className="mt-4 flex items-start gap-3">
+              <span className="block w-6 h-px mt-2 shrink-0" style={{ background: "var(--brand)" }} />
+              <span>
+                <span className="block font-mono text-[10px] tracking-[0.24em] uppercase" style={{ color: "var(--brand)" }}>
+                  {s.motion.video.kicker}
+                </span>
+                <span className="block mt-1 font-mono text-[11px] tracking-[0.14em] text-bone-dim uppercase leading-[1.5]">
+                  {s.motion.video.caption}
+                </span>
+              </span>
+            </figcaption>
+          </motion.figure>
+        </div>
+      </div>
+
       {/* ── COMMUNITY CTA ── */}
       <div className="page-x mt-24">
         <motion.div
@@ -500,6 +591,39 @@ function SectionEvents() {
           <Frame key={i} asset={a} delay={i * 0.1} />
         ))}
       </div>
+
+      {/* event film — PQBD 2025 recap */}
+      {s.motion?.src && (
+        <div className="page-x mt-12">
+          <HoverReveal y={8}>
+            <p className="h-eyebrow-dim">
+              <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+              {s.motion.label}
+            </p>
+          </HoverReveal>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.95, ease: EASE }}
+            className="relative mt-6 w-full overflow-hidden bg-ink-700 aspect-video"
+          >
+            <video
+              src={s.motion.src}
+              poster={s.motion.poster}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </motion.div>
+          <p className="mt-4 font-mono text-[11px] tracking-[0.18em] text-bone-dim uppercase">
+            {s.motion.caption}
+          </p>
+        </div>
+      )}
     </section>
   );
 }

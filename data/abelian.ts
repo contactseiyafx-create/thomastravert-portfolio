@@ -38,6 +38,16 @@ export const abelian = {
     clientJp: "アベリアン",
     years: "2023 — 2026",
     location: "Remote · Global",
+    /**
+     * HERO VISUAL — now supplied. Set `enabled: false` to fall back to
+     * the dashed placeholder slot.
+     */
+    hero: {
+      enabled: true,
+      src: "/projects/abelian/hero.jpg",
+      alt: "Abelian — brand key visual: wallet app, megaphone and shield",
+      ratio: "16/9",
+    },
     role: [
       "Brand Marketing",
       "Art Direction",
@@ -161,8 +171,8 @@ export const abelian = {
     /** Motion block — file to be supplied; placeholder shown until then */
     motion: {
       label: "MOTION · MULTILANGUAGE WEBSITE",
-      src: "", // ← drop /projects/abelian/website-multilanguage.mp4 here
-      poster: "/projects/abelian/02-secure-gateway.jpg",
+      src: "/projects/abelian/website-multilanguage.mp4",
+      poster: "/projects/abelian/website-multilanguage-poster.jpg",
       caption:
         "Abelian website — multilanguage motion sequence (loop).",
       filename: "Abelian_Website_Multilanguage.mp4",
@@ -290,6 +300,23 @@ export const abelian = {
       } satisfies AbelianAsset,
     },
 
+    /* ── subsection: motion & content platform ── */
+    motion: {
+      label: "MOTION & CONTENT",
+      title: "FROM CHARACTER\nTO CONTENT PLATFORM.",
+      body: [
+        "As the mascot evolved, Hako expanded beyond static illustrations into motion-driven content and community storytelling.",
+        "The character became a flexible communication tool — capable of carrying educational content, social engagement, product communication and long-form media formats, all in one consistent voice.",
+      ],
+      video: {
+        src: "/projects/abelian/hako-podcast.mp4",
+        poster: "/projects/abelian/hako-podcast-poster.jpg",
+        kicker: "FEATURED · LONG-FORM MEDIA",
+        caption:
+          "Ask Hako — AMA podcast format, the mascot as on-screen host.",
+      },
+    },
+
     /* ── community CTA ── */
     community: {
       eyebrow: "COMMUNITY PRESENCE",
@@ -323,6 +350,14 @@ export const abelian = {
         caption: "Pizza-ABEL gacha — limited onsite collectible.",
       },
     ] satisfies AbelianAsset[],
+    /** Event recap film — PQBD 2025 (Post-Quantum Blockchain Day) */
+    motion: {
+      label: "EVENT FILM · PQBD 2025",
+      src: "/projects/abelian/pqbd-2025.mp4",
+      poster: "/projects/abelian/pqbd-2025-poster.jpg",
+      caption:
+        "Post-Quantum Blockchain Day 2025 — event recap, including the Hako 'Q-Day Express' tuktuk installation.",
+    },
   },
 
   /* ───────── closing ───────── */
