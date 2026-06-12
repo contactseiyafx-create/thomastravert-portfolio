@@ -617,6 +617,106 @@ export const projects: Project[] = [
       "Project produced for Xbox / Microsoft — visuals shown for portfolio purposes; rights remain with Xbox.",
     featured: false,
   },
+  {
+    slug: "daft-punk-remastered",
+    index: "07",
+    title: "DAFT PUNK REMASTERED",
+    subtitle: "ILLUSTRATION · ART DIRECTION · GRAPHIC DESIGN",
+    category: "ILLUSTRATION",
+    shortDescription:
+      "A VIBRANT ILLUSTRATION SERIES\nREIMAGINING DAFT PUNK",
+    longDescription:
+      "Daft Punk Remastered is a personal illustration project inspired by the visual legacy of Daft Punk and Japanese pop culture. The objective was to reinterpret the iconic duo through a vibrant graphic universe mixing retro-futurism, manga aesthetics, music packaging and editorial design. The project combines illustration, typography, print-inspired layouts and collectible-inspired visuals to create a fictional remastered release celebrating the impact of Daft Punk on modern visual culture.",
+    year: "2022",
+    client: "Personal Project",
+    role: [
+      "Art Direction",
+      "Illustration",
+      "Graphic Design",
+      "Typography",
+      "Print Design",
+    ],
+    deliverables: [
+      "Helmet illustration diptych",
+      "Album / single artwork",
+      "CD case + sleeve mockups",
+      "Poster — wrinkled plastic edition",
+      "2070 collection variant",
+      "Japanese typographic system",
+    ],
+    thumbnail: {
+      // Per brief: same image as hero, only used here on the work grid card.
+      src: "/projects/daft-punk-remastered/thumb.jpg",
+      alt: "Daft Punk Remastered — helmet diptych",
+      ratio: "16/9",
+    },
+    hero: {
+      // Per brief: cinematic 16:9 helmet diptych, fullscreen hero presentation.
+      src: "/projects/daft-punk-remastered/hero.jpg",
+      alt: "Daft Punk Remastered — helmet diptych",
+      ratio: "16/9",
+    },
+    gallery: [
+      {
+        src: "/projects/daft-punk-remastered/01-swirl-cd-cassettes.jpg",
+        alt: "Daft Punk Remastered — central artwork, swirl + CDs + Sony cassettes",
+        ratio: "1/1",
+        caption:
+          "Central artwork — Panasonic CD, Sony cassettes, halftone swirl, Japanese typographic stack.",
+      },
+      {
+        src: "/projects/daft-punk-remastered/02-cd-case-mockup.jpg",
+        alt: "CD case mockup — signed sleeve in cracked jewel case",
+        ratio: "1920/1278",
+        caption:
+          "CD case mockup — signed sleeve framed inside a cracked jewel case, on a vinyl-record surface.",
+      },
+      {
+        src: "/projects/daft-punk-remastered/03-cd-wrap-mockup.jpg",
+        alt: "CD wrap mockup — alternate signed sleeve composition",
+        ratio: "1920/1278",
+        caption:
+          "Alternate signed sleeve — wrinkled cellophane wrap over the same packaging system.",
+      },
+      {
+        src: "/projects/daft-punk-remastered/04-cd-disc-mockup.jpg",
+        alt: "CD disc mockup — printed disc face + outer sleeve",
+        ratio: "1920/1278",
+        caption:
+          "Printed disc face + outer sleeve — the same artwork carried across every surface of the release.",
+      },
+      {
+        src: "/projects/daft-punk-remastered/05-plastic-poster.jpg",
+        alt: "Wrinkled plastic poster edition — collectible artwork",
+        ratio: "1/1",
+        caption:
+          "Wrinkled plastic poster — limited collectible treatment, deliberate light catch on the surface.",
+      },
+      {
+        src: "/projects/daft-punk-remastered/06-2070-holographic.jpg",
+        alt: "2070 collection variant — holographic helmet study",
+        ratio: "1/1",
+        caption:
+          "2070 collection variant — holographic helmet study, signature 2070 magenta-cyan palette.",
+      },
+    ],
+    highlights: [
+      {
+        title: "RETRO-FUTURISM × JAPAN",
+        body: "Cassette-era hardware, CD jewel cases and Japanese typographic stacks fused into a single visual language — the duo's legacy translated into a fictional Tokyo release.",
+      },
+      {
+        title: "ONE WORLD, MANY SURFACES",
+        body: "The same artwork carries across CD face, sleeve, wrinkled plastic poster and 2070 variant — every surface a different facet of the same release.",
+      },
+      {
+        title: "EDITORIAL × COLLECTIBLE",
+        body: "Print-design rules (grid, halftone, typographic hierarchy) applied to a piece designed to be collected — not just consumed.",
+      },
+    ],
+    tags: ["Personal", "Illustration", "2022"],
+    featured: false,
+  },
 ];
 
 /* ───────────────────────── Taxonomy + helpers ───────────────────────── */
