@@ -97,7 +97,7 @@ export function Signature2070Card() {
           <p
             className="font-display leading-[0.85] tracking-[-0.04em]"
             style={{
-              fontSize: "clamp(5rem, 11vw, 9rem)",
+              fontSize: "clamp(3.5rem, 9vw, 7rem)",
               color: ACCENT,
             }}
           >

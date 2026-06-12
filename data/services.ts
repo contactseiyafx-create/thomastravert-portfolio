@@ -81,7 +81,7 @@ export const services = {
     /** Right-column metadata block */
     meta: [
       { label: "BASED IN TOKYO", value: "WORKING WORLDWIDE", jp: "東京拠点・世界へ" },
-      { label: "THOMAS TRAVERT", value: "CREATIVE DIRECTOR" },
+      { label: "TRAVERT THOMAS", value: "CREATIVE DIRECTOR" },
     ],
   },
 

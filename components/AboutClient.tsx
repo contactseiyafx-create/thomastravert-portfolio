@@ -168,7 +168,7 @@ function HeroSection() {
   const h = about.hero;
   return (
     <section className="px-6 md:px-10 lg:px-14 pt-2 pb-14">
-      {/* Massive title + signature */}
+      {/* Massive title */}
       <div className="relative">
         <div className="overflow-hidden">
           <HoverReveal y={60}>
@@ -177,19 +177,6 @@ function HeroSection() {
             </h1>
           </HoverReveal>
         </div>
-        <HoverReveal y={14} delay={0.25}>
-          <p
-            className="
-              font-script text-signal text-3xl md:text-4xl lg:text-5xl
-              -mt-2 md:-mt-4 lg:-mt-6
-              text-right pr-2
-              leading-none
-            "
-            style={{ transform: "rotate(-3deg)" }}
-          >
-            {h.signature}
-          </p>
-        </HoverReveal>
       </div>
 
       {/* Roles + bio */}

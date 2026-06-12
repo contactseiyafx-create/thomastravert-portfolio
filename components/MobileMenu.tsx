@@ -57,7 +57,7 @@ export function MobileMenu({ onClose }: Props) {
                 <Link
                   onClick={onClose}
                   href={item.href}
-                  className={`h-display block text-[clamp(3.5rem,11vw,9rem)] leading-[0.86] tracking-tight hover:text-signal transition-colors duration-500 ${
+                  className={`h-display block text-[clamp(2.75rem,9vw,7.5rem)] leading-[0.86] tracking-tight hover:text-signal transition-colors duration-500 ${
                     item.accent ? "text-signal" : ""
                   }`}
                 >

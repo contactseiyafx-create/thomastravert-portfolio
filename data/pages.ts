@@ -19,7 +19,7 @@ export const pages = {
     eyebrow: "ABOUT",
     title: "DESIGN\nIS A FORM\nOF MOTION.",
     bio: [
-      "Thomas Travert is a graphic & motion designer based in Tokyo. He works at the intersection of identity, animation, and post-production — building visual systems for brands that want to move differently.",
+      "Travert Thomas is a graphic & motion designer based in Tokyo. He works at the intersection of identity, animation, and post-production — building visual systems for brands that want to move differently.",
       "His practice is rooted in editorial restraint and Japanese craft culture: every frame, every kerning pair, every easing curve is treated as a deliberate choice.",
       "Currently working across art direction, brand systems, CGI, and motion design — both on client work and his ongoing 2070 universe.",
     ],
@@ -76,7 +76,7 @@ export const pages = {
       sectionLabel: "FEATURED REEL · CLIENT WORK",
       countLabel: "MOTION 001",
       title: "SORARE\nMOTION REEL",
-      author: "Thomas Travert — 2023",
+      author: "Travert Thomas — 2023",
       client: "Sorare",
       category: "MOTION DESIGN / REEL",
       intro:

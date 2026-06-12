@@ -64,19 +64,19 @@ export const about = {
      */
     character: {
       src: "/about-character.png",
-      alt: "Thomas Travert — character portrait",
+      alt: "Travert Thomas — character portrait",
       enabled: true,
     },
     email: "thomastravertpro@gmail.com",
-    copyright: "© 2026 THOMAS TRAVERT",
+    copyright: "© 2026 TRAVERT THOMAS",
     rightsLine: "ALL RIGHTS RESERVED",
   },
 
   /* ───────── hero ───────── */
   hero: {
-    title: "THOMAS TRAVERT",
+    title: "TRAVERT THOMAS",
     /** Handwritten script overlay under the title */
-    signature: "Thomas Travert",
+    signature: "Travert Thomas",
     eyebrow: "TOKYO BASED",
     roles: ["ART DIRECTOR", "& MULTIMEDIA DESIGNER"],
     bio: "I create visual experiences through art direction, motion design, branding and illustration, adapting each project to the unique needs of its industry, audience and goals.",

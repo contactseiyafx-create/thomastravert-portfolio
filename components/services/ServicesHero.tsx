@@ -23,16 +23,18 @@ export function ServicesHero() {
     <header className="relative">
       <div className="grid grid-cols-12 gap-6 lg:gap-10 items-start">
         {/* COL 1 — massive title */}
-        <div className="col-span-12 lg:col-span-6 overflow-hidden">
-          <motion.h1
-            initial={{ y: 80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.1, ease: EASE }}
-            className="h-display leading-[0.85] tracking-[-0.04em] text-bone"
-            style={{ fontSize: "clamp(4rem, 12vw, 11rem)" }}
-          >
-            {h.title}
-          </motion.h1>
+        <div className="col-span-12 lg:col-span-6 max-w-full">
+          <div className="overflow-hidden">
+            <motion.h1
+              initial={{ y: 80, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 1.1, ease: EASE }}
+              className="h-display leading-[0.95] tracking-[-0.025em] text-bone break-words"
+              style={{ fontSize: "clamp(3rem, 10vw, 8.5rem)" }}
+            >
+              {h.title}
+            </motion.h1>
+          </div>
         </div>
 
         {/* COL 2 — pink eyebrow + intro + jp tagline */}

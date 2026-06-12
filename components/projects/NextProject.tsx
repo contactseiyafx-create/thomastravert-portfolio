@@ -60,7 +60,7 @@ export function NextProject({ next }: { next: Project }) {
 
           <div className="overflow-hidden">
             <motion.h2
-              className="h-display text-[clamp(3rem,11vw,10rem)] leading-[0.9]"
+              className="h-display text-[clamp(2.5rem,8.5vw,8rem)] leading-[0.95] tracking-[-0.02em] leading-[0.9]"
               initial={{ y: 0 }}
               whileHover={{ y: -8 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}

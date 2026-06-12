@@ -1,4 +1,4 @@
-# Thomas Travert — Portfolio
+# Travert Thomas — Portfolio
 
 A premium, Tokyo-flavoured creative portfolio built on **Next.js App Router**, **TailwindCSS**, **Framer Motion**, and **Lenis** smooth-scroll.
 

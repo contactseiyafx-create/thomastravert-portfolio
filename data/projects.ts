@@ -326,7 +326,7 @@ export const projects: Project[] = [
     shortDescription:
       "JAPANESE VISUAL DIRECTION\nFOR A CASE CAPSULE",
     longDescription:
-      "Thomas Travert designed for the PewDiePie × Rhinoshield collaboration with a Japanese visual direction, exploring multiple stylistic territories ranging from cyber aesthetics and neon Tokyo atmospheres to Edo-inspired compositions, kawaii visuals and retro 80's inspired concepts. The project investigated collectible visual systems adapted to product design and community-driven branding.",
+      "Travert Thomas designed for the PewDiePie × Rhinoshield collaboration with a Japanese visual direction, exploring multiple stylistic territories ranging from cyber aesthetics and neon Tokyo atmospheres to Edo-inspired compositions, kawaii visuals and retro 80's inspired concepts. The project investigated collectible visual systems adapted to product design and community-driven branding.",
     year: "2020",
     client: "Rhinoshield × PewDiePie",
     role: ["Graphic Design", "Illustration", "Marketing"],

@@ -5,7 +5,7 @@ export default function NotFound() {
     <section className="min-h-[80vh] grid place-items-center text-center page-x pt-[var(--nav-h)]">
       <div>
         <p className="h-eyebrow">ERROR · 404</p>
-        <h1 className="h-display text-[clamp(5rem,18vw,15rem)] mt-4">
+        <h1 className="h-display text-[clamp(4rem,14vw,12rem)] leading-[0.95] mt-4">
           NOT
           <br />
           FOUND

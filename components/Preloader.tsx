@@ -58,7 +58,7 @@ export function Preloader() {
           aria-hidden
         >
           <div className="text-center px-6 max-w-[92vw]">
-            {/* THOMAS TRAVERT */}
+            {/* TRAVERT THOMAS */}
             <motion.h1
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ export function Preloader() {
               className="h-display tracking-[-0.02em] text-bone leading-[0.95]"
               style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
             >
-              THOMAS TRAVERT
+              TRAVERT THOMAS
             </motion.h1>
 
             {/* ART DIRECTOR / & MULTIMEDIA DESIGNER — stacked */}

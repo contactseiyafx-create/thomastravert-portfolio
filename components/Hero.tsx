@@ -126,17 +126,17 @@ export function Hero() {
             </HoverReveal>
 
             {/* Massive condensed title */}
-            <div className="mt-5 md:mt-7">
+            <div className="mt-5 md:mt-7 max-w-full">
               <div className="overflow-hidden">
                 <HoverReveal y={70} delay={0.25}>
-                  <h1 className="h-display text-[clamp(4.5rem,12vw,11rem)]">
+                  <h1 className="h-display text-[clamp(3.25rem,10vw,9rem)] leading-[0.92] tracking-[-0.025em] break-words">
                     {site.hero.titleLine1}
                   </h1>
                 </HoverReveal>
               </div>
               <div className="overflow-hidden">
                 <HoverReveal y={70} delay={0.38}>
-                  <h1 className="h-display text-[clamp(4.5rem,12vw,11rem)]">
+                  <h1 className="h-display text-[clamp(3.25rem,10vw,9rem)] leading-[0.92] tracking-[-0.025em] break-words">
                     {site.hero.titleLine2}
                   </h1>
                 </HoverReveal>

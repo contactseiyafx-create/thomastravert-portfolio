@@ -22,7 +22,7 @@ export function generateMetadata({ params }: Props): Metadata {
     title: project.title,
     description: project.longDescription,
     openGraph: {
-      title: `${project.title} — Thomas Travert`,
+      title: `${project.title} — Travert Thomas`,
       description: project.longDescription,
       images: [{ url: project.hero.src, alt: project.hero.alt }],
     },

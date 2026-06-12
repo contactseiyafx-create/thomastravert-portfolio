@@ -20,7 +20,7 @@ export default function MotionPage() {
         </HoverReveal>
         <div className="overflow-hidden mt-4">
           <HoverReveal y={80} delay={0.1}>
-            <h1 className="h-display text-[clamp(3rem,11vw,10rem)] whitespace-pre-line">
+            <h1 className="h-display text-[clamp(2.75rem,9vw,8.5rem)] leading-[0.95] tracking-[-0.02em] whitespace-pre-line">
               {p.title}
             </h1>
           </HoverReveal>

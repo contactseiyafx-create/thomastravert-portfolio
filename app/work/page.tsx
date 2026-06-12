@@ -18,7 +18,7 @@ export default function WorkPage() {
         </HoverReveal>
         <div className="overflow-hidden mt-4">
           <HoverReveal y={80} delay={0.1}>
-            <h1 className="h-display text-[clamp(4rem,12vw,11rem)]">{p.title}</h1>
+            <h1 className="h-display text-[clamp(3rem,10vw,9rem)] leading-[0.92] tracking-[-0.025em]">{p.title}</h1>
           </HoverReveal>
         </div>
         <HoverReveal y={20} delay={0.3} className="mt-6 max-w-md body-lead">

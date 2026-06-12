@@ -7,7 +7,7 @@
 
 export const site = {
   /* SEO + identity */
-  name: "Thomas Travert",
+  name: "Travert Thomas",
   shortName: "TVT",
   domain: "thomastravert.com",
   url: "https://thomastravert.com",
@@ -29,8 +29,8 @@ export const site = {
   /* Hero */
   hero: {
     eyebrow: "TOKYO BASED",
-    titleLine1: "THOMAS",
-    titleLine2: "TRAVERT",
+    titleLine1: "TRAVERT",
+    titleLine2: "THOMAS",
     nameJp: "トラバト・トーマス",
     role: "ART DIRECTOR",
     roleLine2: "& MULTIMEDIA DESIGNER",
@@ -65,7 +65,7 @@ export const site = {
 
   /* Footer */
   footer: {
-    copyright: "© 2070 THOMAS TRAVERT",
+    copyright: "© 2070 TRAVERT THOMAS",
     availability: "AVAILABLE FOR NEW PROJECTS",
     rightsLine: "ALL RIGHTS RESERVED",
   },
