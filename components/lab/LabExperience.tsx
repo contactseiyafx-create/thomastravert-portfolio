@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { lab, type LabApp, type LabExploration } from "@/data/lab";
 import { GlyphEngine } from "./GlyphEngine";
+import { ShinshokuInterviewRPG } from "./ShinshokuInterviewRPG";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const CINEMA = [0.65, 0, 0.35, 1] as const;
@@ -560,6 +561,8 @@ function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
       <div className="absolute inset-0 pt-[var(--nav-h)]">
         {app.id === "glyph-engine" ? (
           <GlyphEngine />
+        ) : app.id === "shinshoku-interview-rpg" ? (
+          <ShinshokuInterviewRPG />
         ) : (
           <div className="h-full grid place-items-center">
             <p className="body-lead">This experience isn't ready yet.</p>

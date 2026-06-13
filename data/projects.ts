@@ -13,6 +13,7 @@
 
 export type ProjectCategory =
   | "ART DIRECTION"
+  | "ART DIRECTION / ILLUSTRATION"
   | "ART DIRECTION / UI DESIGN"
   | "3D ART DIRECTION"
   | "3D DESIGN"
@@ -135,8 +136,8 @@ export const projects: Project[] = [
       "Event design",
     ],
     thumbnail: {
-      src: "/projects/abelian/thumb.jpg",
-      alt: "Abelian — post-quantum blockchain brand system",
+      src: "/projects/abelian/thumbnail.webp",
+      alt: "Abelian — post-quantum wallet campaign key visual",
       ratio: "16/9",
     },
     hero: {
@@ -271,8 +272,59 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "luxury-garden",
+    slug: "venice-carnival",
     index: "04",
+    title: "VENICE CARNIVAL",
+    subtitle: "PERSONAL PROJECT · CULTURAL IDENTITY EXPLORATION",
+    category: "ART DIRECTION / ILLUSTRATION",
+    shortDescription:
+      "A CONTEMPORARY VISUAL IDENTITY\nINSPIRED BY VENETIAN MASK CULTURE",
+    longDescription:
+      "A fictional identity project built around the Venice Carnival. The project reinterprets one of Italy's most recognizable cultural celebrations through a custom illustrated Venetian mask, poster series, event branding and environmental applications.",
+    year: "2021",
+    client: "Personal Project",
+    role: ["Art Direction", "Graphic Design", "Illustration"],
+    deliverables: [
+      "Key visual",
+      "Illustrated mask",
+      "Poster series",
+      "Ticket design",
+      "Environmental application",
+      "Graphic pattern system",
+    ],
+    thumbnail: {
+      src: "/projects/venice-carnival/hero-header.png",
+      alt: "Venice Carnival — illustrated mask campaign hero",
+      ratio: "1920/629",
+    },
+    hero: {
+      src: "/projects/venice-carnival/hero-header.png",
+      alt: "Venice Carnival — main key visual",
+      ratio: "1920/629",
+    },
+    gallery: [],
+    highlights: [
+      {
+        title: "HERITAGE REINTERPRETED",
+        body: "The mask keeps the theatrical mystery of Carnival while shifting the language into a contemporary graphic system.",
+      },
+      {
+        title: "ILLUSTRATION AS IDENTITY",
+        body: "Feathers, ornaments, geometry and texture become the project's core brand material.",
+      },
+      {
+        title: "SCALABLE SYSTEM",
+        body: "The artwork expands across posters, tickets, outdoor applications and modular patterns.",
+      },
+    ],
+    tags: ["Personal", "Illustration", "Identity", "2021"],
+    disclaimer:
+      "Personal project inspired by the Venice Carnival. Created as a fictional cultural identity exploration.",
+    featured: false,
+  },
+  {
+    slug: "luxury-garden",
+    index: "05",
     title: "LUXURY GARDEN",
     category: "3D ART DIRECTION",
     shortDescription:
@@ -338,7 +390,7 @@ export const projects: Project[] = [
   },
   {
     slug: "alpine-rhinoshield",
-    index: "05",
+    index: "06",
     title: "ALPINE × RHINOSHIELD",
     category: "BRANDING / MERCH",
     shortDescription:
@@ -414,7 +466,7 @@ export const projects: Project[] = [
   },
   {
     slug: "pewdiepie-rhinoshield",
-    index: "06",
+    index: "07",
     title: "PEWDIEPIE × RHINOSHIELD",
     subtitle: "JAPANESE VISUAL DIRECTION · CASE CAPSULE",
     category: "CLIENT PROJECT",
@@ -510,7 +562,7 @@ export const projects: Project[] = [
   },
   {
     slug: "atletec-tv-rebranding",
-    index: "07",
+    index: "08",
     title: "ATLETEC TV — REBRANDING",
     subtitle: "ESPORTS WEBTV · COMPLETE BRAND SYSTEM",
     category: "CLIENT PROJECT",
@@ -622,7 +674,7 @@ export const projects: Project[] = [
   },
   {
     slug: "xbox-wire",
-    index: "08",
+    index: "09",
     title: "XBOX WIRE",
     subtitle: "MONTHLY LIVE SHOW · IDENTITY & BROADCAST",
     category: "CLIENT PROJECT",
@@ -714,7 +766,7 @@ export const projects: Project[] = [
   },
   {
     slug: "daft-punk-remastered",
-    index: "09",
+    index: "10",
     title: "DAFT PUNK REMASTERED",
     subtitle: "ILLUSTRATION · ART DIRECTION · GRAPHIC DESIGN",
     category: "ILLUSTRATION",
@@ -814,7 +866,7 @@ export const projects: Project[] = [
   },
   {
     slug: "social-media-icons",
-    index: "10",
+    index: "11",
     title: "3D SOCIAL MEDIA ICONS",
     category: "3D DESIGN",
     shortDescription:
@@ -911,7 +963,7 @@ export const projects: Project[] = [
   },
   {
     slug: "the-incredibles",
-    index: "11",
+    index: "12",
     title: "THE INCREDIBLES",
     subtitle: "ILLUSTRATED TRIBUTE",
     category: "ILLUSTRATION",
@@ -996,6 +1048,7 @@ export const projectFilters: Array<"ALL" | ProjectCategory> = [
   "ALL",
   "BRAND SYSTEM / MOTION / ILLUSTRATION",
   "ART DIRECTION",
+  "ART DIRECTION / ILLUSTRATION",
   "ART DIRECTION / MOTION / 3D",
   "ART DIRECTION / UI DESIGN",
   "3D ART DIRECTION",

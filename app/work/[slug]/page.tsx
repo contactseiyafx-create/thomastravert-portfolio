@@ -18,7 +18,8 @@ export function generateStaticParams() {
     .filter(
       (p) =>
         p.slug !== "abelian" &&
-        p.slug !== "atletec-zwift-racing-league",
+        p.slug !== "atletec-zwift-racing-league" &&
+        p.slug !== "venice-carnival",
     )
     .map((p) => ({ slug: p.slug }));
 }
