@@ -192,6 +192,57 @@ export function MotionSection({ project }: { project: Project }) {
 }
 
 /* ────────────────────────────────────────────────
+   EXTERNAL LINK — optional "View Full Project" CTA
+   Hides cleanly when project.externalUrl is undefined.
+   ──────────────────────────────────────────────── */
+
+export function ExternalLinkSection({ project }: { project: Project }) {
+  if (!project.externalUrl) return null;
+  const isBehance = /behance\.net/i.test(project.externalUrl);
+  const label = isBehance
+    ? "View Full Project on Behance"
+    : "View Full Project";
+
+  return (
+    <section className="page-x pt-16 pb-8">
+      <motion.a
+        href={project.externalUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="group relative flex items-center justify-between gap-6 border-t border-b border-bone-line py-8 hover:border-signal/60 transition-colors duration-500"
+      >
+        <span className="flex flex-col gap-2">
+          <span className="h-eyebrow-dim">EXTERNAL</span>
+          <span className="h-display text-[clamp(1.4rem,3vw,2.4rem)] leading-[1] group-hover:text-signal transition-colors duration-500">
+            {label}
+          </span>
+        </span>
+        <span className="shrink-0 grid place-items-center w-12 h-12 md:w-14 md:h-14 rounded-full border border-bone-line text-bone group-hover:border-signal group-hover:text-signal transition-colors duration-500">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 12 12"
+            fill="none"
+            className="transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          >
+            <path
+              d="M2 10L10 2M10 2H4M10 2V8"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="square"
+            />
+          </svg>
+        </span>
+      </motion.a>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────
    MEDIA FRAME — image OR video
    Same dimensions, same object-cover.  Only the inner element swaps.
    Videos autoplay, loop, are muted (required for autoplay on iOS), and

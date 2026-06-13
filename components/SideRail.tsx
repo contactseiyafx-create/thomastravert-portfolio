@@ -18,6 +18,7 @@ export function SideRail() {
   // and /2070 is a fullscreen archive plate — both pages hide the global rail.
   if (pathname?.startsWith("/about")) return null;
   if (pathname?.startsWith("/2070")) return null;
+  if (pathname?.startsWith("/lab")) return null;
 
   return (
     <aside

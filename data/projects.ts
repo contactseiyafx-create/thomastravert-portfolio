@@ -15,7 +15,9 @@ export type ProjectCategory =
   | "ART DIRECTION"
   | "ART DIRECTION / UI DESIGN"
   | "3D ART DIRECTION"
+  | "3D DESIGN"
   | "MOTION DESIGN"
+  | "ART DIRECTION / MOTION / 3D"
   | "CGI"
   | "ILLUSTRATION"
   | "BRANDING"
@@ -147,8 +149,59 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "nexbank",
+    slug: "atletec-zwift-racing-league",
     index: "02",
+    title: "ATLETEC ZWIFT RACING LEAGUE",
+    subtitle: "ECYCLING · ESPORT · SEASON COMMUNICATION SYSTEM",
+    category: "ART DIRECTION / MOTION / 3D",
+    shortDescription:
+      "A COMPLETE VISUAL ECOSYSTEM\nFOR VIRTUAL CYCLING COMPETITION",
+    longDescription:
+      "A complete visual ecosystem for Atletec inside the Zwift Racing League: art direction, motion design, 3D assets, race announcements, ranking layouts and social communication designed to support an entire competitive season.",
+    year: "2021",
+    client: "Atletec",
+    role: ["Lead Designer", "Art Direction", "Graphic Design", "Motion Design"],
+    deliverables: [
+      "Art direction",
+      "Motion trailer",
+      "3D cycling assets",
+      "Race announcements",
+      "Ranking system",
+      "Social media templates",
+    ],
+    thumbnail: {
+      src: "/projects/atletec-zwift-racing-league/hero-cover.png",
+      alt: "Atletec Zwift Racing League — red hero cover with bicycle wheel",
+      ratio: "4/3",
+    },
+    hero: {
+      src: "/projects/atletec-zwift-racing-league/hero-cover.png",
+      alt: "Atletec Zwift Racing League — project hero",
+      ratio: "4/3",
+    },
+    gallery: [],
+    highlights: [
+      {
+        title: "SPORT × ESPORT",
+        body: "Cycling codes were rebuilt through data interfaces, race systems and competitive gaming references.",
+      },
+      {
+        title: "SEASON SYSTEM",
+        body: "A modular language supported victories, defeats, rankings, race results and promotional content.",
+      },
+      {
+        title: "MOTION-FIRST IDENTITY",
+        body: "Wireframes, loading states and glitch diagnostics gave the launch trailer its esports rhythm.",
+      },
+    ],
+    tags: ["Client", "Esport", "Motion", "2021"],
+    disclaimer:
+      "Project produced for Atletec — visuals shown for portfolio purposes; rights remain with Atletec and associated partners.",
+    featured: false,
+  },
+  {
+    slug: "nexbank",
+    index: "03",
     title: "NEXBANK",
     category: "ART DIRECTION / UI DESIGN",
     shortDescription:
@@ -219,7 +272,7 @@ export const projects: Project[] = [
   },
   {
     slug: "luxury-garden",
-    index: "02",
+    index: "04",
     title: "LUXURY GARDEN",
     category: "3D ART DIRECTION",
     shortDescription:
@@ -285,7 +338,7 @@ export const projects: Project[] = [
   },
   {
     slug: "alpine-rhinoshield",
-    index: "03",
+    index: "05",
     title: "ALPINE × RHINOSHIELD",
     category: "BRANDING / MERCH",
     shortDescription:
@@ -361,7 +414,7 @@ export const projects: Project[] = [
   },
   {
     slug: "pewdiepie-rhinoshield",
-    index: "04",
+    index: "06",
     title: "PEWDIEPIE × RHINOSHIELD",
     subtitle: "JAPANESE VISUAL DIRECTION · CASE CAPSULE",
     category: "CLIENT PROJECT",
@@ -371,7 +424,7 @@ export const projects: Project[] = [
       "Travert Thomas designed for the PewDiePie × Rhinoshield collaboration with a Japanese visual direction, exploring multiple stylistic territories ranging from cyber aesthetics and neon Tokyo atmospheres to Edo-inspired compositions, kawaii visuals and retro 80's inspired concepts. The project investigated collectible visual systems adapted to product design and community-driven branding.",
     year: "2020",
     client: "Rhinoshield × PewDiePie",
-    role: ["Graphic Design", "Illustration", "Marketing"],
+    role: ["Illustration", "Graphic Design", "Marketing Materials"],
     deliverables: [
       "Edo Wave concept boards",
       "Ninja Pewds illustrations",
@@ -457,7 +510,7 @@ export const projects: Project[] = [
   },
   {
     slug: "atletec-tv-rebranding",
-    index: "05",
+    index: "07",
     title: "ATLETEC TV — REBRANDING",
     subtitle: "ESPORTS WEBTV · COMPLETE BRAND SYSTEM",
     category: "CLIENT PROJECT",
@@ -467,7 +520,7 @@ export const projects: Project[] = [
       "Complete artistic direction for the ATLETEC WEBTV ecosystem. The system was built around the channel's editorial pillars — Culture, Entertainment, Let's Play and Sport — combining logo evolution, category coding, motion-ready visual language, 2D / 3D icon systems, social-media communication assets and broadcast direction into a single coherent esports universe. ATLETEC is a professional esports structure placing human values at the center of its activities to create a healthy environment promoting performance, learning and fulfillment.",
     year: "2024",
     client: "Atletec",
-    role: ["Art Direction", "Graphic Design", "Motion Design 2D / 3D"],
+    role: ["Art Direction", "Graphic Design"],
     deliverables: [
       "Logo system & construction",
       "Category coding (4 pillars)",
@@ -569,7 +622,7 @@ export const projects: Project[] = [
   },
   {
     slug: "xbox-wire",
-    index: "06",
+    index: "08",
     title: "XBOX WIRE",
     subtitle: "MONTHLY LIVE SHOW · IDENTITY & BROADCAST",
     category: "CLIENT PROJECT",
@@ -661,7 +714,7 @@ export const projects: Project[] = [
   },
   {
     slug: "daft-punk-remastered",
-    index: "07",
+    index: "09",
     title: "DAFT PUNK REMASTERED",
     subtitle: "ILLUSTRATION · ART DIRECTION · GRAPHIC DESIGN",
     category: "ILLUSTRATION",
@@ -759,6 +812,181 @@ export const projects: Project[] = [
     tags: ["Personal", "Illustration", "2022"],
     featured: false,
   },
+  {
+    slug: "social-media-icons",
+    index: "10",
+    title: "3D SOCIAL MEDIA ICONS",
+    category: "3D DESIGN",
+    shortDescription:
+      "A PLAYFUL COLLECTION OF 3D ICONS,\nWIDGETS & MOBILE INTERFACES",
+    longDescription:
+      "A personal exploration focused on creating a playful collection of 3D social media icons, widgets and mobile interfaces. The objective was to study shape language, color, lighting and interaction design through a series of stylized digital products. The project combines icon design, UI experimentation and motion-ready assets built entirely in Cinema 4D — every icon, widget and interface element modeled, textured and rendered from scratch. The result is a vibrant collection of modern digital objects inspired by contemporary mobile ecosystems and social platforms.",
+    year: "2024",
+    client: "Personal Project",
+    role: ["3D Artist", "Motion Designer", "Art Director"],
+    deliverables: [
+      "3D Icon System",
+      "Custom Widgets",
+      "Mobile Interface Concepts",
+      "Motion-Ready Assets",
+    ],
+    thumbnail: {
+      src: "/projects/social-media-icons/1.jpg",
+      alt: "3D Social Media Icons — row of stylized phone home screens",
+      ratio: "16/9",
+    },
+    hero: {
+      src: "/projects/social-media-icons/1.jpg",
+      alt: "3D Social Media Icons — row of stylized phone home screens",
+      ratio: "16/9",
+    },
+    gallery: [
+      {
+        src: "/projects/social-media-icons/2.jpg",
+        alt: "Two phones — widget home screen beside the app grid",
+        ratio: "16/9",
+        caption: "Two screens — widgets and the 3D app grid.",
+      },
+      {
+        src: "/projects/social-media-icons/3.jpg",
+        alt: "Close-up of the top row of 3D social app icons",
+        ratio: "16/9",
+        caption: "Icon detail — messenger, youtube, line, discord.",
+      },
+      {
+        src: "/projects/social-media-icons/4.jpg",
+        alt: "Full 3D social media icon grid in close-up",
+        ratio: "16/9",
+        caption: "The full icon grid — extruded, lit, badged.",
+      },
+      {
+        src: "/projects/social-media-icons/5.jpg",
+        alt: "Two phones floating with a ribbon connecting their screens",
+        ratio: "1/1",
+        caption: "Home screen and app grid, tied by a ribbon of UI.",
+      },
+      {
+        src: "/projects/social-media-icons/7.jpg",
+        alt: "Widget home screen — Note, Bank, Social and a music player",
+        ratio: "16/9",
+        caption: "Widget layout — note, folders, now-playing.",
+      },
+      {
+        src: "/projects/social-media-icons/8.jpg",
+        alt: "Angled close-up of the Note widget and folder icons",
+        ratio: "16/9",
+        caption: "Note widget — paper texture, glass folders.",
+      },
+      {
+        src: "/projects/social-media-icons/9.jpg",
+        alt: "Exploded UI study — note, music player and floating 3D objects",
+        ratio: "16/9",
+        caption: "Exploded study — UI elements as standalone objects.",
+      },
+      {
+        src: "/projects/social-media-icons/10.jpg",
+        alt: "Detail of the Note widget header and lined paper",
+        ratio: "16/9",
+        caption: "Detail — the Note header and ruled paper surface.",
+      },
+    ],
+    highlights: [
+      {
+        title: "MODULAR ICON SYSTEM",
+        body: "Each icon was modeled to a shared grid and lighting setup — consistent across every app while preserving each platform's recognizable identity.",
+      },
+      {
+        title: "WIDGETS AS OBJECTS",
+        body: "Notes, folders and the music player were treated as tactile 3D products, not flat UI — paper, glass and plastic with real depth and shadow.",
+      },
+      {
+        title: "BUILT FROM SCRATCH",
+        body: "Every element modeled, textured and rendered in Cinema 4D with Redshift — a full study of shape, color and light, motion-ready from day one.",
+      },
+    ],
+    externalUrl:
+      "https://www.behance.net/gallery/125836575/3D-Social-Media-icons-Apps-Widgets",
+    tags: ["Personal", "3D", "2024"],
+    featured: false,
+  },
+  {
+    slug: "the-incredibles",
+    index: "11",
+    title: "THE INCREDIBLES",
+    subtitle: "ILLUSTRATED TRIBUTE",
+    category: "ILLUSTRATION",
+    shortDescription:
+      "A BOLD VECTOR TRIBUTE TO\nPIXAR'S THE INCREDIBLES",
+    longDescription:
+      "A personal tribute project inspired by Pixar's iconic film The Incredibles. The objective was to reinterpret the universe of the film through a bold vector illustration style while preserving the energy, personality and visual identity of the original characters. The artwork was designed as a large-scale key visual capable of living across multiple formats — posters, environmental graphics and advertising displays. Inspired by cinematic posters and theme-park visuals, the composition places the Parr family at the center of an action-packed scene facing Syndrome and his Omnidroid, built from strong geometric shapes, simplified silhouettes and a limited color palette for an instantly recognizable graphic language.",
+    year: "2022",
+    client: "Personal Project",
+    role: ["Illustrator", "Art Director"],
+    deliverables: [
+      "Vector key artwork",
+      "Vertical poster",
+      "Environmental graphics",
+      "Large-scale advertising mockups",
+    ],
+    thumbnail: {
+      src: "/projects/the-incredibles/1.jpg",
+      alt: "The Incredibles — vector tribute key visual, the Parr family facing the Omnidroid",
+      ratio: "3/1",
+    },
+    hero: {
+      src: "/projects/the-incredibles/1.jpg",
+      alt: "The Incredibles — vector tribute key visual, the Parr family facing the Omnidroid",
+      ratio: "3/1",
+    },
+    gallery: [
+      {
+        src: "/projects/the-incredibles/3.jpg",
+        alt: "The Incredibles — full key artwork composition",
+        ratio: "16/9",
+        caption:
+          "Key artwork — built in vector, each character reduced to its iconic silhouette.",
+      },
+      {
+        src: "/projects/the-incredibles/2.jpg",
+        alt: "The Incredibles — vertical promotional poster",
+        ratio: "3/4",
+        caption:
+          "Poster exploration — the family vs. the Omnidroid, readable from a distance.",
+      },
+      {
+        src: "/projects/the-incredibles/5.jpg",
+        alt: "The Incredibles — large-format mural in an office corridor",
+        ratio: "3/2",
+        caption:
+          "Environmental graphics — the illustration as architectural, spatial branding.",
+      },
+      {
+        src: "/projects/the-incredibles/4.jpg",
+        alt: "The Incredibles — backlit poster displays in a dark space",
+        ratio: "3/2",
+        caption:
+          "Large-scale advertising — visibility and impact in public display formats.",
+      },
+    ],
+    highlights: [
+      {
+        title: "VECTOR-BUILT CAST",
+        body: "Each character was reconstructed from simplified geometric forms while keeping their iconic silhouette and personality intact.",
+      },
+      {
+        title: "MOVEMENT & SCALE",
+        body: "Heroes, villain and environment were arranged to communicate action and scale — a single composition that reads instantly.",
+      },
+      {
+        title: "ONE ARTWORK, MANY SURFACES",
+        body: "Designed to live beyond print — poster, mural and backlit display all drawn from the same key visual.",
+      },
+    ],
+    disclaimer:
+      "Independent personal tribute inspired by Disney·Pixar's The Incredibles. Created for educational and portfolio purposes only.",
+    tags: ["Personal", "Illustration", "2022"],
+    featured: false,
+  },
 ];
 
 /* ───────────────────────── Taxonomy + helpers ───────────────────────── */
@@ -768,6 +996,7 @@ export const projectFilters: Array<"ALL" | ProjectCategory> = [
   "ALL",
   "BRAND SYSTEM / MOTION / ILLUSTRATION",
   "ART DIRECTION",
+  "ART DIRECTION / MOTION / 3D",
   "ART DIRECTION / UI DESIGN",
   "3D ART DIRECTION",
   "MOTION DESIGN",

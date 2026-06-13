@@ -169,14 +169,13 @@ export const abelian = {
         caption: "Top 7 quantum-resistant coins, April 2026.",
       },
     ] satisfies AbelianAsset[],
-    /** Motion block — file to be supplied; placeholder shown until then */
+    /** Featured motion case study — embedded YouTube */
     motion: {
       label: "MOTION · MULTILANGUAGE WEBSITE",
-      src: "/projects/abelian/website-multilanguage.mp4",
-      poster: "/projects/abelian/website-multilanguage-poster.jpg",
+      videoTitle: "Abelian Multilanguage Website",
+      youtubeId: "tC8MxoJ5OR8",
       caption:
-        "Abelian website — multilanguage motion sequence (loop).",
-      filename: "Abelian_Website_Multilanguage.mp4",
+        "Abelian website — multilingual digital experience designed for English, Japanese and Chinese audiences.",
     },
   },
 
@@ -310,11 +309,11 @@ export const abelian = {
         "The character became a flexible communication tool — capable of carrying educational content, social engagement, product communication and long-form media formats, all in one consistent voice.",
       ],
       video: {
-        src: "/projects/abelian/hako-podcast.mp4",
-        poster: "/projects/abelian/hako-podcast-poster.jpg",
+        videoTitle: "HAKO Podcast",
+        youtubeId: "wX0g_tkylxs",
         kicker: "FEATURED · LONG-FORM MEDIA",
         caption:
-          "Ask Hako — AMA podcast format, the mascot as on-screen host.",
+          "HAKO Podcast — long-form community content featuring Abelian's official mascot ecosystem.",
       },
     },
 
@@ -330,7 +329,7 @@ export const abelian = {
 
   /* ───────── EVENTS — onsite activation (bonus, real client work) ───────── */
   events: {
-    index: "04",
+    index: "06",
     eyebrow: "EVENT & ONSITE DESIGN",
     title: "BRINGING THE\nBRAND ONSITE.",
     intro:
@@ -354,16 +353,16 @@ export const abelian = {
     /** Event recap film — PQBD 2025 (Post-Quantum Blockchain Day) */
     motion: {
       label: "EVENT FILM · PQBD 2025",
-      src: "/projects/abelian/pqbd-2025.mp4",
-      poster: "/projects/abelian/pqbd-2025-poster.jpg",
+      videoTitle: "PQBD 2025 Event Highlights",
+      youtubeId: "Pc7Ufyh7u9k",
       caption:
-        "Post-Quantum Blockchain Day 2025 — event recap, including the Hako 'Q-Day Express' tuktuk installation.",
+        "PQBD 2025 — event highlights showcasing booth design, onsite activations, print collateral, digital assets, community engagement, merchandise, pins, collectibles and the Abelian ecosystem in action.",
     },
   },
 
   /* ───────── SECTION 05 — Hako Metal Genesis (product marketing) ───────── */
   hakoMetal: {
-    index: "05",
+    index: "04",
     eyebrow: "PRODUCT MARKETING · HARDWARE LAUNCH",
     title: "THE FIRST QUANTUM-RESISTANT\nHOME MINER.",
     intro: [
@@ -450,6 +449,130 @@ export const abelian = {
       "Social Campaigns",
       "Community Growth",
     ],
+  },
+
+  /* ───────── SECTION 06 — QDAY Ecosystem (post-quantum initiative) ───────── */
+  qday: {
+    index: "05",
+    eyebrow: "POST-QUANTUM INITIATIVE",
+    title: "BUILDING FOR\nTHE QUANTUM ERA.",
+    intro: [
+      "QDAY was developed as a forward-looking initiative within the Abelian ecosystem, focused on scalable execution, next-generation computation and post-quantum infrastructure.",
+      "The challenge was not only to communicate highly technical concepts, but to do so across multiple regions, cultures and languages while maintaining a premium and cohesive visual identity.",
+      "Working across English, Japanese and Chinese communications, I helped establish a visual system capable of explaining complex technologies through clear storytelling, educational content, motion design and ecosystem marketing.",
+    ],
+    /** disciplines — numbered chapter scope */
+    disciplines: [
+      "Brand Marketing",
+      "Social Campaigns",
+      "3D Visualization",
+      "Multilingual Communication",
+      "Educational Content",
+      "Motion Design",
+    ],
+
+    /* ── subsection 01: multilingual communication system ── */
+    multilingual: {
+      label: "MULTILINGUAL COMMUNICATION SYSTEM",
+      title: "DESIGNED FOR\nGLOBAL COMMUNITIES.",
+      body: [
+        "Every major campaign was developed across English, Japanese and Chinese audiences.",
+        "Rather than translating content after production, the visual system was designed from the beginning to accommodate different writing systems while preserving consistency, readability and brand recognition.",
+        "This approach allowed QDAY to communicate advanced post-quantum concepts globally through a single coherent visual language.",
+      ],
+      /** EN / JP pairs — shown side by side to prove the system holds */
+      pairs: [
+        {
+          en: {
+            src: "/projects/abelian/qday-multi-en-1.jpg",
+            alt: "QDAY — 'QDAY already has' campaign, English",
+            ratio: "1/1",
+          },
+          jp: {
+            src: "/projects/abelian/qday-multi-jp-1.jpg",
+            alt: "QDAY — 'QDAY already has' campaign, Japanese",
+            ratio: "1/1",
+          },
+          kicker: "EN / JP · SAME SYSTEM",
+          caption: "“QDAY already has” — one layout, two writing systems.",
+        },
+        {
+          en: {
+            src: "/projects/abelian/qday-multi-en-2.jpg",
+            alt: "QDAY — deterministic execution campaign, English",
+            ratio: "1/1",
+          },
+          jp: {
+            src: "/projects/abelian/qday-multi-jp-2.jpg",
+            alt: "QDAY — deterministic execution campaign, Japanese",
+            ratio: "1/1",
+          },
+          kicker: "EN / JP · SAME SYSTEM",
+          caption: "Execution · Scaling · Computation — localised, not retrofitted.",
+        },
+      ],
+    },
+
+    /* ── subsection 02: ecosystem marketing ── */
+    ecosystem: {
+      label: "ECOSYSTEM MARKETING",
+      title: "SCALING A\nFUTURE-FACING BRAND.",
+      body: [
+        "A series of ecosystem-focused marketing campaigns designed to support adoption, staking initiatives and long-term community engagement.",
+        "The visual language emphasised clarity, credibility and futuristic storytelling while remaining accessible to a broad audience.",
+      ],
+      gallery: [
+        {
+          src: "/projects/abelian/qday-stake-1.jpg",
+          alt: "QDAY — Stake QDAY, Start Earning campaign",
+          ratio: "16/9",
+          kicker: "STAKING · ACQUISITION",
+          caption: "Stake QDAY, start earning — staking launch campaign.",
+        },
+        {
+          src: "/projects/abelian/qday-stake-2.jpg",
+          alt: "QDAY — Staking, secure the future campaign",
+          ratio: "16/9",
+          kicker: "STAKING · BRAND",
+          caption: "Staking — secure the future, 3D vault key visual.",
+        },
+      ] satisfies AbelianAsset[],
+    },
+
+    /* ── subsection 03: 3D visual systems ── */
+    visuals3d: {
+      label: "3D VISUAL SYSTEMS",
+      title: "VISUALIZING\nTHE FUTURE.",
+      body: [
+        "Premium 3D visuals were developed to reinforce QDAY's positioning as a next-generation infrastructure initiative.",
+        "Reflective materials, holographic elements and cinematic lighting created a visual identity capable of communicating innovation without relying on traditional crypto aesthetics.",
+      ],
+      gallery: [
+        {
+          src: "/projects/abelian/qday-3d-1.jpg",
+          alt: "QDAY — holographic chrome hand 3D key visual",
+          ratio: "1/1",
+          kicker: "3D · HOLOGRAPHIC",
+          caption: "Iridescent chrome — material study as brand signature.",
+        },
+        {
+          src: "/projects/abelian/qday-3d-2.jpg",
+          alt: "QDAY — CRT TV-head cinematic 3D composition",
+          ratio: "1/1",
+          kicker: "3D · CINEMATIC",
+          caption: "Q-Day TV — cinematic 3D character composition.",
+        },
+      ] satisfies AbelianAsset[],
+    },
+
+    /* ── outcome ── */
+    outcome: {
+      eyebrow: "OUTCOME",
+      body: [
+        "QDAY expanded the Abelian ecosystem through a scalable communication system designed for global audiences.",
+        "By combining multilingual campaigns, educational content, motion design and premium 3D visuals, the project helped make advanced post-quantum technologies more accessible while maintaining a strong and consistent brand presence across markets.",
+      ],
+    },
   },
 
   /* ───────── closing ───────── */

@@ -11,6 +11,43 @@ import { NextProject } from "@/components/projects/NextProject";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+/* ────────────────────────────────────────────────
+   YOUTUBE EMBED — responsive 16:9, privacy-friendly, no autoplay.
+   Rounded corners + subtle inner edge to match the project's frames.
+   ──────────────────────────────────────────────── */
+function YouTubeEmbed({
+  youtubeId,
+  title,
+}: {
+  youtubeId: string;
+  title: string;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.95, ease: EASE }}
+      className="relative w-full overflow-hidden bg-ink-700 aspect-video rounded-xl"
+    >
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${youtubeId}?rel=0&modestbranding=1&playsinline=1`}
+        title={title}
+        loading="lazy"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="absolute inset-0 w-full h-full"
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0 pointer-events-none rounded-xl"
+        style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}
+      />
+    </motion.div>
+  );
+}
+
+
 /* ════════════════════════════════════════════════════════════
    ABELIAN — bespoke editorial case study.
    Portfolio chrome stays pink (structure/nav). Abelian's own
@@ -29,8 +66,9 @@ export default function AbelianCaseStudy() {
       <SectionBrand />
       <SectionEducation />
       <SectionHako />
-      <SectionEvents />
       <SectionHakoMetal />
+      <SectionQday />
+      <SectionEvents />
       <Closing />
       <NextProject next={next} />
     </article>
@@ -266,46 +304,9 @@ function SectionBrand() {
             {s.motion.label}
           </p>
         </HoverReveal>
-        {s.motion.src ? (
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.95, ease: EASE }}
-            className="relative mt-6 w-full overflow-hidden bg-ink-700 aspect-video"
-          >
-            <video
-              src={s.motion.src}
-              poster={s.motion.poster}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </motion.div>
-        ) : (
-          <div
-            className="relative mt-6 w-full overflow-hidden border border-dashed border-bone-line grid place-items-center aspect-video"
-            style={{
-              background:
-                "radial-gradient(ellipse 60% 70% at 50% 50%, rgba(61,75,245,0.10), transparent 70%), #08080d",
-            }}
-          >
-            <div className="text-center px-6">
-              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" className="mx-auto mb-4">
-                <circle cx="12" cy="12" r="11" stroke="var(--brand)" strokeWidth="1.2" />
-                <path d="M10 8.5L16 12L10 15.5V8.5Z" fill="var(--brand)" />
-              </svg>
-              <p className="font-mono text-[11px] tracking-[0.26em] text-bone uppercase">
-                MOTION · TO BE ADDED
-              </p>
-              <p className="mt-2 font-mono text-[10px] tracking-[0.2em] text-bone-muted">
-                {s.motion.filename}
-              </p>
-            </div>
-          </div>
-        )}
+        <div className="mt-6">
+          <YouTubeEmbed youtubeId={s.motion.youtubeId} title={s.motion.videoTitle} />
+        </div>
         <p className="mt-4 font-mono text-[11px] tracking-[0.18em] text-bone-dim uppercase">
           {s.motion.caption}
         </p>
@@ -495,25 +496,7 @@ function SectionHako() {
             transition={{ duration: 1, ease: EASE }}
             className="m-0"
           >
-            <div className="relative w-full overflow-hidden bg-ink-700 aspect-video">
-              <video
-                src={s.motion.video.src}
-                poster={s.motion.video.poster}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label={s.motion.video.caption}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-              {/* subtle inner edge to seat the bright video in the dark page */}
-              <span
-                aria-hidden
-                className="absolute inset-0 pointer-events-none"
-                style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}
-              />
-            </div>
+            <YouTubeEmbed youtubeId={s.motion.video.youtubeId} title={s.motion.video.videoTitle} />
             <figcaption className="mt-4 flex items-start gap-3">
               <span className="block w-6 h-px mt-2 shrink-0" style={{ background: "var(--brand)" }} />
               <span>
@@ -593,8 +576,8 @@ function SectionEvents() {
         ))}
       </div>
 
-      {/* event film — PQBD 2025 recap */}
-      {s.motion?.src && (
+      {/* event highlights — PQBD 2025 (embedded YouTube) */}
+      {s.motion?.youtubeId && (
         <div className="page-x mt-12">
           <HoverReveal y={8}>
             <p className="h-eyebrow-dim">
@@ -602,24 +585,9 @@ function SectionEvents() {
               {s.motion.label}
             </p>
           </HoverReveal>
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.95, ease: EASE }}
-            className="relative mt-6 w-full overflow-hidden bg-ink-700 aspect-video"
-          >
-            <video
-              src={s.motion.src}
-              poster={s.motion.poster}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </motion.div>
+          <div className="mt-6">
+            <YouTubeEmbed youtubeId={s.motion.youtubeId} title={s.motion.videoTitle} />
+          </div>
           <p className="mt-4 font-mono text-[11px] tracking-[0.18em] text-bone-dim uppercase">
             {s.motion.caption}
           </p>
@@ -822,6 +790,219 @@ function SectionHakoMetal() {
               </span>
             </motion.div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ────────────────────────────────────────────────
+   SECTION 05 — QDAY Ecosystem (post-quantum initiative)
+   Intro + disciplines → multilingual system → ecosystem marketing → 3D → outcome
+   ──────────────────────────────────────────────── */
+function SectionQday() {
+  const s = abelian.qday;
+  return (
+    <section className="pt-24 md:pt-28">
+      {/* section head */}
+      <div className="page-x">
+        <HoverReveal y={8}>
+          <p className="flex items-baseline gap-4 h-eyebrow-dim">
+            <span className="h-display text-[clamp(2rem,4vw,3rem)] leading-none" style={{ color: "var(--brand)" }}>
+              {s.index}
+            </span>
+            <span>{s.eyebrow}</span>
+          </p>
+        </HoverReveal>
+        <div className="grid grid-cols-12 gap-8 mt-8">
+          <div className="col-span-12 lg:col-span-8">
+            <div className="overflow-hidden">
+              <HoverReveal y={60} delay={0.06}>
+                <h2 className="h-display text-[clamp(2.4rem,6.2vw,5.4rem)] leading-[0.9] whitespace-pre-line">
+                  {s.title}
+                </h2>
+              </HoverReveal>
+            </div>
+          </div>
+        </div>
+        <div className="mt-8 grid grid-cols-12 gap-8">
+          <div className="col-span-12 lg:col-span-7 space-y-5 max-w-2xl">
+            {s.intro.map((p, i) => (
+              <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                <p className="body-lead leading-[1.7]">{p}</p>
+              </HoverReveal>
+            ))}
+          </div>
+          {/* disciplines list */}
+          <div className="col-span-12 lg:col-span-4 lg:col-start-9">
+            <HoverReveal y={8}>
+              <p className="h-eyebrow-dim">DISCIPLINES</p>
+            </HoverReveal>
+            <ul className="mt-6 border-t border-bone-line">
+              {s.disciplines.map((d, i) => (
+                <HoverReveal key={d} y={10} delay={0.08 + i * 0.04}>
+                  <li className="flex items-center justify-between py-3 border-b border-bone-line">
+                    <span className="font-mono text-[12px] tracking-[0.14em] text-bone uppercase">
+                      {d}
+                    </span>
+                    <span className="font-mono text-[10px] tracking-[0.22em] text-bone-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </li>
+                </HoverReveal>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* SUBSECTION 01: multilingual communication system */}
+      <div className="page-x mt-20">
+        <HoverReveal y={8}>
+          <p className="h-eyebrow-dim">
+            <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+            {s.multilingual.label}
+          </p>
+        </HoverReveal>
+        <div className="grid grid-cols-12 gap-8 mt-7">
+          <div className="col-span-12 lg:col-span-7">
+            <div className="overflow-hidden">
+              <HoverReveal y={50} delay={0.06}>
+                <h3 className="h-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[0.92] whitespace-pre-line">
+                  {s.multilingual.title}
+                </h3>
+              </HoverReveal>
+            </div>
+          </div>
+          <div className="col-span-12 lg:col-span-5 self-end space-y-4">
+            {s.multilingual.body.map((p, i) => (
+              <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                <p className="body-lead leading-[1.7] max-w-md">{p}</p>
+              </HoverReveal>
+            ))}
+          </div>
+        </div>
+        {/* EN / JP pairs */}
+        <div className="mt-10 space-y-8">
+          {s.multilingual.pairs.map((pair, i) => (
+            <motion.figure
+              key={i}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-8%" }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="m-0"
+            >
+              <div className="grid grid-cols-2 gap-4 sm:gap-6">
+                <div className="relative overflow-hidden bg-ink-700 group" style={{ aspectRatio: pair.en.ratio ?? "1/1" }}>
+                  <Image src={pair.en.src} alt={pair.en.alt} fill sizes="(min-width:640px) 50vw, 50vw" className="object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]" />
+                  <span className="absolute top-3 left-3 font-mono text-[9px] tracking-[0.2em] text-bone/70 bg-ink/60 px-2 py-1 uppercase">EN</span>
+                </div>
+                <div className="relative overflow-hidden bg-ink-700 group" style={{ aspectRatio: pair.jp.ratio ?? "1/1" }}>
+                  <Image src={pair.jp.src} alt={pair.jp.alt} fill sizes="(min-width:640px) 50vw, 50vw" className="object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]" />
+                  <span className="absolute top-3 left-3 font-mono text-[9px] tracking-[0.2em] text-bone/70 bg-ink/60 px-2 py-1 uppercase">JP</span>
+                </div>
+              </div>
+              <figcaption className="mt-3 flex items-start gap-3">
+                <span className="block w-6 h-px mt-2 shrink-0" style={{ background: "var(--brand)" }} />
+                <span>
+                  <span className="block font-mono text-[10px] tracking-[0.24em] uppercase" style={{ color: "var(--brand)" }}>
+                    {pair.kicker}
+                  </span>
+                  <span className="block mt-1 font-mono text-[11px] tracking-[0.14em] text-bone-dim uppercase leading-[1.5]">
+                    {pair.caption}
+                  </span>
+                </span>
+              </figcaption>
+            </motion.figure>
+          ))}
+        </div>
+      </div>
+
+      {/* SUBSECTION 02: ecosystem marketing */}
+      <div className="pt-20">
+        <div className="page-x">
+          <HoverReveal y={8}>
+            <p className="h-eyebrow-dim">
+              <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+              {s.ecosystem.label}
+            </p>
+          </HoverReveal>
+          <div className="grid grid-cols-12 gap-8 mt-7">
+            <div className="col-span-12 lg:col-span-7">
+              <div className="overflow-hidden">
+                <HoverReveal y={50} delay={0.06}>
+                  <h3 className="h-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[0.92] whitespace-pre-line">
+                    {s.ecosystem.title}
+                  </h3>
+                </HoverReveal>
+              </div>
+            </div>
+            <div className="col-span-12 lg:col-span-5 self-end space-y-4">
+              {s.ecosystem.body.map((p, i) => (
+                <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                  <p className="body-lead leading-[1.7] max-w-md">{p}</p>
+                </HoverReveal>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="page-x mt-10 grid grid-cols-1 gap-6">
+          {s.ecosystem.gallery.map((a, i) => (
+            <Frame key={i} asset={a} delay={i * 0.08} />
+          ))}
+        </div>
+      </div>
+
+      {/* SUBSECTION 03: 3D visual systems */}
+      <div className="page-x mt-20">
+        <HoverReveal y={8}>
+          <p className="h-eyebrow-dim">
+            <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+            {s.visuals3d.label}
+          </p>
+        </HoverReveal>
+        <div className="grid grid-cols-12 gap-8 mt-7">
+          <div className="col-span-12 lg:col-span-7">
+            <div className="overflow-hidden">
+              <HoverReveal y={50} delay={0.06}>
+                <h3 className="h-display text-[clamp(2rem,4.6vw,3.6rem)] leading-[0.92] whitespace-pre-line">
+                  {s.visuals3d.title}
+                </h3>
+              </HoverReveal>
+            </div>
+          </div>
+          <div className="col-span-12 lg:col-span-5 self-end space-y-4">
+            {s.visuals3d.body.map((p, i) => (
+              <HoverReveal key={i} y={12} delay={0.12 + i * 0.06}>
+                <p className="body-lead leading-[1.7] max-w-md">{p}</p>
+              </HoverReveal>
+            ))}
+          </div>
+        </div>
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {s.visuals3d.gallery.map((a, i) => (
+            <Frame key={i} asset={a} delay={i * 0.1} />
+          ))}
+        </div>
+      </div>
+
+      {/* OUTCOME */}
+      <div className="page-x mt-20">
+        <div className="border-t border-bone-line pt-12">
+          <HoverReveal y={8}>
+            <p className="h-eyebrow-dim">
+              <span className="inline-block w-1.5 h-1.5 rounded-full align-middle mr-2" style={{ background: "var(--brand)" }} />
+              {s.outcome.eyebrow}
+            </p>
+          </HoverReveal>
+          <div className="mt-6 space-y-4 max-w-3xl">
+            {s.outcome.body.map((p, i) => (
+              <HoverReveal key={i} y={12} delay={0.1 + i * 0.06}>
+                <p className="body-lead leading-[1.7]">{p}</p>
+              </HoverReveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>

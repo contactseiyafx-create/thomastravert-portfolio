@@ -6,17 +6,20 @@ import { ProjectOverview } from "@/components/projects/ProjectOverview";
 import {
   ProjectGallery,
   MotionSection,
+  ExternalLinkSection,
 } from "@/components/projects/ProjectGallery";
 import { NextProject } from "@/components/projects/NextProject";
 
 type Props = { params: { slug: string } };
 
 export function generateStaticParams() {
-  // `abelian` has a bespoke editorial page at app/work/abelian/page.tsx,
-  // which takes precedence over this dynamic route. Exclude it here so
-  // the two never collide at build time.
+  // Bespoke editorial pages take precedence over this dynamic route.
   return projects
-    .filter((p) => p.slug !== "abelian")
+    .filter(
+      (p) =>
+        p.slug !== "abelian" &&
+        p.slug !== "atletec-zwift-racing-league",
+    )
     .map((p) => ({ slug: p.slug }));
 }
 
@@ -49,6 +52,7 @@ export default function ProjectPage({ params }: Props) {
       <ProjectOverview project={project} />
       <ProjectGallery project={project} />
       <MotionSection project={project} />
+      <ExternalLinkSection project={project} />
       <NextProject next={next} />
     </article>
   );

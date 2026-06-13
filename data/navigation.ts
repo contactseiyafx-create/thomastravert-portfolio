@@ -16,6 +16,7 @@ export const navigation: NavItem[] = [
   { label: "2070 PROJECTS", href: "/2070", accent: true },
   { label: "MOTION", href: "/motion" },
   { label: "ABOUT", href: "/about" },
+  { label: "LAB", href: "/lab", accent: true },
   { label: "CONTACT", href: "/contact" },
 ];
 
