@@ -558,7 +558,10 @@ function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
       </div>
 
       {/* the app itself */}
-      <div className="absolute inset-0 pt-[var(--nav-h)] overflow-y-auto overscroll-contain">
+      <div
+        data-lenis-prevent
+        className="absolute inset-0 h-screen overflow-y-auto overscroll-contain pt-[var(--nav-h)]"
+      >
         {app.id === "glyph-engine" ? (
           <GlyphEngine />
         ) : app.id === "shinshoku-interview-rpg" ? (

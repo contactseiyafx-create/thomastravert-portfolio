@@ -292,7 +292,7 @@ export function ShinshokuInterviewRPG() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-var(--nav-h))] bg-[#060d1a] text-white">
+    <div className="min-h-full bg-[#060d1a] text-white">
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0"
