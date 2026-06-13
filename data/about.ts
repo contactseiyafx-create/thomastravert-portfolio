@@ -78,7 +78,7 @@ export const about = {
     /** Handwritten script overlay under the title */
     signature: "Travert Thomas",
     eyebrow: "TOKYO BASED",
-    roles: ["ART DIRECTOR", "& MULTIMEDIA DESIGNER"],
+    roles: ["ART DIRECTOR", "& SENIOR MULTIMEDIA DESIGNER"],
     bio: "I create visual experiences through art direction, motion design, branding and illustration, adapting each project to the unique needs of its industry, audience and goals.",
   },
 

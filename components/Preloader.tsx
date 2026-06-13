@@ -69,7 +69,7 @@ export function Preloader() {
               TRAVERT THOMAS
             </motion.h1>
 
-            {/* ART DIRECTOR / & MULTIMEDIA DESIGNER — stacked */}
+            {/* ART DIRECTOR / & SENIOR MULTIMEDIA DESIGNER — stacked */}
             <motion.p
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -82,7 +82,7 @@ export function Preloader() {
             >
               ART DIRECTOR
               <br />
-              &amp; MULTIMEDIA DESIGNER
+              &amp; SENIOR MULTIMEDIA DESIGNER
             </motion.p>
 
             {/* INITIALIZING… — blinking signal pink */}

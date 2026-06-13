@@ -2,7 +2,7 @@
   "name": "thomas-travert-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Thomas Travert — Tokyo-based creative director portfolio. Next.js App Router + Tailwind + Framer Motion + Lenis.",
+  "description": "Thomas Travert — Tokyo-based art director and senior multimedia designer portfolio. Next.js App Router + Tailwind + Framer Motion + Lenis.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

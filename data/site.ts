@@ -12,7 +12,7 @@ export const site = {
   domain: "thomastravert.com",
   url: "https://thomastravert.com",
   description:
-    "Tokyo-based art director & multimedia designer. Crafting visuals that move people — from concept to final pixel.",
+    "Tokyo-based art director & senior multimedia designer. Crafting visuals that move people — from concept to final pixel.",
   ogImage: "/images/og.jpg",
   locale: "en_US",
 
@@ -20,7 +20,7 @@ export const site = {
   brand: {
     wordmark: "2070",
     logoSvg: "/logotvtthomas.svg",
-    role: "Creative Director",
+    role: "Art Director & Senior Multimedia Designer",
     city: "Tokyo",
     cityJp: "東京",
     handle: "@thomastravert",
@@ -33,7 +33,7 @@ export const site = {
     titleLine2: "THOMAS",
     nameJp: "トラバト・トーマス",
     role: "ART DIRECTOR",
-    roleLine2: "& MULTIMEDIA DESIGNER",
+    roleLine2: "& SENIOR MULTIMEDIA DESIGNER",
     intro: [
       "I craft visuals that move people.",
       "From concept to final pixel,",
@@ -72,7 +72,7 @@ export const site = {
 
   /* Side rail */
   sideRail: {
-    labels: ["TOKYO BASED", "CREATIVE DIRECTOR", "TRAVERT"],
+    labels: ["TOKYO BASED", "ART DIRECTOR", "SENIOR MULTIMEDIA DESIGNER"],
   },
 
   /* CTAs in navbar */

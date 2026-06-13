@@ -15,8 +15,8 @@ const LEVELS: Record<number, string> = {
   6: "Intermediate Interview Japanese",
   7: "Japanese Company Interview",
   8: "Senior Designer Interview",
-  9: "Creative Lead Interview",
-  10: "Executive / Creative Director Interview",
+  9: "Senior Multimedia Designer Interview",
+  10: "Executive / Senior Multimedia Designer Interview",
 };
 
 const ACHIEVEMENTS: Record<string, string> = {
@@ -27,7 +27,7 @@ const ACHIEVEMENTS: Record<string, string> = {
   fluent: "Fluent Response",
   survivor: "Interview Survivor",
   level5: "Business Japanese Unlocked",
-  level10: "Creative Director",
+  level10: "Senior Multimedia Designer",
 };
 
 const STAT_KEYS = [

@@ -8,7 +8,7 @@ import { SocialIcon } from "./SocialIcon";
 
 /**
  * Fixed left rail.
- *  ─ rotated labels ("TOKYO BASED — CREATIVE DIRECTOR — TRAVERT")
+ *  ─ rotated labels ("TOKYO BASED — ART DIRECTOR — SENIOR MULTIMEDIA DESIGNER")
  *  ─ social icons stack
  *  ─ thin animated divider lines
  */

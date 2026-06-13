@@ -24,7 +24,7 @@ export function Hero() {
     <section className="relative min-h-screen w-full overflow-hidden">
       {/* ════════════════════════════════════════════════
           LAYER 1 — BACKGROUND  (data-driven)
-          For video: 25% opacity + 3px blur per brief, atmospheric only.
+          For video: 55% opacity + 3px blur per brief, atmospheric only.
           Mobile renders the poster JPG instead of autoplaying the video.
           ════════════════════════════════════════════════ */}
       <div className="absolute inset-0 z-0">
@@ -48,7 +48,7 @@ export function Hero() {
                 absolute inset-0 w-full h-full object-cover scale-105
               "
               style={{
-                opacity: 0.25,
+                opacity: 0.55,
                 filter: "blur(3px)",
               }}
             />
@@ -63,7 +63,7 @@ export function Hero() {
                   absolute inset-0 w-full h-full object-cover scale-105
                 "
                 style={{
-                  opacity: 0.25,
+                  opacity: 0.55,
                   filter: "blur(3px)",
                 }}
               />
@@ -96,13 +96,6 @@ export function Hero() {
           <div className="absolute inset-0 z-[3] grain pointer-events-none" />
         </>
       )}
-
-      {/* ════════════════════════════════════════════════
-          LAYER 3 — GRID OVERLAY  (preserved from existing DA)
-          Faint white wireframe — was inside AmbientField when slot empty,
-          extracted here so it remains visible above the video.
-          ════════════════════════════════════════════════ */}
-      <HeroGrid />
 
       {/* overlay to anchor left text (kept) */}
       <div
@@ -231,7 +224,7 @@ export function Hero() {
 
 /**
  * Subtle ambient backdrop for an empty hero slot.
- * Pure CSS: animated radial pinks + faint grid.
+ * Pure CSS: animated radial pinks.
  * Replace with your AE composition by setting hero.background.kind="video".
  */
 function AmbientField() {
@@ -245,52 +238,10 @@ function AmbientField() {
             "radial-gradient(ellipse 60% 60% at 78% 50%, rgba(255,46,136,0.16), transparent 60%), radial-gradient(ellipse 40% 50% at 60% 80%, rgba(255,46,136,0.08), transparent 60%), #050505",
         }}
       />
-      {/* Faint grid */}
-      <div
-        className="absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-          maskImage:
-            "radial-gradient(ellipse at center, black 30%, transparent 70%)",
-        }}
-      />
       {/* Pink diagonal flare */}
       <div
         className="absolute -right-1/4 top-1/3 w-[60vw] h-[60vw] rounded-full blur-3xl"
         style={{ background: "radial-gradient(circle, rgba(255,46,136,0.18), transparent 60%)" }}
-      />
-    </div>
-  );
-}
-
-/**
- * Persistent grid overlay — always rendered, sits above any background
- * (video, image or empty). Preserves the wireframe + faint pink flare
- * that were previously only visible when the slot was empty.
- */
-function HeroGrid() {
-  return (
-    <div className="absolute inset-0 z-[4] pointer-events-none">
-      {/* Faint grid */}
-      <div
-        className="absolute inset-0 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)",
-          backgroundSize: "80px 80px",
-          maskImage:
-            "radial-gradient(ellipse at center, black 30%, transparent 70%)",
-        }}
-      />
-      {/* Pink diagonal flare */}
-      <div
-        className="absolute -right-1/4 top-1/3 w-[60vw] h-[60vw] rounded-full blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(255,46,136,0.18), transparent 60%)",
-        }}
       />
     </div>
   );
