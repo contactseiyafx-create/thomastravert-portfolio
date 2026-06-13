@@ -148,6 +148,8 @@ export function ShinshokuInterviewRPG() {
   const [error, setError] = useState<string | null>(null);
   const [turnCount, setTurnCount] = useState(0);
   const feedbackRef = useRef<HTMLDivElement>(null);
+  const answerRef = useRef<HTMLTextAreaElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   const statTotal = useMemo(
     () => Math.round(STAT_KEYS.reduce((sum, key) => sum + stats[key], 0) / STAT_KEYS.length),
@@ -159,6 +161,58 @@ export function ShinshokuInterviewRPG() {
       ...current,
       [key]: Math.min(100, current[key] + amount),
     }));
+  };
+
+  const appendAnswer = (text: string) => {
+    setInput((current) => [current.trim(), text.trim()].filter(Boolean).join("\n"));
+    window.setTimeout(() => answerRef.current?.focus(), 30);
+  };
+
+  const useTemplate = () => {
+    const nextTemplate = dictionary.template.jp
+      .replace("（国）", "フランス")
+      .replace("（場所）", "東京")
+      .replace("（職業）", "デザイナー")
+      .replace("（年数）", "10")
+      .replace("（ポイント）", "デザイン経験")
+      .replace("（経験）", "ブランドデザインの経験")
+      .replace("（貢献）", "貢献");
+
+    setInput(nextTemplate);
+    window.setTimeout(() => answerRef.current?.focus(), 30);
+  };
+
+  const resetInterview = () => {
+    setLevel(1);
+    setXp(0);
+    setStats({
+      Grammar: 20,
+      Vocabulary: 20,
+      Fluency: 15,
+      Confidence: 25,
+      "Business Japanese": 10,
+    });
+    setUnlocked(["first_interview"]);
+    setQuestion(FIRST_QUESTION);
+    setDictionary(FIRST_DICTIONARY);
+    setMission("Complete your self-introduction in Japanese.");
+    setInput("");
+    setFeedback(null);
+    setError(null);
+    setTurnCount(0);
+  };
+
+  const speak = (text?: string) => {
+    if (!text || typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "ja-JP";
+    utterance.rate = 0.82;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const scrollToBottom = () => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   };
 
   async function submit() {
@@ -238,7 +292,7 @@ export function ShinshokuInterviewRPG() {
   }
 
   return (
-    <div className="h-full min-h-[calc(100vh-var(--nav-h))] overflow-y-auto bg-[#060d1a] text-white">
+    <div className="min-h-[calc(100vh-var(--nav-h))] bg-[#060d1a] text-white">
       <div
         aria-hidden
         className="pointer-events-none fixed inset-0"
@@ -263,6 +317,29 @@ export function ShinshokuInterviewRPG() {
             <p className="mt-4 text-sm leading-6 text-white/66">
               Practice Japanese job interviews for creative roles. Answer, earn XP, unlock harder recruiter questions.
             </p>
+            <div className="mt-5 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => speak(question.jp)}
+                className="rounded-lg border border-white/10 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/70 transition-colors hover:border-[#00E5FF] hover:text-white"
+              >
+                Listen
+              </button>
+              <button
+                type="button"
+                onClick={scrollToBottom}
+                className="rounded-lg border border-white/10 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/70 transition-colors hover:border-[#00E5FF] hover:text-white"
+              >
+                Bottom
+              </button>
+              <button
+                type="button"
+                onClick={resetInterview}
+                className="col-span-2 rounded-lg border border-white/10 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/70 transition-colors hover:border-[#FF2E88] hover:text-white"
+              >
+                Reset
+              </button>
+            </div>
           </header>
 
           <Panel title="Player Status" accent={CYAN}>
@@ -314,6 +391,27 @@ export function ShinshokuInterviewRPG() {
               })}
             </div>
           </Panel>
+
+          <Panel title="Interview Run" accent={CYAN}>
+            <div className="grid grid-cols-2 gap-3 text-center">
+              <div className="rounded-lg border border-white/10 bg-black/20 p-3">
+                <div className="font-mono text-2xl font-semibold" style={{ color: CYAN }}>
+                  {turnCount}
+                </div>
+                <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-white/40">
+                  answers
+                </p>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-black/20 p-3">
+                <div className="font-mono text-2xl font-semibold" style={{ color: PINK }}>
+                  {unlocked.length}
+                </div>
+                <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-white/40">
+                  badges
+                </p>
+              </div>
+            </div>
+          </Panel>
         </aside>
 
         <main className="space-y-4 pb-12">
@@ -331,7 +429,12 @@ export function ShinshokuInterviewRPG() {
             </Panel>
           </div>
 
-          <SurvivalDictionaryPanel data={dictionary} />
+          <SurvivalDictionaryPanel
+            data={dictionary}
+            onAppend={appendAnswer}
+            onTemplate={useTemplate}
+            onSpeak={speak}
+          />
 
           <Panel title="Recruiter Question" accent={PINK}>
             <JPBlock data={question} big accent={CYAN} />
@@ -339,13 +442,40 @@ export function ShinshokuInterviewRPG() {
 
           <Panel title="Your Answer" accent={CYAN}>
             <textarea
+              ref={answerRef}
               value={input}
               onChange={(event) => setInput(event.target.value)}
               placeholder="日本語で答えてください... romaji is OK too"
               rows={4}
               className="min-h-[120px] w-full resize-y rounded-lg border border-white/10 bg-black/35 px-4 py-3 text-[15px] leading-6 text-white placeholder:text-white/30 focus:border-[#00E5FF] focus:outline-none"
             />
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              <button
+                type="button"
+                onClick={useTemplate}
+                disabled={loading}
+                className="rounded-lg border border-white/10 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/65 transition-colors hover:border-[#00E5FF] hover:text-white disabled:opacity-40"
+              >
+                Use template
+              </button>
+              <button
+                type="button"
+                onClick={() => appendAnswer(dictionary.useful_sentences[0]?.jp || "")}
+                disabled={loading}
+                className="rounded-lg border border-white/10 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/65 transition-colors hover:border-[#00E5FF] hover:text-white disabled:opacity-40"
+              >
+                Add phrase
+              </button>
+              <button
+                type="button"
+                onClick={() => speak(input || question.jp)}
+                disabled={loading}
+                className="rounded-lg border border-white/10 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/65 transition-colors hover:border-[#FF2E88] hover:text-white disabled:opacity-40"
+              >
+                Read aloud
+              </button>
+            </div>
+            <div className="mt-3 flex flex-col gap-3 sm:flex-row">
               <button
                 type="button"
                 onClick={submit}
@@ -365,7 +495,7 @@ export function ShinshokuInterviewRPG() {
               </button>
             </div>
             <p className="mt-3 text-xs leading-5 text-white/40">
-              Short answers are fine. The system scores the attempt and prepares the next question.
+              Click template, vocab, useful sentences, or emergency answers to build your response faster.
             </p>
           </Panel>
 
@@ -388,6 +518,16 @@ export function ShinshokuInterviewRPG() {
               <FeedbackPanel feedback={feedback} />
             </section>
           )}
+
+          <div ref={bottomRef} className="pb-24 pt-8 text-center">
+            <button
+              type="button"
+              onClick={() => answerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
+              className="rounded-full border border-white/10 px-5 py-3 font-mono text-[10px] uppercase tracking-[0.18em] text-white/50 transition-colors hover:border-[#00E5FF] hover:text-white"
+            >
+              Back to answer
+            </button>
+          </div>
         </main>
       </div>
     </div>
@@ -450,12 +590,22 @@ function FeedbackPanel({ feedback }: { feedback: Feedback }) {
   );
 }
 
-function SurvivalDictionaryPanel({ data }: { data: SurvivalDictionary }) {
+function SurvivalDictionaryPanel({
+  data,
+  onAppend,
+  onTemplate,
+  onSpeak,
+}: {
+  data: SurvivalDictionary;
+  onAppend: (text: string) => void;
+  onTemplate: () => void;
+  onSpeak: (text?: string) => void;
+}) {
   return (
     <Panel title="Interview Survival Dictionary" accent={CYAN}>
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(280px,0.8fr)]">
         <div className="space-y-5">
-          <VocabTable vocab={data.vocab} />
+          <VocabTable vocab={data.vocab} onAppend={onAppend} />
           <div>
             <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: PINK }}>
               How to answer
@@ -468,7 +618,25 @@ function SurvivalDictionaryPanel({ data }: { data: SurvivalDictionary }) {
             </p>
             <div className="space-y-3">
               {data.useful_sentences.map((sentence, index) => (
-                <JPBlock key={index} data={sentence} accent={CYAN} />
+                <div key={index} className="rounded-lg border border-white/10 bg-black/15 p-3">
+                  <JPBlock data={sentence} accent={CYAN} />
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => onAppend(sentence.jp)}
+                      className="rounded-full border border-white/10 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-white/55 transition-colors hover:border-[#00E5FF] hover:text-white"
+                    >
+                      Add to answer
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onSpeak(sentence.jp)}
+                      className="rounded-full border border-white/10 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-white/55 transition-colors hover:border-[#FF2E88] hover:text-white"
+                    >
+                      Listen
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -481,6 +649,13 @@ function SurvivalDictionaryPanel({ data }: { data: SurvivalDictionary }) {
             <div className="grid gap-3">
               <MultiLine text={data.template.jp} strong />
               <MultiLine text={data.template.en} />
+              <button
+                type="button"
+                onClick={onTemplate}
+                className="rounded-lg border border-white/10 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.16em] text-white/65 transition-colors hover:border-[#00E5FF] hover:text-white"
+              >
+                Fill answer with template
+              </button>
             </div>
           </div>
           <div>
@@ -489,11 +664,16 @@ function SurvivalDictionaryPanel({ data }: { data: SurvivalDictionary }) {
             </p>
             <div className="space-y-3">
               {data.emergency.map((item, index) => (
-                <div key={index} className="border-l border-white/10 pl-3">
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => onAppend(item.jp)}
+                  className="block w-full rounded-lg border border-white/10 bg-black/15 p-3 text-left transition-colors hover:border-[#FF2E88]"
+                >
                   <p className="text-sm text-white">{item.jp}</p>
                   <p className="text-xs italic text-white/42">{item.romaji}</p>
                   <p className="text-xs" style={{ color: CYAN }}>{item.en}</p>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -564,7 +744,13 @@ function JPBlock({ data, accent, big = false }: { data?: JPLine; accent: string;
   );
 }
 
-function VocabTable({ vocab }: { vocab?: Array<{ jp: string; furigana: string; en: string }> }) {
+function VocabTable({
+  vocab,
+  onAppend,
+}: {
+  vocab?: Array<{ jp: string; furigana: string; en: string }>;
+  onAppend?: (text: string) => void;
+}) {
   if (!vocab?.length) return null;
 
   return (
@@ -580,7 +766,19 @@ function VocabTable({ vocab }: { vocab?: Array<{ jp: string; furigana: string; e
         <tbody>
           {vocab.map((item, index) => (
             <tr key={`${item.jp}-${index}`} className="border-t border-white/10">
-              <td className="px-3 py-2 text-base text-white">{item.jp}</td>
+              <td className="px-3 py-2 text-base text-white">
+                {onAppend ? (
+                  <button
+                    type="button"
+                    onClick={() => onAppend(item.jp)}
+                    className="rounded px-1 text-left transition-colors hover:bg-white/10"
+                  >
+                    {item.jp}
+                  </button>
+                ) : (
+                  item.jp
+                )}
+              </td>
               <td className="px-3 py-2" style={{ color: CYAN }}>{item.furigana}</td>
               <td className="px-3 py-2 text-white/72">{item.en}</td>
             </tr>
