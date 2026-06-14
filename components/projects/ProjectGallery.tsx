@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import type { Project, ProjectImage } from "@/data/projects";
+import type { MotionVideo, Project, ProjectImage } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useLanguage } from "@/components/LanguageProvider";
+import { useProjectCopy } from "./projectCopy";
 
 /**
  * Detail-page gallery.
@@ -19,6 +21,9 @@ import { HoverReveal } from "@/components/HoverReveal";
  * the side column shows the alt text in micro-typography.
  */
 export function ProjectGallery({ project }: { project: Project }) {
+  const { t } = useLanguage();
+  const copy = useProjectCopy(project);
+
   if (!project.gallery || project.gallery.length === 0) return null;
 
   return (
@@ -27,7 +32,7 @@ export function ProjectGallery({ project }: { project: Project }) {
         <HoverReveal y={8}>
           <p className="h-eyebrow-dim">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal align-middle mr-2" />
-            VISUAL GALLERY
+            {t("project.visualGallery")}
           </p>
         </HoverReveal>
       </div>
@@ -35,8 +40,17 @@ export function ProjectGallery({ project }: { project: Project }) {
       <div className="mt-10 space-y-12 md:space-y-16">
         {project.gallery.map((img, i) => {
           const mode = i % 4;
+          const caption = copy.galleryCaption(img, i);
+          const alt = copy.galleryAlt(img, i);
           if (mode === 0 || mode === 3) {
-            return <FullWidthFrame key={i} img={img} i={i} />;
+            return (
+              <FullWidthFrame
+                key={i}
+                img={img}
+                i={i}
+                caption={caption}
+              />
+            );
           }
           const reverse = mode === 2;
           return (
@@ -46,6 +60,8 @@ export function ProjectGallery({ project }: { project: Project }) {
               i={i}
               reverse={reverse}
               total={project.gallery.length}
+              caption={caption}
+              alt={alt}
             />
           );
         })}
@@ -58,7 +74,15 @@ export function ProjectGallery({ project }: { project: Project }) {
    FULL-WIDTH FRAME
    ──────────────────────────────────────────────── */
 
-function FullWidthFrame({ img, i }: { img: ProjectImage; i: number }) {
+function FullWidthFrame({
+  img,
+  i,
+  caption,
+}: {
+  img: ProjectImage;
+  i: number;
+  caption?: string;
+}) {
   return (
     <motion.figure
       initial={{ opacity: 0, y: 24 }}
@@ -73,13 +97,13 @@ function FullWidthFrame({ img, i }: { img: ProjectImage; i: number }) {
       >
         <MediaFrame img={img} sizes="100vw" />
       </div>
-      {img.caption && (
+      {caption && (
         <figcaption className="mt-4 flex items-center gap-4">
           <span className="font-mono text-[10px] tracking-[0.22em] text-signal">
             {String(i + 1).padStart(2, "0")}
           </span>
           <span className="font-mono text-[11px] tracking-[0.18em] text-bone-dim uppercase">
-            {img.caption}
+            {caption}
           </span>
         </figcaption>
       )}
@@ -96,11 +120,15 @@ function SplitFrame({
   i,
   reverse,
   total,
+  caption,
+  alt,
 }: {
   img: ProjectImage;
   i: number;
   reverse: boolean;
   total: number;
+  caption?: string;
+  alt: string;
 }) {
   return (
     <figure className="page-x">
@@ -137,7 +165,7 @@ function SplitFrame({
           </HoverReveal>
           <HoverReveal y={14} delay={0.08}>
             <p className="font-mono text-[12px] tracking-[0.16em] text-bone uppercase leading-[1.6]">
-              {img.caption ?? img.alt}
+              {caption ?? alt}
             </p>
           </HoverReveal>
           <HoverReveal y={6} delay={0.16}>
@@ -154,40 +182,113 @@ function SplitFrame({
    ──────────────────────────────────────────────── */
 
 export function MotionSection({ project }: { project: Project }) {
-  if (!project.motion?.src) return null;
-  const { src, poster, caption } = project.motion;
+  const { t } = useLanguage();
+  const copy = useProjectCopy(project);
+  const legacyVideo = project.motion?.src
+    ? [
+        {
+          kind: "video",
+          src: project.motion.src,
+          poster: project.motion.poster,
+          title: copy.motionTitle ?? t("project.motion"),
+          caption: copy.motionCaption,
+          type: "video/mp4",
+          featured: true,
+        } satisfies MotionVideo,
+      ]
+    : [];
+  const videos = project.motion?.videos ?? legacyVideo;
+
+  if (!project.motion || videos.length === 0) return null;
 
   return (
     <section className="page-x pt-24 pb-16">
-      <HoverReveal y={8}>
-        <p className="h-eyebrow-dim">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal align-middle mr-2" />
-          MOTION
-        </p>
-      </HoverReveal>
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
-        className="relative mt-8 w-full overflow-hidden bg-ink-700 aspect-video"
-      >
-        <video
-          src={src}
-          poster={poster}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-      </motion.div>
-      {caption && (
-        <p className="mt-4 font-mono text-[11px] tracking-[0.18em] text-bone-dim uppercase">
-          {caption}
-        </p>
-      )}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+        <div className="lg:col-span-5">
+          <HoverReveal y={8}>
+            <p className="h-eyebrow-dim">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal align-middle mr-2" />
+              {copy.motionTitle ?? t("project.motion")}
+            </p>
+          </HoverReveal>
+          {copy.motionDescription && (
+            <HoverReveal y={18} delay={0.1}>
+              <p className="mt-6 body-lead leading-[1.7]">
+                {copy.motionDescription}
+              </p>
+            </HoverReveal>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-10 space-y-6 lg:space-y-8">
+        {videos.map((video, index) => (
+          <MotionVideoFrame
+            key={`${video.kind}-${index}`}
+            video={video}
+            title={copy.motionVideoTitle(video, index)}
+            caption={copy.motionVideoCaption(video, index)}
+            featured={index === 0 || video.featured}
+          />
+        ))}
+      </div>
     </section>
+  );
+}
+
+function MotionVideoFrame({
+  video,
+  title,
+  caption,
+  featured,
+}: {
+  video: MotionVideo;
+  title: string;
+  caption?: string;
+  featured?: boolean;
+}) {
+  return (
+    <motion.figure
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+      className={featured ? "w-full" : "w-full lg:w-[72%]"}
+    >
+      <div className="relative aspect-video w-full overflow-hidden rounded-[18px] bg-ink-700 shadow-[0_30px_90px_rgba(0,0,0,0.32)]">
+        {video.kind === "youtube" ? (
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
+            title={title}
+            loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="absolute inset-0 h-full w-full"
+          />
+        ) : (
+          <video
+            src={video.src}
+            poster={video.poster}
+            controls
+            preload="metadata"
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            {video.type && <source src={video.src} type={video.type} />}
+          </video>
+        )}
+      </div>
+      <figcaption className="mt-4 flex flex-col gap-1 md:flex-row md:items-baseline md:gap-4">
+        <span className="font-mono text-[10px] tracking-[0.22em] text-signal uppercase">
+          {title}
+        </span>
+        {caption && (
+          <span className="font-mono text-[11px] tracking-[0.16em] text-bone-dim uppercase">
+            {caption}
+          </span>
+        )}
+      </figcaption>
+    </motion.figure>
   );
 }
 
@@ -197,11 +298,12 @@ export function MotionSection({ project }: { project: Project }) {
    ──────────────────────────────────────────────── */
 
 export function ExternalLinkSection({ project }: { project: Project }) {
+  const { t } = useLanguage();
   if (!project.externalUrl) return null;
   const isBehance = /behance\.net/i.test(project.externalUrl);
   const label = isBehance
-    ? "View Full Project on Behance"
-    : "View Full Project";
+    ? t("project.viewBehance")
+    : t("project.viewProject");
 
   return (
     <section className="page-x pt-16 pb-8">
@@ -216,7 +318,7 @@ export function ExternalLinkSection({ project }: { project: Project }) {
         className="group relative flex items-center justify-between gap-6 border-t border-b border-bone-line py-8 hover:border-signal/60 transition-colors duration-500"
       >
         <span className="flex flex-col gap-2">
-          <span className="h-eyebrow-dim">EXTERNAL</span>
+          <span className="h-eyebrow-dim">{t("project.external")}</span>
           <span className="h-display text-[clamp(1.4rem,3vw,2.4rem)] leading-[1] group-hover:text-signal transition-colors duration-500">
             {label}
           </span>

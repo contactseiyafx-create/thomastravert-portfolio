@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { projects, projectFilters } from "@/data/projects";
 import type { ProjectCategory } from "@/data/projects";
 import { ProjectRow, ProjectGridCard } from "./ProjectCard";
+import { useLanguage } from "@/components/LanguageProvider";
 
 type Filter = "ALL" | ProjectCategory;
 type ViewMode = "list" | "grid";
@@ -16,6 +17,7 @@ type ViewMode = "list" | "grid";
  * - Filter / view state is in-memory (no querystring) — the grid stays light.
  */
 export function ProjectGrid() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState<Filter>("ALL");
   const [view, setView] = useState<ViewMode>("list");
 
@@ -65,7 +67,7 @@ export function ProjectGrid() {
         {/* View toggle */}
         <div className="flex items-center gap-3">
           <span className="font-mono text-[10px] tracking-[0.22em] text-bone-muted">
-            VIEW
+            {t("project.viewMode")}
           </span>
           <ViewToggle mode={view} onChange={setView} />
         </div>
@@ -83,7 +85,7 @@ export function ProjectGrid() {
         >
           {filtered.length === 0 ? (
             <p className="font-mono text-[12px] tracking-[0.22em] text-bone-muted py-20 text-center uppercase">
-              No projects in this category yet — check back soon.
+              {t("project.noProjects")}
             </p>
           ) : view === "list" ? (
             <div className="divide-y divide-bone-line">
@@ -113,12 +115,14 @@ function ViewToggle({
   mode: ViewMode;
   onChange: (m: ViewMode) => void;
 }) {
+  const { t } = useLanguage();
+
   return (
     <div className="flex border border-bone-line">
       <button
         type="button"
         onClick={() => onChange("list")}
-        aria-label="List view"
+        aria-label={t("project.listView")}
         aria-pressed={mode === "list"}
         className={[
           "p-2 transition-colors duration-300",
@@ -132,7 +136,7 @@ function ViewToggle({
       <button
         type="button"
         onClick={() => onChange("grid")}
-        aria-label="Grid view"
+        aria-label={t("project.gridView")}
         aria-pressed={mode === "grid"}
         className={[
           "p-2 border-l border-bone-line transition-colors duration-300",

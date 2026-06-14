@@ -70,6 +70,27 @@ const translations = {
     "status.beta": "Beta",
     "status.in-development": "In development",
     "status.concept": "Concept",
+    "project.backToWork": "BACK TO WORK",
+    "project.client": "Client",
+    "project.year": "Year",
+    "project.role": "Role",
+    "project.index": "Index",
+    "project.tags": "Tags",
+    "project.approach": "THE APPROACH",
+    "project.approachTitle": "EVERY FRAME EARNS ITS PLACE.",
+    "project.deliverables": "DELIVERABLES",
+    "project.highlights": "HIGHLIGHTS",
+    "project.visualGallery": "VISUAL GALLERY",
+    "project.motion": "MOTION DESIGN",
+    "project.external": "EXTERNAL",
+    "project.viewBehance": "View Full Project on Behance",
+    "project.viewProject": "View Full Project",
+    "project.view": "VIEW",
+    "project.viewProjectShort": "VIEW PROJECT",
+    "project.noProjects": "No projects in this category yet — check back soon.",
+    "project.viewMode": "VIEW",
+    "project.listView": "List view",
+    "project.gridView": "Grid view",
   },
   ja: {
     "nav.work": "制作実績",
@@ -121,6 +142,27 @@ const translations = {
     "status.beta": "ベータ",
     "status.in-development": "開発中",
     "status.concept": "コンセプト",
+    "project.backToWork": "制作実績へ戻る",
+    "project.client": "クライアント",
+    "project.year": "年",
+    "project.role": "担当",
+    "project.index": "番号",
+    "project.tags": "タグ",
+    "project.approach": "アプローチ",
+    "project.approachTitle": "すべてのフレームに意味を持たせる。",
+    "project.deliverables": "制作物",
+    "project.highlights": "ハイライト",
+    "project.visualGallery": "ビジュアルギャラリー",
+    "project.motion": "モーションデザイン",
+    "project.external": "外部リンク",
+    "project.viewBehance": "Behanceで詳しく見る",
+    "project.viewProject": "プロジェクトを見る",
+    "project.view": "見る",
+    "project.viewProjectShort": "プロジェクトを見る",
+    "project.noProjects": "このカテゴリーのプロジェクトはまだありません。",
+    "project.viewMode": "表示",
+    "project.listView": "リスト表示",
+    "project.gridView": "グリッド表示",
   },
 } as const;
 
@@ -132,7 +174,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("en");
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
+    const saved = getStoredLanguage();
     if (saved === "en" || saved === "ja") {
       setLanguageState(saved);
       return;
@@ -143,7 +185,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.lang = language === "ja" ? "ja" : "en";
     document.documentElement.dataset.language = language;
-    window.localStorage.setItem(STORAGE_KEY, language);
+    storeLanguage(language);
   }, [language]);
 
   const value = useMemo<LanguageContextValue>(
@@ -160,6 +202,23 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       {children}
     </LanguageContext.Provider>
   );
+}
+
+function getStoredLanguage(): Language | null {
+  try {
+    const saved = window.localStorage?.getItem(STORAGE_KEY);
+    return saved === "en" || saved === "ja" ? saved : null;
+  } catch {
+    return null;
+  }
+}
+
+function storeLanguage(language: Language) {
+  try {
+    window.localStorage?.setItem(STORAGE_KEY, language);
+  } catch {
+    // Some embedded browsers disable localStorage; the in-memory state still works.
+  }
 }
 
 export function useLanguage() {

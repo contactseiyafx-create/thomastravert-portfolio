@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import type { Project } from "@/data/projects";
+import { useLanguage } from "@/components/LanguageProvider";
+import { useProjectCopy } from "./projectCopy";
 
 /* ─────────────────────────────────────────────
    PROJECT ROW
@@ -18,6 +20,8 @@ type RowProps = {
 };
 
 export function ProjectRow({ project, i = 0 }: RowProps) {
+  const { t } = useLanguage();
+  const copy = useProjectCopy(project);
   const hasExtras =
     !!project.thumbnailExtras && project.thumbnailExtras.length > 0;
 
@@ -44,18 +48,18 @@ export function ProjectRow({ project, i = 0 }: RowProps) {
             <p className="font-mono text-[12px] text-bone-dim tracking-[0.2em]">
               {project.index}
             </p>
-            <p className="mt-3 h-eyebrow">{project.category}</p>
+            <p className="mt-3 h-eyebrow">{copy.category}</p>
             <h3 className="mt-3 h-display text-[clamp(2.2rem,4.5vw,4rem)]">
-              {project.title}
+              {copy.title}
             </h3>
             <p className="mt-3 font-mono text-[11px] tracking-[0.2em] text-bone-dim uppercase whitespace-pre-line max-w-xs">
-              {project.shortDescription}
+              {copy.shortDescription}
             </p>
           </div>
 
           <div className="mt-8 flex items-center gap-6">
             <span className="link-arrow">
-              <span>VIEW PROJECT</span>
+              <span>{t("project.viewProjectShort")}</span>
               <ArrowUpRight />
             </span>
             <span className="font-mono text-[10px] tracking-[0.22em] text-bone-muted">
@@ -117,6 +121,9 @@ export function ProjectGridCard({
   noAnimate,
   i = 0,
 }: GridProps) {
+  const { t } = useLanguage();
+  const copy = useProjectCopy(project);
+
   const card = (
     <Link
       href={`/work/${project.slug}`}
@@ -147,7 +154,7 @@ export function ProjectGridCard({
 
       {/* Bottom meta — slides up subtly on hover */}
       <div className="absolute left-4 right-4 bottom-4">
-        <p className="h-eyebrow-dim text-[10px]">{project.category}</p>
+        <p className="h-eyebrow-dim text-[10px]">{copy.category}</p>
         <div className="overflow-hidden mt-1.5">
           <h3
             className="
@@ -156,7 +163,7 @@ export function ProjectGridCard({
               group-hover:-translate-y-0.5
             "
           >
-            {project.title}
+            {copy.title}
           </h3>
         </div>
         <div className="mt-3 flex items-center justify-between">
@@ -169,7 +176,7 @@ export function ProjectGridCard({
               text-bone-dim group-hover:text-signal transition-colors duration-300
             "
           >
-            VIEW
+            {t("project.view")}
             <ArrowUpRight />
           </span>
         </div>

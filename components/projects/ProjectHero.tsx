@@ -6,6 +6,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import type { Project } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useLanguage } from "@/components/LanguageProvider";
+import { useProjectCopy } from "./projectCopy";
 
 /**
  * Detail-page hero.
@@ -33,6 +35,8 @@ export function ProjectHero({
   position: number;
   total: number;
 }) {
+  const { t } = useLanguage();
+  const copy = useProjectCopy(project);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -64,7 +68,7 @@ export function ProjectHero({
               strokeWidth="1.4"
             />
           </svg>
-          BACK TO WORK
+          {t("project.backToWork")}
         </Link>
         <span className="font-mono text-[11px] tracking-[0.22em] text-bone-muted">
           {posLabel}
@@ -77,38 +81,38 @@ export function ProjectHero({
           <HoverReveal y={16}>
             <p className="flex items-center gap-3 h-eyebrow">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
-              {project.category}
+              {copy.category}
             </p>
           </HoverReveal>
           <div className="overflow-hidden mt-4">
             <HoverReveal y={60} delay={0.1}>
               <h1 className="h-display text-[clamp(3rem,10vw,9rem)]">
-                {project.title}
+                {copy.title}
               </h1>
             </HoverReveal>
           </div>
-          {project.subtitle && (
+          {copy.subtitle && (
             <HoverReveal y={12} delay={0.18}>
               <p className="mt-2 font-mono text-[12px] tracking-[0.22em] text-bone-dim uppercase">
-                {project.subtitle}
+                {copy.subtitle}
               </p>
             </HoverReveal>
           )}
           <HoverReveal y={16} delay={0.28}>
-            <p className="mt-7 body-lead max-w-xl">{project.longDescription}</p>
+            <p className="mt-7 body-lead max-w-xl">{copy.longDescription}</p>
           </HoverReveal>
         </div>
 
         {/* Meta sidebar */}
         <aside className="col-span-12 lg:col-span-4 lg:pl-6 self-end">
           <dl className="grid grid-cols-2 gap-y-6 gap-x-4 border-t border-bone-line pt-6">
-            <Meta label="Client" value={project.client} />
-            <Meta label="Year" value={project.year} />
-            <Meta label="Role" value={project.role.join(" · ")} />
-            <Meta label="Index" value={project.index} />
+            <Meta label={t("project.client")} value={copy.client} />
+            <Meta label={t("project.year")} value={project.year} />
+            <Meta label={t("project.role")} value={copy.role.join(" · ")} />
+            <Meta label={t("project.index")} value={project.index} />
             {project.tags && (
               <Meta
-                label="Tags"
+                label={t("project.tags")}
                 value={project.tags.join(" · ")}
                 spanFull
               />

@@ -46,6 +46,44 @@ export type Highlight = {
   body: string;
 };
 
+export type MotionVideo =
+  | {
+      kind: "youtube";
+      youtubeId: string;
+      title: string;
+      caption?: string;
+      featured?: boolean;
+    }
+  | {
+      kind: "video";
+      src: string;
+      title: string;
+      poster?: string;
+      caption?: string;
+      type?: string;
+      featured?: boolean;
+    };
+
+export type ProjectLocale = {
+  title?: string;
+  subtitle?: string;
+  category?: ProjectCategory;
+  shortDescription?: string;
+  longDescription?: string;
+  client?: string;
+  role?: string[];
+  deliverables?: string[];
+  disclaimer?: string;
+  gallery?: Array<Partial<Pick<ProjectImage, "alt" | "caption">>>;
+  highlights?: Highlight[];
+  motion?: {
+    title?: string;
+    description?: string;
+    caption?: string;
+    videos?: Array<Partial<Pick<MotionVideo, "title" | "caption">>>;
+  };
+};
+
 export type Project = {
   /** URL slug — also the folder name in /public/projects/ */
   slug: string;
@@ -87,9 +125,15 @@ export type Project = {
   disclaimer?: string;
   /** Optional motion / video block — hides cleanly if undefined */
   motion?: {
-    src: string;
+    src?: string;
     poster?: string;
     caption?: string;
+    title?: string;
+    description?: string;
+    videos?: MotionVideo[];
+  };
+  i18n?: {
+    ja?: ProjectLocale;
   };
   /** Optional external link (live URL, video, etc.) */
   externalUrl?: string;
@@ -230,12 +274,14 @@ export const projects: Project[] = [
       "Nexbank is a near-future banking proposition built around a single object: a black metal card that thinks. The visual system rejects the friendly-pastel fintech trope and pushes towards quiet technology — embossed metal, micro-typography, and motion that behaves more like a luxury timepiece than a payment app.",
     year: "2026",
     client: "Nexbank (concept)",
-    role: ["Art Direction", "UI Design", "CGI"],
+    role: ["Art Direction", "UI Design", "CGI", "Motion Design"],
     deliverables: [
       "Brand identity",
       "Card design & CGI",
       "Product UI",
       "Marketing site",
+      "Motion design",
+      "Product storytelling",
     ],
     thumbnail: {
       src: "/projects/nexbank/6_fullwitdh.png",
@@ -287,7 +333,93 @@ export const projects: Project[] = [
         body: "Marketing surfaces read like a magazine spread before they read like an app.",
       },
     ],
-    tags: ["ART DIRECTION", "UI DESIGN", "GRAPHIC DESIGN"],
+    motion: {
+      title: "Motion Design",
+      description:
+        "To bring the Nexbank ecosystem to life, I explored motion design as an extension of the brand experience. From product presentations to animated storytelling, these explorations focus on rhythm, clarity and premium digital interactions.",
+      videos: [
+        {
+          kind: "youtube",
+          youtubeId: "42cu4S0U39k",
+          title: "Nexbank Motion Reel",
+          caption: "YouTube motion reel — brand rhythm, product moments and premium interaction language.",
+          featured: true,
+        },
+        {
+          kind: "video",
+          src: "/projects/nexbank/nexbank-presentation.webm",
+          poster: "/projects/nexbank/6_fullwitdh.png",
+          title: "Nexbank Presentation Video",
+          caption: "Product presentation film — positioning Nexbank as a premium digital banking ecosystem.",
+          type: "video/webm",
+        },
+      ],
+    },
+    i18n: {
+      ja: {
+        shortDescription:
+          "未来型デジタルバンキング\n体験設計とブランドシステム",
+        longDescription:
+          "Nexbankは、思考するブラックメタルカードを中心に設計した近未来のバンキング構想です。親しみやすいパステル調のフィンテック表現から距離を置き、静かなテクノロジー、エンボス加工されたメタル、マイクロタイポグラフィ、そして高級時計のように振る舞うモーションを軸に、プレミアムな金融体験として構築しました。",
+        client: "Nexbank（コンセプト）",
+        role: ["アートディレクション", "UIデザイン", "CGI", "モーションデザイン"],
+        deliverables: [
+          "ブランドアイデンティティ",
+          "カードデザイン & CGI",
+          "プロダクトUI",
+          "マーケティングサイト",
+          "モーションデザイン",
+          "プロダクトストーリーテリング",
+        ],
+        gallery: [
+          {
+            caption: "カードピッカー — Apple Card以降の体験を再解釈。",
+          },
+          {
+            caption: "料金プラン — Standard、Premium、Businessの3階層。",
+          },
+          {
+            caption: "プラットフォーム機能 — 虹色に反射する4つのフィーチャーグリフ。",
+          },
+          {
+            caption:
+              "グローバル指標 — 20以上の通貨、1日500万ドル、160以上の国と地域。",
+          },
+        ],
+        highlights: [
+          {
+            title: "静かなテクノロジー",
+            body: "絵文字や過剰なグラデーションには頼らず、カードそのものが語り、UIはそれを引き立てる設計にしました。",
+          },
+          {
+            title: "ひとつの暖色アクセント",
+            body: "タイポグラフィ、CTA、グリフに一貫したオレンジのシグナルを使い、システム全体の集中度を高めました。",
+          },
+          {
+            title: "エディトリアルなUI",
+            body: "マーケティング画面は、アプリである前に雑誌の見開きのように読める構成を目指しました。",
+          },
+        ],
+        motion: {
+          title: "モーションデザイン",
+          description:
+            "Nexbankのエコシステムに生命感を与えるため、ブランド体験の延長としてモーションデザインを探求しました。プロダクトプレゼンテーションからアニメーションによるストーリーテリングまで、リズム、明快さ、プレミアムなデジタルインタラクションに焦点を当てています。",
+          videos: [
+            {
+              title: "Nexbank モーションリール",
+              caption:
+                "YouTubeモーションリール — ブランドのリズム、プロダクトの瞬間、プレミアムなインタラクション言語。",
+            },
+            {
+              title: "Nexbank プレゼンテーションビデオ",
+              caption:
+                "プロダクトプレゼンテーション映像 — Nexbankをプレミアムなデジタルバンキングエコシステムとして提示。",
+            },
+          ],
+        },
+      },
+    },
+    tags: ["ART DIRECTION", "UI DESIGN", "GRAPHIC DESIGN", "MOTION"],
     featured: true,
   },
   {

@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useLanguage } from "@/components/LanguageProvider";
+import { useProjectCopy } from "./projectCopy";
 
 /**
  * Detail-page overview block.
@@ -12,7 +14,9 @@ import { HoverReveal } from "@/components/HoverReveal";
  *   [optional 3-up highlights cards]
  */
 export function ProjectOverview({ project }: { project: Project }) {
-  const hasHighlights = !!project.highlights && project.highlights.length > 0;
+  const { t } = useLanguage();
+  const copy = useProjectCopy(project);
+  const hasHighlights = !!copy.highlights && copy.highlights.length > 0;
 
   return (
     <section className="page-x pt-24 pb-16 border-t border-bone-line mt-20">
@@ -22,40 +26,40 @@ export function ProjectOverview({ project }: { project: Project }) {
           <HoverReveal y={8}>
             <p className="h-eyebrow-dim">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal align-middle mr-2" />
-              THE APPROACH
+              {t("project.approach")}
             </p>
           </HoverReveal>
           <HoverReveal y={20} delay={0.1}>
             <h2 className="mt-6 h-display text-[clamp(2rem,4vw,3.25rem)] leading-[0.95]">
-              EVERY FRAME EARNS ITS PLACE.
+              {t("project.approachTitle")}
             </h2>
           </HoverReveal>
           <HoverReveal y={14} delay={0.22}>
             <p className="mt-7 body-lead leading-[1.7] max-w-xl">
-              {project.longDescription}
+              {copy.longDescription}
             </p>
           </HoverReveal>
-          {project.disclaimer && (
+          {copy.disclaimer && (
             <HoverReveal y={10} delay={0.32}>
               <p className="mt-6 flex items-start gap-3 max-w-xl font-mono text-[11px] tracking-[0.14em] uppercase text-bone-muted leading-relaxed">
                 <span
                   aria-hidden
                   className="block w-1.5 h-1.5 rounded-full bg-signal mt-1.5 shrink-0"
                 />
-                <span>{project.disclaimer}</span>
+                <span>{copy.disclaimer}</span>
               </p>
             </HoverReveal>
           )}
         </div>
 
         {/* RIGHT — deliverables */}
-        {project.deliverables && project.deliverables.length > 0 && (
+        {copy.deliverables && copy.deliverables.length > 0 && (
           <div className="col-span-12 lg:col-span-4 lg:col-start-9">
             <HoverReveal y={8}>
-              <p className="h-eyebrow-dim">DELIVERABLES</p>
+              <p className="h-eyebrow-dim">{t("project.deliverables")}</p>
             </HoverReveal>
             <ul className="mt-6 divide-y divide-bone-line border-t border-b border-bone-line">
-              {project.deliverables.map((d, i) => (
+              {copy.deliverables.map((d, i) => (
                 <HoverReveal key={d} y={10} delay={0.1 + i * 0.04}>
                   <li className="flex items-center justify-between py-3.5">
                     <span className="font-mono text-[12px] tracking-[0.16em] text-bone uppercase">
@@ -78,11 +82,11 @@ export function ProjectOverview({ project }: { project: Project }) {
           <HoverReveal y={8}>
             <p className="h-eyebrow-dim">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal align-middle mr-2" />
-              HIGHLIGHTS
+              {t("project.highlights")}
             </p>
           </HoverReveal>
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
-            {project.highlights!.map((h, i) => (
+            {copy.highlights!.map((h, i) => (
               <motion.article
                 key={h.title}
                 initial={{ opacity: 0, y: 20 }}
