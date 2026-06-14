@@ -21,6 +21,40 @@ import { socials } from "@/data/socials";
 import { HoverReveal } from "@/components/HoverReveal";
 import { CharacterPortrait } from "@/components/CharacterPortrait";
 import { SocialIcon } from "@/components/SocialIcon";
+import { useLanguage } from "@/components/LanguageProvider";
+
+const aboutJa: Record<string, string> = {
+  "ABOUT ME": "プロフィール",
+  "TOKYO BASED": "東京拠点",
+  "Travert Thomas — character portrait": "トラバート・トーマスのポートレート",
+  "ALL RIGHTS RESERVED": "無断転載を禁じます",
+  "ART DIRECTOR": "アートディレクター",
+  "& SENIOR MULTIMEDIA DESIGNER": "& シニアマルチメディアデザイナー",
+  "I create visual experiences through art direction, motion design, branding and illustration, adapting each project to the unique needs of its industry, audience and goals.":
+    "アートディレクション、モーションデザイン、ブランディング、イラストレーションを通じて、業界、ターゲット、目的に合わせたビジュアル体験を制作しています。",
+  "AWARDS": "受賞歴",
+  "ADOBE × SONY ANIMATIONS": "ADOBE × SONY アニメーション",
+  "Spider-Verse Contest Winner": "Spider-Verse コンテスト受賞",
+  "TOP 25 WORLDWIDE": "世界トップ25",
+  "Adobe × Marshmello Content Campaign": "Adobe × Marshmello コンテンツキャンペーン",
+  "XP PEN FRANCE": "XP-PEN フランス",
+  "Ambassador": "アンバサダー",
+  "REFERENCES": "掲載・紹介",
+  "THEY TRUSTED MY VISION": "ビジョンを託してくれたブランド",
+  "MY CREATIVE PHILOSOPHY": "制作哲学",
+  "BEAUTY LIVES": "美は",
+  "IN DETAILS.": "細部に宿る。",
+  "Every frame, every movement, every light has a purpose. I believe in crafting visuals that not only look stunning, but that tell a story, evoke emotions and leave a lasting impact.":
+    "すべてのフレーム、すべての動き、すべての光には目的があります。美しいだけではなく、物語を伝え、感情を動かし、記憶に残るビジュアルを大切にしています。",
+  "LET'S CREATE": "一緒につくる",
+  "THE FUTURE.": "未来を。",
+  "CONTACT ME": "お問い合わせ",
+};
+
+function useAboutText() {
+  const { language } = useLanguage();
+  return (value: string) => (language === "ja" ? aboutJa[value] ?? value : value);
+}
 
 /**
  * ABOUT PAGE
@@ -39,6 +73,7 @@ import { SocialIcon } from "@/components/SocialIcon";
  */
 export default function AboutClient() {
   const a = about;
+  const text = useAboutText();
 
   return (
     <div className="relative bg-ink text-bone">
@@ -57,7 +92,7 @@ export default function AboutClient() {
             </HoverReveal>
             <HoverReveal y={8} delay={0.05}>
               <span className="font-mono text-[11px] tracking-[0.24em] text-bone-dim">
-                {a.meta.sectionLabel}
+                {text(a.meta.sectionLabel)}
               </span>
             </HoverReveal>
           </div>
@@ -79,6 +114,7 @@ export default function AboutClient() {
    ════════════════════════════════════════════════ */
 function AboutSidebar() {
   const s = about.sidebar;
+  const text = useAboutText();
 
   return (
     <aside className="relative bg-ink-800">
@@ -103,7 +139,7 @@ function AboutSidebar() {
           >
             <CharacterPortrait
               src={s.character.src}
-              alt={s.character.alt}
+              alt={text(s.character.alt)}
               enabled={s.character.enabled}
             />
           </div>
@@ -118,7 +154,7 @@ function AboutSidebar() {
                 transform: "rotate(180deg)",
               }}
             >
-              {s.verticalLabel}
+              {text(s.verticalLabel)}
             </span>
             <span className="block w-px h-32 bg-bone-line" />
             <span className="font-mono text-[10px] tracking-[0.2em] text-signal mt-1">
@@ -153,7 +189,7 @@ function AboutSidebar() {
           </a>
           <div className="mt-3 font-mono text-[9.5px] tracking-[0.22em] text-bone-muted leading-relaxed uppercase">
             <p>{s.copyright}</p>
-            <p>{s.rightsLine}</p>
+            <p>{text(s.rightsLine)}</p>
           </div>
         </div>
       </div>
@@ -166,6 +202,7 @@ function AboutSidebar() {
    ════════════════════════════════════════════════ */
 function HeroSection() {
   const h = about.hero;
+  const text = useAboutText();
   return (
     <section className="px-6 md:px-10 lg:px-14 pt-2 pb-14">
       {/* Massive title */}
@@ -173,7 +210,7 @@ function HeroSection() {
         <div className="overflow-hidden">
           <HoverReveal y={60}>
             <h1 className="h-display text-[clamp(3.25rem,9vw,8rem)] leading-[0.9]">
-              {h.title}
+              {text(h.title)}
             </h1>
           </HoverReveal>
         </div>
@@ -183,21 +220,21 @@ function HeroSection() {
       <div className="mt-8 max-w-xl">
         <HoverReveal y={12} delay={0.15}>
           <p className="font-mono text-signal text-[12px] tracking-[0.24em] uppercase">
-            {h.eyebrow}
+            {text(h.eyebrow)}
           </p>
         </HoverReveal>
         <div className="mt-3 space-y-1.5">
           {h.roles.map((role, i) => (
             <HoverReveal key={role} y={12} delay={0.22 + i * 0.05}>
               <p className="font-sans font-medium text-bone text-lg md:text-xl tracking-tight uppercase">
-                {role}
+                {text(role)}
               </p>
             </HoverReveal>
           ))}
         </div>
         <HoverReveal y={12} delay={0.4}>
           <p className="mt-7 body-lead text-bone-dim leading-[1.65] max-w-md">
-            {h.bio}
+            {text(h.bio)}
           </p>
         </HoverReveal>
         <HoverReveal y={6} delay={0.5}>
@@ -213,9 +250,10 @@ function HeroSection() {
    ════════════════════════════════════════════════ */
 function AwardsSection() {
   const w = about.awards;
+  const text = useAboutText();
   return (
     <section className="px-6 md:px-10 lg:px-14 py-12">
-      <SectionEyebrow label={w.eyebrow} />
+      <SectionEyebrow label={text(w.eyebrow)} />
       <div className="mt-7 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
         {w.items.map((award, i) => (
           <HoverReveal key={award.title} y={22} delay={i * 0.08}>
@@ -234,10 +272,10 @@ function AwardsSection() {
                 <AwardMark award={award} />
               </div>
               <h3 className="font-display text-base md:text-lg leading-tight text-bone uppercase tracking-tight">
-                {award.title}
+                {text(award.title)}
               </h3>
               <p className="mt-3 text-[13px] text-bone-dim leading-relaxed">
-                {award.subtitle}
+                {text(award.subtitle)}
               </p>
               <p className="mt-6 font-mono text-[10.5px] tracking-[0.22em] text-bone-muted">
                 {award.year}
@@ -266,6 +304,7 @@ function AwardsSection() {
    ════════════════════════════════════════════════ */
 function ReferencesSection() {
   const r = about.references;
+  const text = useAboutText();
   // Defensive: drop undefined/null entries and anything missing the
   // two required text fields.  Keeps the row render bulletproof even
   // if /data/about.ts is mid-edit.
@@ -275,7 +314,7 @@ function ReferencesSection() {
 
   return (
     <section className="px-6 md:px-10 lg:px-14 py-12">
-      <SectionEyebrow label={r.eyebrow} />
+      <SectionEyebrow label={text(r.eyebrow)} />
       <ul className="mt-7 grid grid-cols-1 md:grid-cols-2 md:gap-x-10">
         {items.map((item, i) => (
           <HoverReveal
@@ -353,10 +392,11 @@ function ReferenceRow({
    ════════════════════════════════════════════════ */
 function TrustedLogosSection() {
   const t = about.trustedLogos;
+  const text = useAboutText();
   return (
     <section className="px-6 md:px-10 lg:px-14 py-12">
       <div className="flex items-baseline gap-4">
-        <SectionEyebrow label={t.eyebrow} />
+        <SectionEyebrow label={text(t.eyebrow)} />
         <span className="font-mono text-[10px] tracking-[0.24em] text-bone-muted">
           {String(t.items.length).padStart(2, "0")}
         </span>
@@ -429,6 +469,7 @@ function LogoTile({ name, src }: { name: string; src: string }) {
    ════════════════════════════════════════════════ */
 function ManifestoSection() {
   const m = about.manifesto;
+  const text = useAboutText();
   return (
     <section className="relative mt-10 overflow-hidden">
       {/* Dark atmospheric backdrop */}
@@ -446,7 +487,7 @@ function ManifestoSection() {
       />
 
       <div className="relative z-10 px-6 md:px-10 lg:px-14 py-20 lg:py-24">
-        <SectionEyebrow label={m.eyebrow} />
+        <SectionEyebrow label={text(m.eyebrow)} />
         <div className="mt-10 grid grid-cols-12 gap-8">
           <div className="col-span-12 lg:col-span-8">
             <HoverReveal y={10}>
@@ -463,15 +504,15 @@ function ManifestoSection() {
                     leading-[0.95]
                   "
                 >
-                  <span className="block text-bone">{m.quoteLine1}</span>
-                  <span className="block text-signal">{m.quoteLine2}</span>
+                  <span className="block text-bone">{text(m.quoteLine1)}</span>
+                  <span className="block text-signal">{text(m.quoteLine2)}</span>
                 </h2>
               </HoverReveal>
             </div>
           </div>
           <div className="col-span-12 lg:col-span-4 flex flex-col justify-end">
             <HoverReveal y={14} delay={0.25}>
-              <p className="body-sm text-bone-dim leading-[1.7]">{m.body}</p>
+              <p className="body-sm text-bone-dim leading-[1.7]">{text(m.body)}</p>
             </HoverReveal>
             <HoverReveal y={12} delay={0.4}>
               <p
@@ -493,13 +534,14 @@ function ManifestoSection() {
    ════════════════════════════════════════════════ */
 function CtaSection() {
   const c = about.cta;
-  const words = c.title.split(" ");
+  const text = useAboutText();
+  const words = text(c.title).split(" ");
   const head = words.slice(0, c.highlightFrom).join(" ");
   const tail = words.slice(c.highlightFrom).join(" ");
 
   return (
     <section className="px-6 md:px-10 lg:px-14 py-20 lg:py-24 border-t border-bone-line">
-      <SectionEyebrow label={c.eyebrow} />
+      <SectionEyebrow label={text(c.eyebrow)} />
 
       <div className="mt-6 flex flex-col lg:flex-row lg:items-end justify-between gap-10 lg:gap-16">
         <div className="overflow-hidden">
@@ -522,7 +564,7 @@ function CtaSection() {
             "
           >
             <span className="font-mono text-[12px] tracking-[0.22em] uppercase text-bone">
-              {c.button.label}
+              {text(c.button.label)}
             </span>
             <span
               className="

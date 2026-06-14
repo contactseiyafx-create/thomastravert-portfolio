@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { site } from "@/data/site";
 import { HoverReveal, LineReveal } from "./HoverReveal";
 import { CTAButton } from "./CTAButton";
+import { useLanguage } from "./LanguageProvider";
 
 /**
  * HERO
@@ -19,6 +20,7 @@ import { CTAButton } from "./CTAButton";
  */
 export function Hero() {
   const bg = site.hero.background;
+  const { t } = useLanguage();
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
@@ -115,7 +117,7 @@ export function Hero() {
           <div className="col-span-12 lg:col-span-7 xl:col-span-6">
             {/* Eyebrow */}
             <HoverReveal y={16} delay={0.15}>
-              <p className="h-eyebrow">{site.hero.eyebrow}</p>
+              <p className="h-eyebrow">{t("home.hero.eyebrow")}</p>
             </HoverReveal>
 
             {/* Massive condensed title */}
@@ -148,17 +150,21 @@ export function Hero() {
               <span className="block w-10 h-px bg-signal mb-4" />
               <HoverReveal y={14} delay={0.65}>
                 <p className="font-mono text-[12px] tracking-[0.18em] text-bone uppercase">
-                  {site.hero.role}
+                  {t("home.hero.role")}
                 </p>
                 <p className="font-mono text-[12px] tracking-[0.18em] text-bone uppercase">
-                  {site.hero.roleLine2}
+                  {t("home.hero.roleLine2")}
                 </p>
               </HoverReveal>
             </div>
 
             {/* Intro */}
             <LineReveal
-              lines={[...site.hero.intro]}
+              lines={[
+                t("home.hero.intro1"),
+                t("home.hero.intro2"),
+                t("home.hero.intro3"),
+              ]}
               baseDelay={0.75}
               stagger={0.06}
               className="mt-6 body-lead max-w-md"
@@ -168,14 +174,14 @@ export function Hero() {
             <HoverReveal y={20} delay={0.95}>
               <div className="mt-9 flex items-center gap-6 flex-wrap">
                 <CTAButton
-                  label={site.hero.primaryCta.label}
+                  label={t("home.hero.primaryCta")}
                   href={site.hero.primaryCta.href}
                 />
                 <Link
                   href={site.hero.secondaryCta.href}
                   className="group flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-bone hover:text-signal transition-colors"
                 >
-                  <span>{site.hero.secondaryCta.label}</span>
+                  <span>{t("home.hero.secondaryCta")}</span>
                   <span className="grid place-items-center w-9 h-9 rounded-full border border-bone-line group-hover:border-signal transition-colors">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                       <path d="M2 1.5L8 5L2 8.5V1.5Z" fill="currentColor" />
@@ -201,7 +207,7 @@ export function Hero() {
         <span className="text-signal font-display text-3xl leading-none">”</span>
         <p className="font-jp text-bone mt-2 text-base">{site.quote.jp}</p>
         <p className="font-mono text-[11px] tracking-[0.22em] mt-3 text-bone">
-          {site.quote.en}
+          {t("home.quote.en")}
         </p>
         <p className="font-mono text-[10px] tracking-[0.22em] mt-4 text-signal">
           {site.quote.attribution}
@@ -215,7 +221,7 @@ export function Hero() {
         transition={{ delay: 1.4, duration: 1 }}
         className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 text-bone-dim"
       >
-        <span className="font-mono text-[10px] tracking-[0.4em] uppercase">scroll</span>
+        <span className="font-mono text-[10px] tracking-[0.4em] uppercase">{t("home.scroll")}</span>
         <span className="block w-px h-8 bg-gradient-to-b from-bone-dim to-transparent animate-shimmer" />
       </motion.div>
     </section>

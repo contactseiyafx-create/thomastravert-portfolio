@@ -89,7 +89,7 @@ export function Footer() {
             >
               {contact.emailLabel}
             </Link>
-            <p className="mt-2 body-sm">{contact.scheduling}</p>
+            <p className="mt-2 body-sm">{t("footer.scheduling")}</p>
           </div>
         </div>
 
@@ -120,11 +120,11 @@ export function Footer() {
             {site.footer.copyright}
           </p>
           <p className="col-span-12 md:col-span-4 md:text-center font-mono text-[10px] tracking-[0.22em] text-bone-dim uppercase">
-            {site.footer.rightsLine}
+            {t("footer.rights")}
           </p>
           <p className="col-span-12 md:col-span-4 md:text-right font-mono text-[10px] tracking-[0.22em] text-signal uppercase flex md:justify-end items-center gap-2">
             <span className="block w-1.5 h-1.5 rounded-full bg-signal animate-shimmer" />
-            {site.footer.availability}
+            {t("footer.availability")}
           </p>
         </div>
       </div>

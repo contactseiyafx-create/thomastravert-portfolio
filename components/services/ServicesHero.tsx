@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { services } from "@/data/services";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useServiceText } from "./serviceText";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -18,6 +19,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function ServicesHero() {
   const h = services.hero;
+  const text = useServiceText();
 
   return (
     <header className="relative">
@@ -32,7 +34,7 @@ export function ServicesHero() {
               className="h-display leading-[0.95] tracking-[-0.025em] text-bone break-words"
               style={{ fontSize: "clamp(3rem, 10vw, 8.5rem)" }}
             >
-              {h.title}
+              {text(h.title)}
             </motion.h1>
           </div>
         </div>
@@ -43,12 +45,12 @@ export function ServicesHero() {
             <p
               className="font-mono text-[11px] md:text-[12px] tracking-[0.22em] text-signal uppercase leading-[1.7] whitespace-pre-line"
             >
-              {h.eyebrow}
+              {text(h.eyebrow)}
             </p>
           </HoverReveal>
           <HoverReveal y={10} delay={0.3}>
             <p className="mt-5 font-mono text-[11px] md:text-[12px] tracking-[0.22em] text-bone uppercase leading-[1.7] whitespace-pre-line">
-              {h.intro}
+              {text(h.intro)}
             </p>
           </HoverReveal>
           <HoverReveal y={10} delay={0.42}>
@@ -77,10 +79,10 @@ export function ServicesHero() {
               <HoverReveal key={i} y={8} delay={0.34 + i * 0.06}>
                 <div>
                   <p className="font-mono text-[10px] tracking-[0.22em] text-bone-muted uppercase">
-                    {m.label}
+                    {text(m.label)}
                   </p>
                   <p className="mt-1 font-mono text-[11px] tracking-[0.18em] text-bone uppercase">
-                    {m.value}
+                    {text(m.value)}
                   </p>
                   {"jp" in m && m.jp && (
                     <p className="mt-1 font-jp text-[11px] tracking-[0.14em] text-bone-dim">

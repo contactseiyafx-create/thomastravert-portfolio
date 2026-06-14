@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/components/LanguageProvider";
 
 /**
  * YOUTUBE PLAYLIST EMBED
@@ -29,6 +30,7 @@ export function YouTubePlaylist({
   startVideoId,
   title = "YouTube playlist",
 }: Props) {
+  const { t } = useLanguage();
   const [active, setActive] = useState(false);
 
   // youtube-nocookie params:
@@ -80,6 +82,13 @@ export function YouTubePlaylist({
           posterSrc={posterSrc}
           onPlay={() => setActive(true)}
           title={title}
+          labels={{
+            playAria: t("youtube.playAria"),
+            playlist: t("youtube.playlist"),
+            platform: t("youtube.platform"),
+            pressPlay: t("youtube.pressPlay"),
+            privacy: t("youtube.privacy"),
+          }}
         />
       )}
     </div>
@@ -94,16 +103,24 @@ function PlaylistPoster({
   posterSrc,
   onPlay,
   title,
+  labels,
 }: {
   posterSrc: string;
   onPlay: () => void;
   title: string;
+  labels: {
+    playAria: string;
+    playlist: string;
+    platform: string;
+    pressPlay: string;
+    privacy: string;
+  };
 }) {
   return (
     <button
       type="button"
       onClick={onPlay}
-      aria-label={`Play playlist — ${title}`}
+      aria-label={`${labels.playAria} — ${title}`}
       className="absolute inset-0 w-full h-full group focus:outline-none focus-visible:ring-1 focus-visible:ring-signal"
     >
       {posterSrc && (
@@ -139,7 +156,7 @@ function PlaylistPoster({
         className="absolute top-4 left-4 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] text-bone uppercase"
       >
         <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
-        PLAYLIST
+        {labels.playlist}
       </span>
 
       {/* Top-right YT mark — never the platform's logo, just a text indicator */}
@@ -147,7 +164,7 @@ function PlaylistPoster({
         aria-hidden
         className="absolute top-4 right-4 font-mono text-[10px] tracking-[0.22em] text-bone-dim uppercase"
       >
-        YOUTUBE
+        {labels.platform}
       </span>
 
       {/* Play button — centred */}
@@ -188,8 +205,8 @@ function PlaylistPoster({
           font-mono text-[10px] tracking-[0.22em] text-bone-dim uppercase
         "
       >
-        <span>PRESS PLAY · OPENS IN PLACE</span>
-        <span className="hidden sm:inline">PRIVACY-ENHANCED</span>
+        <span>{labels.pressPlay}</span>
+        <span className="hidden sm:inline">{labels.privacy}</span>
       </span>
     </button>
   );

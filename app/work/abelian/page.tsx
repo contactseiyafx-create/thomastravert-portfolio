@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AbelianCaseStudy from "@/components/projects/AbelianCaseStudy";
+import { LocalizedProjectPage } from "@/components/projects/LocalizedProjectPage";
 
 export const metadata: Metadata = {
   title: "Abelian — Post-Quantum Brand System",
@@ -14,5 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function AbelianPage() {
-  return <AbelianCaseStudy />;
+  return (
+    <LocalizedProjectPage slug="abelian">
+      <AbelianCaseStudy />
+    </LocalizedProjectPage>
+  );
 }

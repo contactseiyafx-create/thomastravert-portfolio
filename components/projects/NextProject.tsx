@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useLanguage } from "@/components/LanguageProvider";
+import { useProjectCopy } from "./projectCopy";
 
 /**
  * NEXT PROJECT navigation.
@@ -15,6 +17,9 @@ import { HoverReveal } from "@/components/HoverReveal";
  *   - tap target = the whole banner
  */
 export function NextProject({ next }: { next: Project }) {
+  const { t } = useLanguage();
+  const copy = useProjectCopy(next);
+
   return (
     <section className="relative border-t border-bone-line">
       <Link
@@ -48,7 +53,7 @@ export function NextProject({ next }: { next: Project }) {
             <HoverReveal y={10}>
               <p className="font-mono text-[11px] tracking-[0.24em] text-bone-dim flex items-center gap-3">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
-                NEXT PROJECT
+                {t("project.nextProject")}
               </p>
             </HoverReveal>
             <HoverReveal y={10} delay={0.05}>
@@ -65,13 +70,13 @@ export function NextProject({ next }: { next: Project }) {
               whileHover={{ y: -8 }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              {next.title}
+              {copy.title}
             </motion.h2>
           </div>
 
           <div className="mt-6 flex items-center justify-between gap-6 flex-wrap">
             <HoverReveal y={10} delay={0.1}>
-              <p className="h-eyebrow-dim">{next.category}</p>
+              <p className="h-eyebrow-dim">{copy.category}</p>
             </HoverReveal>
             <HoverReveal y={10} delay={0.16}>
               <span
@@ -80,7 +85,7 @@ export function NextProject({ next }: { next: Project }) {
                   text-bone-dim group-hover:text-signal transition-colors duration-300
                 "
               >
-                ENTER
+                {t("project.enter")}
                 <svg
                   width="14"
                   height="14"

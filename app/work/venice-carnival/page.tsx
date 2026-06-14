@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import VeniceCarnivalCaseStudy from "@/components/projects/VeniceCarnivalCaseStudy";
+import { LocalizedProjectPage } from "@/components/projects/LocalizedProjectPage";
 
 export const metadata: Metadata = {
   title: "Venice Carnival — Case Study",
@@ -19,5 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default function VeniceCarnivalPage() {
-  return <VeniceCarnivalCaseStudy />;
+  return (
+    <LocalizedProjectPage slug="venice-carnival">
+      <VeniceCarnivalCaseStudy />
+    </LocalizedProjectPage>
+  );
 }

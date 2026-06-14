@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { services } from "@/data/services";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useServiceText } from "./serviceText";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -12,6 +13,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function ProcessSection() {
   const p = services.process;
+  const text = useServiceText();
 
   return (
     <section className="pt-24 pb-16 border-t border-bone-line">
@@ -20,7 +22,7 @@ export function ProcessSection() {
           <HoverReveal y={10}>
             <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.24em] text-bone-dim uppercase">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
-              {p.eyebrow}
+              {text(p.eyebrow)}
             </p>
           </HoverReveal>
           <HoverReveal y={60} delay={0.1}>
@@ -28,7 +30,7 @@ export function ProcessSection() {
               className="mt-4 h-display tracking-[-0.02em] leading-[0.95] text-bone"
               style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
             >
-              {p.title}
+              {text(p.title)}
             </h2>
           </HoverReveal>
         </div>
@@ -56,10 +58,10 @@ export function ProcessSection() {
               className="mt-5 h-display tracking-tight text-bone leading-none"
               style={{ fontSize: "clamp(1.5rem, 2.2vw, 2rem)" }}
             >
-              {step.title}
+              {text(step.title)}
             </h3>
             <p className="mt-4 text-[13.5px] leading-relaxed text-bone-dim">
-              {step.body}
+              {text(step.body)}
             </p>
 
             {/* Top accent line on hover */}

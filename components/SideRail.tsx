@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { site } from "@/data/site";
 import { socials } from "@/data/socials";
 import { SocialIcon } from "./SocialIcon";
+import { useLanguage } from "./LanguageProvider";
 
 /**
  * Fixed left rail.
@@ -14,11 +14,14 @@ import { SocialIcon } from "./SocialIcon";
  */
 export function SideRail() {
   const pathname = usePathname();
+  const { t } = useLanguage();
   // /about owns the entire left column with its own cinematic sidebar,
   // and /2070 is a fullscreen archive plate — both pages hide the global rail.
   if (pathname?.startsWith("/about")) return null;
   if (pathname?.startsWith("/2070")) return null;
   if (pathname?.startsWith("/lab")) return null;
+
+  const labels = [t("side.tokyo"), t("side.role"), t("side.senior")];
 
   return (
     <aside
@@ -36,7 +39,7 @@ export function SideRail() {
         <span className="block w-px h-10 bg-bone-line" />
 
         <div className="flex flex-col items-center gap-7">
-          {site.sideRail.labels.map((label, i) => (
+          {labels.map((label, i) => (
             <span key={label} className="flex flex-col items-center gap-7">
               <span
                 className="font-mono text-[10px] tracking-[0.32em] uppercase text-bone-dim whitespace-nowrap"
@@ -44,7 +47,7 @@ export function SideRail() {
               >
                 {label}
               </span>
-              {i < site.sideRail.labels.length - 1 && (
+              {i < labels.length - 1 && (
                 <span className="block w-px h-6 bg-bone-line" />
               )}
             </span>

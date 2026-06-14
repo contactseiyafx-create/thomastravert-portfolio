@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { pages } from "@/data/pages";
+import { useLanguage } from "@/components/LanguageProvider";
 
 /* Locked palette per the brief — also exposed for any consumer that wants them. */
 const BG = "#002048";
@@ -22,6 +23,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function ComingSoon2070() {
   const p = pages.twentySeventy;
+  const { t } = useLanguage();
 
   return (
     <section
@@ -55,9 +57,9 @@ export function ComingSoon2070() {
 
       {/* ─── top labels ─── */}
       <header className="relative pt-[calc(var(--nav-h)+24px)] px-8 md:px-14 flex items-start justify-between">
-        <MicroLabel delay={0.35}>{p.archiveLabel}</MicroLabel>
+        <MicroLabel delay={0.35}>{t("twenty.archive")}</MicroLabel>
         <MicroLabel delay={0.45} align="right">
-          {p.sectionLabel}
+          {t("twenty.section")}
         </MicroLabel>
       </header>
 
@@ -91,7 +93,7 @@ export function ComingSoon2070() {
             "
             style={{ color: ACCENT }}
           >
-            {p.subtitle}
+            {t("twenty.subtitle")}
           </motion.p>
 
           {/* Japanese line */}
@@ -102,7 +104,7 @@ export function ComingSoon2070() {
             className="font-jp text-lg md:text-2xl tracking-[0.4em] mt-5"
             style={{ color: ACCENT, opacity: 0.85 }}
           >
-            {p.titleJp}
+            {t("twenty.titleJp")}
           </motion.p>
 
           {/* Separator dot row */}
@@ -135,7 +137,7 @@ export function ComingSoon2070() {
             "
             style={{ color: ACCENT, opacity: 0.7 }}
           >
-            {p.tagline}
+            {t("twenty.tagline")}
           </motion.p>
 
           {/* Return button */}
@@ -145,7 +147,7 @@ export function ComingSoon2070() {
             transition={{ duration: 1, delay: 1.55, ease: EASE }}
             className="mt-12 md:mt-14 flex justify-center"
           >
-            <ReturnButton href={p.cta.href} label={p.cta.label} />
+            <ReturnButton href={p.cta.href} label={t("twenty.cta")} />
           </motion.div>
         </div>
       </div>
@@ -160,10 +162,10 @@ export function ComingSoon2070() {
               animation: "shimmer 2.4s ease-in-out infinite",
             }}
           />
-          {p.status}
+          {t("twenty.status")}
         </MicroLabel>
         <MicroLabel delay={1.8} align="right">
-          {p.location}
+          {t("twenty.location")}
         </MicroLabel>
       </footer>
     </section>

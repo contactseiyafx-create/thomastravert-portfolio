@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { services } from "@/data/services";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useServiceText } from "./serviceText";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -13,13 +14,14 @@ const EASE = [0.16, 1, 0.3, 1] as const;
  */
 export function CTASection() {
   const c = services.cta;
+  const text = useServiceText();
 
   return (
     <section className="pt-24 pb-12 border-t border-bone-line">
       <HoverReveal y={10}>
         <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.24em] text-bone-dim uppercase">
           <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
-          {c.eyebrow}
+          {text(c.eyebrow)}
         </p>
       </HoverReveal>
 
@@ -33,7 +35,7 @@ export function CTASection() {
             className="h-display tracking-[-0.02em] leading-[0.92] text-bone whitespace-pre-line"
             style={{ fontSize: "clamp(2.6rem, 8vw, 6.5rem)" }}
           >
-            {c.title}
+            {text(c.title)}
           </motion.h2>
         </div>
 
@@ -49,7 +51,7 @@ export function CTASection() {
               "
             >
               <span className="font-mono text-[12px] tracking-[0.22em] uppercase text-bone">
-                {c.button.label}
+                {text(c.button.label)}
               </span>
               <span
                 className="

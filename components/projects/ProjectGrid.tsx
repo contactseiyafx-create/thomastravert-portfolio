@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { projects, projectFilters } from "@/data/projects";
 import type { ProjectCategory } from "@/data/projects";
 import { ProjectRow, ProjectGridCard } from "./ProjectCard";
-import { useLanguage } from "@/components/LanguageProvider";
+import { useLanguage, type TranslationKey } from "@/components/LanguageProvider";
 
 type Filter = "ALL" | ProjectCategory;
 type ViewMode = "list" | "grid";
@@ -57,7 +57,7 @@ export function ProjectGrid() {
                   {active && (
                     <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
                   )}
-                  {f}
+                  {t(`filter.${f}` as TranslationKey)}
                 </span>
               </button>
             );

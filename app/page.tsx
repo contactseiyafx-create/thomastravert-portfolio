@@ -1,11 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { Hero } from "@/components/Hero";
 import { ProjectFeatureCard } from "@/components/projects/ProjectCard";
 import { site } from "@/data/site";
 import { projects } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function HomePage() {
+  const { t } = useLanguage();
   // Resolve the featured-project slugs declared in site.ts
   const featured = site.featuredProjects
     .map((slug) => projects.find((p) => p.slug === slug))
@@ -19,13 +23,13 @@ export default function HomePage() {
       <section className="page-x pt-24 pb-32">
         <div className="flex items-baseline justify-between flex-wrap gap-3 mb-10">
           <HoverReveal y={16}>
-            <p className="h-eyebrow">FEATURED PROJECTS</p>
+            <p className="h-eyebrow">{t("home.featured")}</p>
           </HoverReveal>
           <Link
             href="/work"
             className="link-arrow text-bone hover:text-signal transition-colors"
           >
-            <span>VIEW ALL PROJECTS</span>
+            <span>{t("home.viewAll")}</span>
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="arrow">
               <path
                 d="M2 8L8 2M8 2H3M8 2V7"
@@ -49,19 +53,17 @@ export default function HomePage() {
         <div className="grid grid-cols-12 gap-6">
           <div className="col-span-12 lg:col-span-3">
             <HoverReveal y={16}>
-              <p className="h-eyebrow">APPROACH</p>
+              <p className="h-eyebrow">{t("home.approach")}</p>
             </HoverReveal>
             <HoverReveal y={20} delay={0.1} className="mt-4 body-lead max-w-xs">
-              A practice rooted in restraint, motion, and Japanese craft.
+              {t("home.approachLead")}
             </HoverReveal>
           </div>
 
           <div className="col-span-12 lg:col-span-9 overflow-hidden">
             <HoverReveal y={70}>
-              <h2 className="h-display text-[clamp(2.6rem,7vw,7rem)]">
-                EVERY FRAME
-                <br />
-                EARNS ITS PLACE.
+              <h2 className="h-display text-[clamp(2.6rem,7vw,7rem)] whitespace-pre-line">
+                {t("home.approachTitle")}
               </h2>
             </HoverReveal>
           </div>

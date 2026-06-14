@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { services } from "@/data/services";
+import { useServiceText } from "./serviceText";
 
 /* Dedicated palette for this card only — locked per brief */
 const BG = "#002048";
@@ -18,6 +19,7 @@ const WHITE = "#ffffff";
  */
 export function Signature2070Card() {
   const s = services.signature;
+  const text = useServiceText();
 
   return (
     <motion.article
@@ -37,7 +39,7 @@ export function Signature2070Card() {
           href={s.cta.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${s.cta.label} — ${s.title} (Signature Package)`}
+          aria-label={`${text(s.cta.label)} — ${text(s.title)}`}
           className="absolute inset-0 z-20 focus:outline-none focus-visible:ring-1"
           style={{ outlineColor: ACCENT }}
         />
@@ -86,7 +88,7 @@ export function Signature2070Card() {
         className="absolute top-8 left-1/4 font-mono text-[10px] tracking-[0.32em] uppercase whitespace-nowrap"
         style={{ color: ACCENT }}
       >
-        {s.archiveLabel}
+        {text(s.archiveLabel)}
       </p>
 
       {/* ─── CONTENT GRID ─── */}
@@ -119,7 +121,7 @@ export function Signature2070Card() {
               color: ACCENT,
             }}
           >
-            {s.title}
+            {text(s.title)}
           </h2>
 
           {/* Signature pill */}
@@ -133,7 +135,7 @@ export function Signature2070Card() {
                 letterSpacing: "0.04em",
               }}
             >
-              {s.pill}
+              {text(s.pill)}
             </span>
             <span
               className="font-jp text-sm tracking-[0.18em]"
@@ -148,7 +150,7 @@ export function Signature2070Card() {
             className="mt-8 text-[15px] md:text-base"
             style={{ color: WHITE, opacity: 0.95 }}
           >
-            {s.lead}
+            {text(s.lead)}
           </p>
           <div className="mt-4 space-y-1.5">
             {s.body.map((line) => (
@@ -157,7 +159,7 @@ export function Signature2070Card() {
                 className="text-[14.5px] md:text-[15px] leading-relaxed"
                 style={{ color: WHITE, opacity: 0.85 }}
               >
-                {line}
+                {text(line)}
               </p>
             ))}
           </div>
@@ -168,7 +170,7 @@ export function Signature2070Card() {
               className="font-mono text-[11px] tracking-[0.24em] mb-4"
               style={{ color: ACCENT }}
             >
-              INCLUDES:
+              {text("INCLUDES:")}
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5">
               {s.includes.map((it) => (
@@ -181,7 +183,7 @@ export function Signature2070Card() {
                     className="block w-1 h-1 rounded-full mt-2 shrink-0"
                     style={{ backgroundColor: ACCENT }}
                   />
-                  <span>{it}</span>
+                  <span>{text(it)}</span>
                 </li>
               ))}
             </ul>
@@ -193,7 +195,7 @@ export function Signature2070Card() {
               className="font-mono text-[11px] tracking-[0.24em]"
               style={{ color: ACCENT }}
             >
-              {s.priceLabel}
+              {text(s.priceLabel)}
             </p>
             <p
               className="font-display leading-none mt-2"
@@ -226,7 +228,7 @@ export function Signature2070Card() {
               className="font-mono text-[11px] tracking-[0.22em] uppercase leading-snug whitespace-pre-line"
               style={{ color: ACCENT }}
             >
-              {s.cornerBlock.heading}
+              {text(s.cornerBlock.heading)}
             </p>
             <p
               className="font-jp text-[11px] tracking-[0.14em] mt-1"
@@ -244,7 +246,7 @@ export function Signature2070Card() {
               className="font-mono text-[11px] tracking-[0.22em] uppercase"
               style={{ color: ACCENT }}
             >
-              {s.cornerBlock.secondary}
+              {text(s.cornerBlock.secondary)}
             </p>
             <p
               className="font-jp text-[11px] tracking-[0.14em] mt-1"
@@ -262,7 +264,7 @@ export function Signature2070Card() {
                 className="font-mono text-[11px] tracking-[0.24em]"
                 style={{ color: ACCENT }}
               >
-                {m}
+                {text(m)}
               </p>
             ))}
           </div>
@@ -273,13 +275,13 @@ export function Signature2070Card() {
               className="font-mono text-[10px] tracking-[0.28em] uppercase"
               style={{ color: ACCENT }}
             >
-              {s.footerLabel}
+              {text(s.footerLabel)}
             </p>
             <p
               className="font-mono text-[10px] tracking-[0.24em] uppercase mt-1"
               style={{ color: ACCENT, opacity: 0.7 }}
             >
-              {s.footerSubLabel}
+              {text(s.footerSubLabel)}
             </p>
             {/* hatched bar — pure CSS */}
             <span

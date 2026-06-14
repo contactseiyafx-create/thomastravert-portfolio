@@ -7,7 +7,7 @@ import { useRef } from "react";
 import type { Project } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useLanguage } from "@/components/LanguageProvider";
-import { useProjectCopy } from "./projectCopy";
+import { translateProjectLabel, useProjectCopy } from "./projectCopy";
 
 /**
  * Detail-page hero.
@@ -35,7 +35,7 @@ export function ProjectHero({
   position: number;
   total: number;
 }) {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const copy = useProjectCopy(project);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -113,7 +113,7 @@ export function ProjectHero({
             {project.tags && (
               <Meta
                 label={t("project.tags")}
-                value={project.tags.join(" · ")}
+                value={project.tags.map((tag) => translateProjectLabel(tag, language)).join(" · ")}
                 spanFull
               />
             )}

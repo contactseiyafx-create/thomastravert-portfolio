@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import AtletecZwiftCaseStudy from "@/components/projects/AtletecZwiftCaseStudy";
+import { LocalizedProjectPage } from "@/components/projects/LocalizedProjectPage";
 
 export const metadata: Metadata = {
   title: "Atletec Zwift Racing League — Case Study",
@@ -19,5 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default function AtletecZwiftPage() {
-  return <AtletecZwiftCaseStudy />;
+  return (
+    <LocalizedProjectPage slug="atletec-zwift-racing-league">
+      <AtletecZwiftCaseStudy />
+    </LocalizedProjectPage>
+  );
 }

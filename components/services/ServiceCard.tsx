@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ServiceCardData, CompactCardData } from "@/data/services";
+import { useServiceText } from "./serviceText";
 
 /* ─────────────────────────────────────────────
    STANDARD SERVICE CARD
@@ -14,6 +15,8 @@ export function ServiceCard({
   card: ServiceCardData;
   i?: number;
 }) {
+  const text = useServiceText();
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -39,7 +42,7 @@ export function ServiceCard({
           href={card.cta.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${card.cta.label} — ${card.title}`}
+          aria-label={`${text(card.cta.label)} — ${text(card.title)}`}
           className="absolute inset-0 z-10 focus:outline-none focus-visible:ring-1 focus-visible:ring-signal"
         />
       )}
@@ -64,17 +67,17 @@ export function ServiceCard({
         className="mt-3 h-display tracking-tight text-bone"
         style={{ fontSize: "clamp(1.35rem, 1.8vw, 1.65rem)" }}
       >
-        {card.title}
+        {text(card.title)}
       </h3>
 
       {/* Description */}
       <p className="mt-3 text-[13.5px] leading-relaxed text-bone-dim">
-        {card.description}
+        {text(card.description)}
       </p>
 
       {/* Includes */}
       <p className="mt-6 font-mono text-[10px] tracking-[0.24em] text-bone-muted">
-        INCLUDES:
+        {text("INCLUDES:")}
       </p>
       <ul className="mt-2.5 space-y-1.5">
         {card.includes.map((item) => (
@@ -83,7 +86,7 @@ export function ServiceCard({
             className="flex items-start gap-2.5 text-[13px] text-bone"
           >
             <span className="block w-1 h-1 rounded-full bg-signal mt-2 shrink-0" />
-            <span>{item}</span>
+            <span>{text(item)}</span>
           </li>
         ))}
       </ul>
@@ -94,7 +97,7 @@ export function ServiceCard({
       {/* Price + arrow */}
       <div className="mt-8 pt-5 border-t border-bone-line">
         <p className="font-mono text-[10px] tracking-[0.24em] text-bone-muted">
-          {card.priceLabel ?? "STARTING AT:"}
+          {text(card.priceLabel ?? "STARTING AT:")}
         </p>
         <div className="mt-2 flex items-end justify-between gap-3">
           <div className="min-w-0">
@@ -129,6 +132,8 @@ export function CompactCard({
   card: CompactCardData;
   i?: number;
 }) {
+  const text = useServiceText();
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -153,7 +158,7 @@ export function CompactCard({
           href={card.cta.href}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${card.cta.label} — ${card.title}`}
+          aria-label={`${text(card.cta.label)} — ${text(card.title)}`}
           className="absolute inset-0 z-10 focus:outline-none focus-visible:ring-1 focus-visible:ring-signal"
         />
       )}
@@ -168,7 +173,7 @@ export function CompactCard({
           </span>
         ) : (
           <span className="font-mono text-[10px] tracking-[0.24em] text-bone-muted uppercase">
-            {card.eyebrow}
+            {card.eyebrow ? text(card.eyebrow) : ""}
           </span>
         )}
         {card.jpLabel && (
@@ -182,15 +187,15 @@ export function CompactCard({
         className="mt-3 h-display tracking-tight text-bone"
         style={{ fontSize: "clamp(1.35rem, 1.8vw, 1.65rem)" }}
       >
-        {card.title}
+        {text(card.title)}
       </h3>
 
       <p className="mt-3 text-[13.5px] leading-relaxed text-bone-dim">
-        {card.description}
+        {text(card.description)}
       </p>
 
       <p className="mt-6 font-mono text-[10px] tracking-[0.24em] text-bone-muted">
-        INCLUDES:
+        {text("INCLUDES:")}
       </p>
       <ul className="mt-2.5 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5">
         {card.includes.map((item) => (
@@ -199,7 +204,7 @@ export function CompactCard({
             className="flex items-start gap-2.5 text-[13px] text-bone"
           >
             <span className="block w-1 h-1 rounded-full bg-signal mt-2 shrink-0" />
-            <span>{item}</span>
+            <span>{text(item)}</span>
           </li>
         ))}
       </ul>
@@ -209,7 +214,7 @@ export function CompactCard({
       <div className="mt-8 pt-5 border-t border-bone-line">
         {card.priceLabel && (
           <p className="font-mono text-[10px] tracking-[0.24em] text-bone-muted">
-            {card.priceLabel}
+            {text(card.priceLabel)}
           </p>
         )}
         <div className="mt-2 flex items-end justify-between gap-3">
@@ -218,7 +223,7 @@ export function CompactCard({
               className="h-display tracking-tight text-signal"
               style={{ fontSize: "clamp(1.4rem, 2vw, 1.85rem)" }}
             >
-              {card.price}
+              {text(card.price)}
             </p>
             {card.priceSecondary && (
               <p className="mt-1 font-mono text-[10.5px] tracking-[0.14em] text-bone-dim">
