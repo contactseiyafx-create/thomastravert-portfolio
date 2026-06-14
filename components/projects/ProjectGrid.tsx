@@ -21,13 +21,13 @@ export function ProjectGrid() {
 
   const filtered = useMemo(() => {
     if (filter === "ALL") return projects;
-    return projects.filter((p) => p.category === filter);
+    return projects.filter((p) => p.tags?.includes(filter));
   }, [filter]);
 
   // Trim filter list to only those that actually have projects so the bar
   // never advertises an empty slot.
   const visibleFilters = useMemo(() => {
-    const used = new Set(projects.map((p) => p.category as Filter));
+    const used = new Set(projects.flatMap((p) => p.tags ?? []) as Filter[]);
     return projectFilters.filter((f) => f === "ALL" || used.has(f));
   }, []);
 

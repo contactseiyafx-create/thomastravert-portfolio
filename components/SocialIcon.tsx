@@ -26,17 +26,6 @@ export function SocialIcon({ name, className }: Props) {
           <circle cx="11.5" cy="4.5" r="0.6" fill="currentColor" />
         </svg>
       );
-    case "dribbble":
-      return (
-        <svg {...common}>
-          <circle cx="8" cy="8" r="6.5" stroke="currentColor" />
-          <path
-            d="M2 7c3.5 0 8 0 11.6 2.6M3.6 3c2.2 2.4 5 6.5 7 12M13.5 4.6c-2.6 1.6-6.6 3.4-11 4"
-            stroke="currentColor"
-            strokeLinecap="round"
-          />
-        </svg>
-      );
     case "vimeo":
       return (
         <svg {...common}>

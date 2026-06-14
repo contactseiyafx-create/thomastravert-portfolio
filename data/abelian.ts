@@ -29,11 +29,11 @@ export type AbelianAsset = {
 export const abelian = {
   /* ───────── meta / header ───────── */
   meta: {
-    index: "07",
+    index: "01",
     slug: "abelian",
     title: "ABELIAN",
     subtitle: "POST-QUANTUM BLOCKCHAIN · MULTI-YEAR BRAND PARTNERSHIP",
-    category: "BRAND SYSTEM / MOTION / ILLUSTRATION",
+    category: "CLIENT WORK",
     client: "Abelian",
     clientJp: "アベリアン",
     years: "2023 — 2026",
@@ -57,7 +57,7 @@ export const abelian = {
       "Event Design",
     ],
     /** Running-order labels for the next-project footer */
-    positionLabel: "07 / 08",
+    positionLabel: "01 / 12",
   },
 
   /* ───────── overview ───────── */

@@ -30,50 +30,52 @@ export default function ContactPage() {
         </HoverReveal>
       </section>
 
-      <section className="page-x grid grid-cols-12 gap-6 py-12 border-t border-bone-line">
-        <div className="col-span-12 lg:col-span-5">
-          <p className="h-eyebrow-dim">EMAIL</p>
-          <Link
-            href={`mailto:${contact.email}`}
-            className="mt-3 inline-block font-display text-3xl md:text-5xl tracking-tight hover:text-signal transition-colors"
-          >
-            {contact.emailLabel}
-          </Link>
-          <p className="mt-3 font-mono text-[11px] tracking-[0.22em] text-bone-dim uppercase">
-            {p.response}
-          </p>
-        </div>
+      <section className="page-x py-12 border-t border-bone-line">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(220px,0.75fr)_minmax(220px,0.65fr)] lg:gap-12 xl:gap-16">
+          <div className="min-w-0 border-b border-bone-line pb-10 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-12 xl:pr-16">
+            <p className="h-eyebrow-dim">EMAIL</p>
+            <Link
+              href={`mailto:${contact.email}`}
+              className="mt-4 block max-w-full break-words font-display text-[clamp(1.65rem,4vw,3.4rem)] leading-[0.95] tracking-[-0.02em] hover:text-signal transition-colors"
+            >
+              {contact.emailLabel}
+            </Link>
+            <p className="mt-5 max-w-[34ch] font-mono text-[11px] leading-6 tracking-[0.2em] text-bone-dim uppercase">
+              {p.response}
+            </p>
+          </div>
 
-        <div className="col-span-12 lg:col-span-4">
-          <p className="h-eyebrow-dim">LOCATION</p>
-          <p className="mt-3 font-mono text-[12px] tracking-[0.18em] text-bone uppercase">
-            {contact.location}
-          </p>
-          <p className="mt-1 font-jp text-base text-bone-dim">
-            {contact.locationJp}
-          </p>
-          <p className="mt-3 font-mono text-[11px] tracking-[0.22em] uppercase text-bone-dim">
-            {contact.timezone}
-          </p>
-        </div>
+          <div className="border-b border-bone-line pb-10 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-12 xl:pr-16">
+            <p className="h-eyebrow-dim">LOCATION</p>
+            <p className="mt-4 font-mono text-[12px] leading-6 tracking-[0.18em] text-bone uppercase">
+              {contact.location}
+            </p>
+            <p className="mt-1 font-jp text-base text-bone-dim">
+              {contact.locationJp}
+            </p>
+            <p className="mt-5 font-mono text-[11px] leading-6 tracking-[0.22em] uppercase text-bone-dim">
+              {contact.timezone}
+            </p>
+          </div>
 
-        <div className="col-span-12 lg:col-span-3">
-          <p className="h-eyebrow-dim">FOLLOW</p>
-          <ul className="mt-3 space-y-2">
-            {socials.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 font-mono text-[12px] tracking-[0.16em] uppercase text-bone-dim hover:text-bone transition-colors"
-                >
-                  <SocialIcon name={s.icon} className="w-4 h-4" />
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div>
+            <p className="h-eyebrow-dim">FOLLOW</p>
+            <ul className="mt-4 space-y-4">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 font-mono text-[12px] tracking-[0.16em] uppercase text-bone-dim hover:text-bone transition-colors"
+                  >
+                    <SocialIcon name={s.icon} className="h-4 w-4 shrink-0" />
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 

@@ -12,19 +12,13 @@
  */
 
 export type ProjectCategory =
+  | "CLIENT WORK"
   | "ART DIRECTION"
-  | "ART DIRECTION / ILLUSTRATION"
-  | "ART DIRECTION / UI DESIGN"
-  | "3D ART DIRECTION"
-  | "3D DESIGN"
-  | "MOTION DESIGN"
-  | "ART DIRECTION / MOTION / 3D"
-  | "CGI"
+  | "GRAPHIC DESIGN"
+  | "MOTION"
   | "ILLUSTRATION"
-  | "BRANDING"
-  | "BRANDING / MERCH"
-  | "BRAND SYSTEM / MOTION / ILLUSTRATION"
-  | "CLIENT PROJECT";
+  | "3D"
+  | "UI DESIGN";
 
 export type ProjectImage = {
   /** Image src — used as the poster frame when `video` is present. */
@@ -99,8 +93,8 @@ export type Project = {
   };
   /** Optional external link (live URL, video, etc.) */
   externalUrl?: string;
-  /** Tags shown in detail header */
-  tags?: string[];
+  /** Tags shown in detail header and used by Work filters */
+  tags?: ProjectCategory[];
   /** Featured on home? */
   featured?: boolean;
 };
@@ -113,7 +107,7 @@ export const projects: Project[] = [
     index: "01",
     title: "ABELIAN",
     subtitle: "POST-QUANTUM BLOCKCHAIN · MULTI-YEAR PARTNERSHIP",
-    category: "BRAND SYSTEM / MOTION / ILLUSTRATION",
+    category: "CLIENT WORK",
     shortDescription:
       "MULTI-YEAR BRAND SYSTEM FOR A\nPOST-QUANTUM BLOCKCHAIN",
     longDescription:
@@ -146,253 +140,14 @@ export const projects: Project[] = [
       ratio: "16/9",
     },
     gallery: [], // bespoke editorial page renders the full story
-    tags: ["Web3", "Brand System", "Motion"],
-    featured: true,
-  },
-  {
-    slug: "atletec-zwift-racing-league",
-    index: "02",
-    title: "ATLETEC ZWIFT RACING LEAGUE",
-    subtitle: "ECYCLING · ESPORT · SEASON COMMUNICATION SYSTEM",
-    category: "ART DIRECTION / MOTION / 3D",
-    shortDescription:
-      "A COMPLETE VISUAL ECOSYSTEM\nFOR VIRTUAL CYCLING COMPETITION",
-    longDescription:
-      "A complete visual ecosystem for Atletec inside the Zwift Racing League: art direction, motion design, 3D assets, race announcements, ranking layouts and social communication designed to support an entire competitive season.",
-    year: "2021",
-    client: "Atletec",
-    role: ["Lead Designer", "Art Direction", "Graphic Design", "Motion Design"],
-    deliverables: [
-      "Art direction",
-      "Motion trailer",
-      "3D cycling assets",
-      "Race announcements",
-      "Ranking system",
-      "Social media templates",
-    ],
-    thumbnail: {
-      src: "/projects/atletec-zwift-racing-league/hero-cover.png",
-      alt: "Atletec Zwift Racing League — red hero cover with bicycle wheel",
-      ratio: "4/3",
-    },
-    hero: {
-      src: "/projects/atletec-zwift-racing-league/hero-cover.png",
-      alt: "Atletec Zwift Racing League — project hero",
-      ratio: "4/3",
-    },
-    gallery: [],
-    highlights: [
-      {
-        title: "SPORT × ESPORT",
-        body: "Cycling codes were rebuilt through data interfaces, race systems and competitive gaming references.",
-      },
-      {
-        title: "SEASON SYSTEM",
-        body: "A modular language supported victories, defeats, rankings, race results and promotional content.",
-      },
-      {
-        title: "MOTION-FIRST IDENTITY",
-        body: "Wireframes, loading states and glitch diagnostics gave the launch trailer its esports rhythm.",
-      },
-    ],
-    tags: ["Client", "Esport", "Motion", "2021"],
-    disclaimer:
-      "Project produced for Atletec — visuals shown for portfolio purposes; rights remain with Atletec and associated partners.",
-    featured: false,
-  },
-  {
-    slug: "nexbank",
-    index: "03",
-    title: "NEXBANK",
-    category: "ART DIRECTION / UI DESIGN",
-    shortDescription:
-      "FUTURISTIC DIGITAL BANKING\nEXPERIENCE & BRAND SYSTEM",
-    longDescription:
-      "Nexbank is a near-future banking proposition built around a single object: a black metal card that thinks. The visual system rejects the friendly-pastel fintech trope and pushes towards quiet technology — embossed metal, micro-typography, and motion that behaves more like a luxury timepiece than a payment app.",
-    year: "2026",
-    client: "Nexbank (concept)",
-    role: ["Art Direction", "UI Design", "CGI"],
-    deliverables: [
-      "Brand identity",
-      "Card design & CGI",
-      "Product UI",
-      "Marketing site",
-    ],
-    thumbnail: {
-      src: "/projects/nexbank/6_fullwitdh.png",
-      alt: "Nexbank — embossed black card",
-      ratio: "16/9",
-    },
-    hero: {
-      src: "/projects/nexbank/6_fullwitdh.png",
-      alt: "Nexbank — embossed black card hero",
-      ratio: "16/9",
-    },
-    gallery: [
-      {
-        src: "/projects/nexbank/1.png",
-        alt: "Nexbank — card collection picker",
-        ratio: "3/2",
-        caption: "Card picker — sequel to the Apple Card moment.",
-      },
-      {
-        src: "/projects/nexbank/2.png",
-        alt: "Nexbank — pricing plans on macOS",
-        ratio: "3/2",
-        caption: "Pricing — Standard, Premium, Business tiers.",
-      },
-      {
-        src: "/projects/nexbank/3.png",
-        alt: "Nexbank — bespoke platform features",
-        ratio: "3/2",
-        caption: "Bespoke platform — four iridescent feature glyphs.",
-      },
-      {
-        src: "/projects/nexbank/4.png",
-        alt: "Nexbank — money for here, there & everywhere stats",
-        ratio: "16/9",
-        caption: "Global stats — 20+ currencies · $5MM daily · 160+ countries.",
-      },
-    ],
-    highlights: [
-      {
-        title: "QUIET TECHNOLOGY",
-        body: "No emoji, no gradients-on-gradients. The card does the talking; the UI just frames it.",
-      },
-      {
-        title: "ONE WARM ACCENT",
-        body: "A single orange signal across every surface — typography, CTAs, glyphs — to keep the system focused.",
-      },
-      {
-        title: "EDITORIAL UI",
-        body: "Marketing surfaces read like a magazine spread before they read like an app.",
-      },
-    ],
-    tags: ["Fintech", "Identity", "CGI"],
-    featured: true,
-  },
-  {
-    slug: "venice-carnival",
-    index: "04",
-    title: "VENICE CARNIVAL",
-    subtitle: "PERSONAL PROJECT · CULTURAL IDENTITY EXPLORATION",
-    category: "ART DIRECTION / ILLUSTRATION",
-    shortDescription:
-      "A CONTEMPORARY VISUAL IDENTITY\nINSPIRED BY VENETIAN MASK CULTURE",
-    longDescription:
-      "A fictional identity project built around the Venice Carnival. The project reinterprets one of Italy's most recognizable cultural celebrations through a custom illustrated Venetian mask, poster series, event branding and environmental applications.",
-    year: "2021",
-    client: "Personal Project",
-    role: ["Art Direction", "Graphic Design", "Illustration"],
-    deliverables: [
-      "Key visual",
-      "Illustrated mask",
-      "Poster series",
-      "Ticket design",
-      "Environmental application",
-      "Graphic pattern system",
-    ],
-    thumbnail: {
-      src: "/projects/venice-carnival/hero-header.png",
-      alt: "Venice Carnival — illustrated mask campaign hero",
-      ratio: "1920/629",
-    },
-    hero: {
-      src: "/projects/venice-carnival/hero-header.png",
-      alt: "Venice Carnival — main key visual",
-      ratio: "1920/629",
-    },
-    gallery: [],
-    highlights: [
-      {
-        title: "HERITAGE REINTERPRETED",
-        body: "The mask keeps the theatrical mystery of Carnival while shifting the language into a contemporary graphic system.",
-      },
-      {
-        title: "ILLUSTRATION AS IDENTITY",
-        body: "Feathers, ornaments, geometry and texture become the project's core brand material.",
-      },
-      {
-        title: "SCALABLE SYSTEM",
-        body: "The artwork expands across posters, tickets, outdoor applications and modular patterns.",
-      },
-    ],
-    tags: ["Personal", "Illustration", "Identity", "2021"],
-    disclaimer:
-      "Personal project inspired by the Venice Carnival. Created as a fictional cultural identity exploration.",
-    featured: false,
-  },
-  {
-    slug: "luxury-garden",
-    index: "05",
-    title: "LUXURY GARDEN",
-    category: "3D ART DIRECTION",
-    shortDescription:
-      "SURREAL LUXURY EXHIBITION\nFOR HIGH-END FASHION HOUSES",
-    longDescription:
-      "A speculative exhibition series imagining how Maisons would advertise inside concrete arenas, brutalist galleries, and lit underground walkways. Every billboard composition was sculpted as a standalone editorial still — a study of how luxury icons survive when stripped of the boutique.",
-    year: "2025",
-    client: "Personal project · concept",
-    role: ["3D Art Direction", "Set Design", "Compositing"],
-    deliverables: [
-      "Concrete arena renders",
-      "Underground gallery series",
-      "Brand integrations · LV, Chanel, Dior",
-    ],
-    thumbnail: {
-      src: "/projects/luxurygarden/lg1.png",
-      alt: "Luxury Garden — underground gallery row of pink LV billboards",
-      ratio: "21/9",
-    },
-    hero: {
-      src: "/projects/luxurygarden/lg1.png",
-      alt: "Luxury Garden — underground gallery hero",
-      ratio: "21/9",
-    },
-    gallery: [
-      {
-        src: "/projects/luxurygarden/lg6.png",
-        alt: "Luxury Garden — LV billboard inside concrete arena",
-        ratio: "16/9",
-        caption: "LV in concrete — a single billboard in raw architecture.",
-      },
-      {
-        src: "/projects/luxurygarden/lg2.png",
-        alt: "Luxury Garden — Chanel No.5 floral billboard",
-        ratio: "3/2",
-        caption: "Chanel No.5 — roses, sunburst, glass.",
-      },
-      {
-        src: "/projects/luxurygarden/lg3.png",
-        alt: "Luxury Garden — Dior storefront billboard",
-        ratio: "3/2",
-        caption: "Dior storefront — terracotta and brass.",
-      },
-      {
-        src: "/projects/luxurygarden/lg4.png",
-        alt: "Luxury Garden — montage of the series",
-        ratio: "16/9",
-        caption: "Series montage — Chanel, LV, Dior.",
-      },
-    ],
-    highlights: [
-      {
-        title: "ONE ARTWORK, MANY ARENAS",
-        body: "Each Maison gets a single hero piece, placed into wildly different architectures.",
-      },
-      {
-        title: "BRUTALIST CONTRAST",
-        body: "Concrete and grit hold up against the pastels and gilt — the tension does the work.",
-      },
-    ],
-    tags: ["Luxury", "3D", "Editorial"],
+    tags: ["CLIENT WORK", "ART DIRECTION", "MOTION", "ILLUSTRATION"],
     featured: true,
   },
   {
     slug: "alpine-rhinoshield",
-    index: "06",
+    index: "02",
     title: "ALPINE × RHINOSHIELD",
-    category: "BRANDING / MERCH",
+    category: "CLIENT WORK",
     shortDescription:
       "OFFICIAL F1 MERCHANDISE CAPSULE\nART DIRECTION & ILLUSTRATION",
     longDescription:
@@ -461,7 +216,287 @@ export const projects: Project[] = [
         body: "Artwork adapted for iPhone, Android, Pixel and Galaxy — without losing the editorial intent.",
       },
     ],
-    tags: ["F1", "Merch", "Illustration"],
+    tags: ["CLIENT WORK", "ART DIRECTION", "ILLUSTRATION", "GRAPHIC DESIGN"],
+    featured: true,
+  },
+  {
+    slug: "nexbank",
+    index: "03",
+    title: "NEXBANK",
+    category: "ART DIRECTION",
+    shortDescription:
+      "FUTURISTIC DIGITAL BANKING\nEXPERIENCE & BRAND SYSTEM",
+    longDescription:
+      "Nexbank is a near-future banking proposition built around a single object: a black metal card that thinks. The visual system rejects the friendly-pastel fintech trope and pushes towards quiet technology — embossed metal, micro-typography, and motion that behaves more like a luxury timepiece than a payment app.",
+    year: "2026",
+    client: "Nexbank (concept)",
+    role: ["Art Direction", "UI Design", "CGI"],
+    deliverables: [
+      "Brand identity",
+      "Card design & CGI",
+      "Product UI",
+      "Marketing site",
+    ],
+    thumbnail: {
+      src: "/projects/nexbank/6_fullwitdh.png",
+      alt: "Nexbank — embossed black card",
+      ratio: "16/9",
+    },
+    hero: {
+      src: "/projects/nexbank/6_fullwitdh.png",
+      alt: "Nexbank — embossed black card hero",
+      ratio: "16/9",
+    },
+    gallery: [
+      {
+        src: "/projects/nexbank/1.png",
+        alt: "Nexbank — card collection picker",
+        ratio: "3/2",
+        caption: "Card picker — sequel to the Apple Card moment.",
+      },
+      {
+        src: "/projects/nexbank/2.png",
+        alt: "Nexbank — pricing plans on macOS",
+        ratio: "3/2",
+        caption: "Pricing — Standard, Premium, Business tiers.",
+      },
+      {
+        src: "/projects/nexbank/3.png",
+        alt: "Nexbank — bespoke platform features",
+        ratio: "3/2",
+        caption: "Bespoke platform — four iridescent feature glyphs.",
+      },
+      {
+        src: "/projects/nexbank/4.png",
+        alt: "Nexbank — money for here, there & everywhere stats",
+        ratio: "16/9",
+        caption: "Global stats — 20+ currencies · $5MM daily · 160+ countries.",
+      },
+    ],
+    highlights: [
+      {
+        title: "QUIET TECHNOLOGY",
+        body: "No emoji, no gradients-on-gradients. The card does the talking; the UI just frames it.",
+      },
+      {
+        title: "ONE WARM ACCENT",
+        body: "A single orange signal across every surface — typography, CTAs, glyphs — to keep the system focused.",
+      },
+      {
+        title: "EDITORIAL UI",
+        body: "Marketing surfaces read like a magazine spread before they read like an app.",
+      },
+    ],
+    tags: ["ART DIRECTION", "UI DESIGN", "GRAPHIC DESIGN"],
+    featured: true,
+  },
+  {
+    slug: "xbox-wire",
+    index: "04",
+    title: "XBOX WIRE",
+    subtitle: "MONTHLY LIVE SHOW · IDENTITY & BROADCAST",
+    category: "CLIENT WORK",
+    shortDescription:
+      "IDENTITY & BROADCAST DESIGN\nFOR A MONTHLY XBOX LIVE SHOW",
+    longDescription:
+      "Xbox Wire is a monthly live show produced by Xbox, featuring guests such as Le Joueur du Grenier, Domingo, Kadidiatou Diani and Ina Gilbert. The program focuses on gaming culture, industry discussions, entertainment and community topics surrounding the world of video games, with recurring segments including Autour du Vert, Le Défi and La Xboîte. My role covered art direction, graphic design, motion design and visual branding across the show's identity, broadcast graphics, on-set screens and communication materials.",
+    year: "2024",
+    client: "Xbox",
+    role: ["Art Direction", "Graphic Design", "Motion Design"],
+    deliverables: [
+      "Show identity & logo lockup",
+      "On-air broadcast graphics",
+      "On-set screen visuals",
+      "Segment graphics (Autour du Vert · Le Défi · La Xboîte)",
+      "Social-media communication assets",
+      "Episode key visuals",
+    ],
+    thumbnail: {
+      // Brief: this file is for thumbnail + hero ONLY. Used for nothing else.
+      src: "/projects/xbox-wire/thumb.jpg",
+      alt: "Xbox Wire — show identity key visual",
+      ratio: "16/9",
+    },
+    hero: {
+      // Brief: same key visual as the thumbnail, fullscreen hero with original
+      // 16:9 proportions preserved. ProjectHero applies object-cover only.
+      src: "/projects/xbox-wire/hero.jpg",
+      alt: "Xbox Wire — show identity key visual",
+      ratio: "16/9",
+    },
+    gallery: [
+      // Brief: gallery uses ONLY the five "full" images. Hero/thumb deliberately
+      // excluded — strict role separation.
+      {
+        src: "/projects/xbox-wire/01-facebook-spread.jpg",
+        alt: "Xbox Wire #3 — Spéciale Jeux Indés · Facebook live spread",
+        ratio: "1400/727",
+        caption:
+          "Xbox Wire #3 — Spéciale Jeux Indés · Le Défi · live broadcast on social channels.",
+      },
+      {
+        src: "/projects/xbox-wire/02-youtube-clairefontaine.jpg",
+        alt: "Visit of Clairefontaine + Xbox Wire #XboxDay · YouTube cut",
+        ratio: "1400/680",
+        caption:
+          "Clairefontaine × Xbox Wire — #XboxDay episode with Domingo and Kadidiatou Diani.",
+      },
+      {
+        src: "/projects/xbox-wire/03-set-foosball.jpg",
+        alt: "Xbox Wire — on-set with foosball table and screen graphics",
+        ratio: "3/2",
+        caption:
+          "On-set environment — branded screens, foosball table, integrated broadcast graphics.",
+      },
+      {
+        src: "/projects/xbox-wire/04-set-wide.jpg",
+        alt: "Xbox Wire — wide hero shot of the Clairefontaine set",
+        ratio: "3/2",
+        caption:
+          "Wide hero shot — Clairefontaine salon dressed as the Xbox Wire studio.",
+      },
+      {
+        src: "/projects/xbox-wire/05-camera-bts.jpg",
+        alt: "Xbox Wire — behind-the-scenes from camera viewfinder",
+        ratio: "4/3",
+        caption:
+          "Behind the scenes — the set from the camera operator's viewfinder before rolling.",
+      },
+    ],
+    highlights: [
+      {
+        title: "MONTHLY BROADCAST IDENTITY",
+        body: "A flexible identity system carrying the same Xbox Wire signature across every monthly drop — broadcast, social, on-set screens — without ever looking like a repeat.",
+      },
+      {
+        title: "THREE RECURRING SEGMENTS",
+        body: "Autour du Vert, Le Défi and La Xboîte each carry their own treatment inside the same visual frame, signalling the segment at a glance.",
+      },
+      {
+        title: "ON-SET INTEGRATION",
+        body: "Brand assets designed in lockstep with the physical set — desk fronts, vertical screen pylons, neon Xbox console plinths — so on-air graphics meet the room itself.",
+      },
+    ],
+    tags: ["CLIENT WORK", "ART DIRECTION", "MOTION", "GRAPHIC DESIGN"],
+    disclaimer:
+      "Project produced for Xbox / Microsoft — visuals shown for portfolio purposes; rights remain with Xbox.",
+    featured: false,
+  },
+  {
+    slug: "atletec-zwift-racing-league",
+    index: "05",
+    title: "ATLETEC ZWIFT RACING LEAGUE",
+    subtitle: "ECYCLING · ESPORT · SEASON COMMUNICATION SYSTEM",
+    category: "CLIENT WORK",
+    shortDescription:
+      "A COMPLETE VISUAL ECOSYSTEM\nFOR VIRTUAL CYCLING COMPETITION",
+    longDescription:
+      "A complete visual ecosystem for Atletec inside the Zwift Racing League: art direction, motion design, 3D assets, race announcements, ranking layouts and social communication designed to support an entire competitive season.",
+    year: "2021",
+    client: "Atletec",
+    role: ["Lead Designer", "Art Direction", "Graphic Design", "Motion Design"],
+    deliverables: [
+      "Art direction",
+      "Motion trailer",
+      "3D cycling assets",
+      "Race announcements",
+      "Ranking system",
+      "Social media templates",
+    ],
+    thumbnail: {
+      src: "/projects/atletec-zwift-racing-league/hero-cover.png",
+      alt: "Atletec Zwift Racing League — red hero cover with bicycle wheel",
+      ratio: "4/3",
+    },
+    hero: {
+      src: "/projects/atletec-zwift-racing-league/hero-cover.png",
+      alt: "Atletec Zwift Racing League — project hero",
+      ratio: "4/3",
+    },
+    gallery: [],
+    highlights: [
+      {
+        title: "SPORT × ESPORT",
+        body: "Cycling codes were rebuilt through data interfaces, race systems and competitive gaming references.",
+      },
+      {
+        title: "SEASON SYSTEM",
+        body: "A modular language supported victories, defeats, rankings, race results and promotional content.",
+      },
+      {
+        title: "MOTION-FIRST IDENTITY",
+        body: "Wireframes, loading states and glitch diagnostics gave the launch trailer its esports rhythm.",
+      },
+    ],
+    tags: ["CLIENT WORK", "ART DIRECTION", "MOTION", "3D"],
+    disclaimer:
+      "Project produced for Atletec — visuals shown for portfolio purposes; rights remain with Atletec and associated partners.",
+    featured: false,
+  },
+  {
+    slug: "luxury-garden",
+    index: "06",
+    title: "LUXURY GARDEN",
+    category: "ART DIRECTION",
+    shortDescription:
+      "SURREAL LUXURY EXHIBITION\nFOR HIGH-END FASHION HOUSES",
+    longDescription:
+      "A speculative exhibition series imagining how Maisons would advertise inside concrete arenas, brutalist galleries, and lit underground walkways. Every billboard composition was sculpted as a standalone editorial still — a study of how luxury icons survive when stripped of the boutique.",
+    year: "2025",
+    client: "Personal project · concept",
+    role: ["3D Art Direction", "Set Design", "Compositing"],
+    deliverables: [
+      "Concrete arena renders",
+      "Underground gallery series",
+      "Brand integrations · LV, Chanel, Dior",
+    ],
+    thumbnail: {
+      src: "/projects/luxurygarden/lg1.png",
+      alt: "Luxury Garden — underground gallery row of pink LV billboards",
+      ratio: "21/9",
+    },
+    hero: {
+      src: "/projects/luxurygarden/lg1.png",
+      alt: "Luxury Garden — underground gallery hero",
+      ratio: "21/9",
+    },
+    gallery: [
+      {
+        src: "/projects/luxurygarden/lg6.png",
+        alt: "Luxury Garden — LV billboard inside concrete arena",
+        ratio: "16/9",
+        caption: "LV in concrete — a single billboard in raw architecture.",
+      },
+      {
+        src: "/projects/luxurygarden/lg2.png",
+        alt: "Luxury Garden — Chanel No.5 floral billboard",
+        ratio: "3/2",
+        caption: "Chanel No.5 — roses, sunburst, glass.",
+      },
+      {
+        src: "/projects/luxurygarden/lg3.png",
+        alt: "Luxury Garden — Dior storefront billboard",
+        ratio: "3/2",
+        caption: "Dior storefront — terracotta and brass.",
+      },
+      {
+        src: "/projects/luxurygarden/lg4.png",
+        alt: "Luxury Garden — montage of the series",
+        ratio: "16/9",
+        caption: "Series montage — Chanel, LV, Dior.",
+      },
+    ],
+    highlights: [
+      {
+        title: "ONE ARTWORK, MANY ARENAS",
+        body: "Each Maison gets a single hero piece, placed into wildly different architectures.",
+      },
+      {
+        title: "BRUTALIST CONTRAST",
+        body: "Concrete and grit hold up against the pastels and gilt — the tension does the work.",
+      },
+    ],
+    tags: ["ART DIRECTION", "3D", "GRAPHIC DESIGN"],
     featured: true,
   },
   {
@@ -469,7 +504,7 @@ export const projects: Project[] = [
     index: "07",
     title: "PEWDIEPIE × RHINOSHIELD",
     subtitle: "JAPANESE VISUAL DIRECTION · CASE CAPSULE",
-    category: "CLIENT PROJECT",
+    category: "CLIENT WORK",
     shortDescription:
       "JAPANESE VISUAL DIRECTION\nFOR A CASE CAPSULE",
     longDescription:
@@ -551,21 +586,68 @@ export const projects: Project[] = [
      * Disclaimer rendered in the meta sidebar via `tags`.
      * Brief explicitly requests this attribution.
      */
-    tags: [
-      "Rhinoshield · client property",
-      "Capsule",
-      "2020",
-    ],
+    tags: ["CLIENT WORK", "ART DIRECTION", "ILLUSTRATION", "GRAPHIC DESIGN"],
     disclaimer:
       "All concepts and designs — accepted or not — remain the property of Rhinoshield.",
     featured: false,
   },
   {
-    slug: "atletec-tv-rebranding",
+    slug: "venice-carnival",
     index: "08",
+    title: "VENICE CARNIVAL",
+    subtitle: "PERSONAL PROJECT · CULTURAL IDENTITY EXPLORATION",
+    category: "ART DIRECTION",
+    shortDescription:
+      "A CONTEMPORARY VISUAL IDENTITY\nINSPIRED BY VENETIAN MASK CULTURE",
+    longDescription:
+      "A fictional identity project built around the Venice Carnival. The project reinterprets one of Italy's most recognizable cultural celebrations through a custom illustrated Venetian mask, poster series, event branding and environmental applications.",
+    year: "2021",
+    client: "Personal Project",
+    role: ["Art Direction", "Graphic Design", "Illustration"],
+    deliverables: [
+      "Key visual",
+      "Illustrated mask",
+      "Poster series",
+      "Ticket design",
+      "Environmental application",
+      "Graphic pattern system",
+    ],
+    thumbnail: {
+      src: "/projects/venice-carnival/hero-header.png",
+      alt: "Venice Carnival — illustrated mask campaign hero",
+      ratio: "1920/629",
+    },
+    hero: {
+      src: "/projects/venice-carnival/hero-header.png",
+      alt: "Venice Carnival — main key visual",
+      ratio: "1920/629",
+    },
+    gallery: [],
+    highlights: [
+      {
+        title: "HERITAGE REINTERPRETED",
+        body: "The mask keeps the theatrical mystery of Carnival while shifting the language into a contemporary graphic system.",
+      },
+      {
+        title: "ILLUSTRATION AS IDENTITY",
+        body: "Feathers, ornaments, geometry and texture become the project's core brand material.",
+      },
+      {
+        title: "SCALABLE SYSTEM",
+        body: "The artwork expands across posters, tickets, outdoor applications and modular patterns.",
+      },
+    ],
+    tags: ["ART DIRECTION", "ILLUSTRATION", "GRAPHIC DESIGN"],
+    disclaimer:
+      "Personal project inspired by the Venice Carnival. Created as a fictional cultural identity exploration.",
+    featured: false,
+  },
+  {
+    slug: "atletec-tv-rebranding",
+    index: "09",
     title: "ATLETEC TV — REBRANDING",
     subtitle: "ESPORTS WEBTV · COMPLETE BRAND SYSTEM",
-    category: "CLIENT PROJECT",
+    category: "CLIENT WORK",
     shortDescription:
       "COMPLETE ARTISTIC DIRECTION\nFOR AN ESPORTS WEBTV",
     longDescription:
@@ -667,101 +749,9 @@ export const projects: Project[] = [
         body: "The same identity flexes across stream banners, story templates, planning grids, partner line-ups and live-scene 3D environments — without losing the editorial frame.",
       },
     ],
-    tags: ["Esports", "Broadcast", "2024"],
+    tags: ["CLIENT WORK", "ART DIRECTION", "MOTION", "GRAPHIC DESIGN"],
     disclaimer:
       "Project produced for Atletec — visuals shown for portfolio purposes; rights remain with Atletec.",
-    featured: false,
-  },
-  {
-    slug: "xbox-wire",
-    index: "09",
-    title: "XBOX WIRE",
-    subtitle: "MONTHLY LIVE SHOW · IDENTITY & BROADCAST",
-    category: "CLIENT PROJECT",
-    shortDescription:
-      "IDENTITY & BROADCAST DESIGN\nFOR A MONTHLY XBOX LIVE SHOW",
-    longDescription:
-      "Xbox Wire is a monthly live show produced by Xbox, featuring guests such as Le Joueur du Grenier, Domingo, Kadidiatou Diani and Ina Gilbert. The program focuses on gaming culture, industry discussions, entertainment and community topics surrounding the world of video games, with recurring segments including Autour du Vert, Le Défi and La Xboîte. My role covered art direction, graphic design, motion design and visual branding across the show's identity, broadcast graphics, on-set screens and communication materials.",
-    year: "2024",
-    client: "Xbox",
-    role: ["Art Direction", "Graphic Design", "Motion Design"],
-    deliverables: [
-      "Show identity & logo lockup",
-      "On-air broadcast graphics",
-      "On-set screen visuals",
-      "Segment graphics (Autour du Vert · Le Défi · La Xboîte)",
-      "Social-media communication assets",
-      "Episode key visuals",
-    ],
-    thumbnail: {
-      // Brief: this file is for thumbnail + hero ONLY. Used for nothing else.
-      src: "/projects/xbox-wire/thumb.jpg",
-      alt: "Xbox Wire — show identity key visual",
-      ratio: "16/9",
-    },
-    hero: {
-      // Brief: same key visual as the thumbnail, fullscreen hero with original
-      // 16:9 proportions preserved. ProjectHero applies object-cover only.
-      src: "/projects/xbox-wire/hero.jpg",
-      alt: "Xbox Wire — show identity key visual",
-      ratio: "16/9",
-    },
-    gallery: [
-      // Brief: gallery uses ONLY the five "full" images. Hero/thumb deliberately
-      // excluded — strict role separation.
-      {
-        src: "/projects/xbox-wire/01-facebook-spread.jpg",
-        alt: "Xbox Wire #3 — Spéciale Jeux Indés · Facebook live spread",
-        ratio: "1400/727",
-        caption:
-          "Xbox Wire #3 — Spéciale Jeux Indés · Le Défi · live broadcast on social channels.",
-      },
-      {
-        src: "/projects/xbox-wire/02-youtube-clairefontaine.jpg",
-        alt: "Visit of Clairefontaine + Xbox Wire #XboxDay · YouTube cut",
-        ratio: "1400/680",
-        caption:
-          "Clairefontaine × Xbox Wire — #XboxDay episode with Domingo and Kadidiatou Diani.",
-      },
-      {
-        src: "/projects/xbox-wire/03-set-foosball.jpg",
-        alt: "Xbox Wire — on-set with foosball table and screen graphics",
-        ratio: "3/2",
-        caption:
-          "On-set environment — branded screens, foosball table, integrated broadcast graphics.",
-      },
-      {
-        src: "/projects/xbox-wire/04-set-wide.jpg",
-        alt: "Xbox Wire — wide hero shot of the Clairefontaine set",
-        ratio: "3/2",
-        caption:
-          "Wide hero shot — Clairefontaine salon dressed as the Xbox Wire studio.",
-      },
-      {
-        src: "/projects/xbox-wire/05-camera-bts.jpg",
-        alt: "Xbox Wire — behind-the-scenes from camera viewfinder",
-        ratio: "4/3",
-        caption:
-          "Behind the scenes — the set from the camera operator's viewfinder before rolling.",
-      },
-    ],
-    highlights: [
-      {
-        title: "MONTHLY BROADCAST IDENTITY",
-        body: "A flexible identity system carrying the same Xbox Wire signature across every monthly drop — broadcast, social, on-set screens — without ever looking like a repeat.",
-      },
-      {
-        title: "THREE RECURRING SEGMENTS",
-        body: "Autour du Vert, Le Défi and La Xboîte each carry their own treatment inside the same visual frame, signalling the segment at a glance.",
-      },
-      {
-        title: "ON-SET INTEGRATION",
-        body: "Brand assets designed in lockstep with the physical set — desk fronts, vertical screen pylons, neon Xbox console plinths — so on-air graphics meet the room itself.",
-      },
-    ],
-    tags: ["Xbox", "Broadcast", "2024"],
-    disclaimer:
-      "Project produced for Xbox / Microsoft — visuals shown for portfolio purposes; rights remain with Xbox.",
     featured: false,
   },
   {
@@ -769,7 +759,7 @@ export const projects: Project[] = [
     index: "10",
     title: "DAFT PUNK REMASTERED",
     subtitle: "ILLUSTRATION · ART DIRECTION · GRAPHIC DESIGN",
-    category: "ILLUSTRATION",
+    category: "ART DIRECTION",
     shortDescription:
       "A VIBRANT ILLUSTRATION SERIES\nREIMAGINING DAFT PUNK",
     longDescription:
@@ -861,14 +851,14 @@ export const projects: Project[] = [
         body: "Print-design rules (grid, halftone, typographic hierarchy) applied to a piece designed to be collected — not just consumed.",
       },
     ],
-    tags: ["Personal", "Illustration", "2022"],
+    tags: ["ART DIRECTION", "ILLUSTRATION", "GRAPHIC DESIGN"],
     featured: false,
   },
   {
     slug: "social-media-icons",
     index: "11",
     title: "3D SOCIAL MEDIA ICONS",
-    category: "3D DESIGN",
+    category: "3D",
     shortDescription:
       "A PLAYFUL COLLECTION OF 3D ICONS,\nWIDGETS & MOBILE INTERFACES",
     longDescription:
@@ -958,7 +948,7 @@ export const projects: Project[] = [
     ],
     externalUrl:
       "https://www.behance.net/gallery/125836575/3D-Social-Media-icons-Apps-Widgets",
-    tags: ["Personal", "3D", "2024"],
+    tags: ["3D", "GRAPHIC DESIGN", "UI DESIGN"],
     featured: false,
   },
   {
@@ -1036,7 +1026,7 @@ export const projects: Project[] = [
     ],
     disclaimer:
       "Independent personal tribute inspired by Disney·Pixar's The Incredibles. Created for educational and portfolio purposes only.",
-    tags: ["Personal", "Illustration", "2022"],
+    tags: ["ILLUSTRATION", "ART DIRECTION"],
     featured: false,
   },
 ];
@@ -1046,17 +1036,13 @@ export const projects: Project[] = [
 /** Filter taxonomy for the work page — shown left-to-right exactly. */
 export const projectFilters: Array<"ALL" | ProjectCategory> = [
   "ALL",
-  "BRAND SYSTEM / MOTION / ILLUSTRATION",
+  "CLIENT WORK",
   "ART DIRECTION",
-  "ART DIRECTION / ILLUSTRATION",
-  "ART DIRECTION / MOTION / 3D",
-  "ART DIRECTION / UI DESIGN",
-  "3D ART DIRECTION",
-  "MOTION DESIGN",
-  "CGI",
+  "GRAPHIC DESIGN",
+  "MOTION",
   "ILLUSTRATION",
-  "BRANDING / MERCH",
-  "CLIENT PROJECT",
+  "3D",
+  "UI DESIGN",
 ];
 
 export function getProject(slug: string): Project | undefined {
