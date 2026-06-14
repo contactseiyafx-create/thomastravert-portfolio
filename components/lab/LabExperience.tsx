@@ -8,8 +8,10 @@ import {
   type LabApp,
   type LabArtwork,
   type LabDeck,
+  type LabFolder,
   type LabFolderId,
 } from "@/data/lab";
+import { useLanguage, type TranslationKey } from "@/components/LanguageProvider";
 import { GlyphEngine } from "./GlyphEngine";
 import { ShinshokuInterviewRPG } from "./ShinshokuInterviewRPG";
 
@@ -17,6 +19,39 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 const CINEMA = [0.65, 0, 0.35, 1] as const;
 
 type OpenFolder = LabFolderId | null;
+
+const folderCopyKeys: Record<
+  LabFolderId,
+  { label: TranslationKey; sub: TranslationKey; desc: TranslationKey }
+> = {
+  apps: {
+    label: "lab.folder.apps.label",
+    sub: "lab.folder.apps.sub",
+    desc: "lab.folder.apps.desc",
+  },
+  "graphic-design": {
+    label: "lab.folder.graphic-design.label",
+    sub: "lab.folder.graphic-design.sub",
+    desc: "lab.folder.graphic-design.desc",
+  },
+  "motion-design": {
+    label: "lab.folder.motion-design.label",
+    sub: "lab.folder.motion-design.sub",
+    desc: "lab.folder.motion-design.desc",
+  },
+  carousels: {
+    label: "lab.folder.carousels.label",
+    sub: "lab.folder.carousels.sub",
+    desc: "lab.folder.carousels.desc",
+  },
+};
+
+const statusKeys: Record<LabApp["status"], TranslationKey> = {
+  Live: "status.live",
+  Beta: "status.beta",
+  "In development": "status.in-development",
+  Concept: "status.concept",
+};
 
 export default function LabExperience() {
   const [open, setOpen] = useState<OpenFolder>(null);
@@ -105,6 +140,7 @@ function Atmosphere({ reduce, active }: { reduce: boolean; active: OpenFolder })
 
 function Intro() {
   const i = lab.intro;
+  const { t } = useLanguage();
   return (
     <header className="max-w-3xl">
       <motion.p
@@ -114,7 +150,7 @@ function Intro() {
         className="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] uppercase text-bone-dim"
       >
         <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal animate-pulse" />
-        {i.eyebrow}
+        {t("lab.intro.eyebrow")}
       </motion.p>
 
       <h1 className="mt-6 leading-[0.86]">
@@ -138,7 +174,7 @@ function Intro() {
         transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
         className="mt-8 body-lead leading-[1.7] max-w-xl"
       >
-        {i.lead}
+        {t("lab.intro.lead")}
       </motion.p>
       <motion.p
         initial={{ opacity: 0 }}
@@ -146,7 +182,7 @@ function Intro() {
         transition={{ duration: 0.9, delay: 0.55, ease: EASE }}
         className="mt-4 font-mono text-[11px] tracking-[0.2em] uppercase text-bone-muted"
       >
-        {i.note}
+        {t("lab.intro.note")}
       </motion.p>
     </header>
   );
@@ -182,12 +218,15 @@ function Folder({
   dimmed,
   onClick,
 }: {
-  data: (typeof lab.folders)[number];
+  data: LabFolder;
   index: number;
   active: boolean;
   dimmed: boolean;
   onClick: () => void;
 }) {
+  const { t } = useLanguage();
+  const copy = folderCopyKeys[data.id];
+
   return (
     <motion.button
       type="button"
@@ -223,7 +262,7 @@ function Folder({
           <div className="relative h-full p-6 flex flex-col justify-between">
             <div className="flex items-start justify-between">
               <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-bone-muted">
-                {data.sub}
+                {t(copy.sub)}
               </span>
               <span className="font-mono text-[11px] tracking-[0.2em] text-bone-dim">
                 {data.count}
@@ -232,13 +271,15 @@ function Folder({
 
             <div>
               <span className="block h-display text-[clamp(1.45rem,2.5vw,2.25rem)] leading-[0.95]">
-                {data.label}
+                {t(copy.label)}
               </span>
-              <span className="mt-2 block body-sm max-w-[28ch]">{data.desc}</span>
+              <span className="mt-2 block body-sm max-w-[28ch]">
+                {t(copy.desc)}
+              </span>
             </div>
 
             <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.24em] uppercase text-signal">
-              {active ? "Close folder" : "Open folder"}
+              {active ? t("lab.closeFolder") : t("lab.openFolder")}
               <motion.svg
                 width="11"
                 height="11"
@@ -270,7 +311,9 @@ function FolderArchive({
   onOpenDeck: (deck: LabDeck) => void;
 }) {
   const folderData = lab.folders.find((f) => f.id === folder);
+  const { t } = useLanguage();
   if (!folderData) return null;
+  const folderKeys = folderCopyKeys[folderData.id];
 
   return (
     <motion.section
@@ -281,7 +324,7 @@ function FolderArchive({
       className="overflow-hidden"
     >
       <div className="mt-12 pt-10 border-t border-bone-line">
-        <ArchiveHead label={folderData.label} sub={folderData.desc} />
+        <ArchiveHead label={t(folderKeys.label)} sub={t(folderKeys.desc)} />
 
         {folder === "apps" && (
           <AppsArchive onLaunch={onLaunchApp} />
@@ -296,7 +339,7 @@ function FolderArchive({
         )}
 
         {folder === "motion-design" && (
-          <EmptyArchive label="Motion Design" />
+          <EmptyArchive label={t(folderKeys.label)} />
         )}
       </div>
     </motion.section>
@@ -323,6 +366,7 @@ function AppTile({
   onLaunch: (app: LabApp) => void;
 }) {
   const tint = app.tint ?? "var(--signal)";
+  const { t } = useLanguage();
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
@@ -370,7 +414,7 @@ function AppTile({
           style={{ background: "var(--tint)" }}
         />
         <span className="relative z-10 flex items-center gap-2">
-          Launch
+          {t("lab.launch")}
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
             <path d="M2 8L8 2M8 2H3M8 2V7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
           </svg>
@@ -381,6 +425,7 @@ function AppTile({
 }
 
 function StatusPill({ status }: { status: LabApp["status"] }) {
+  const { t } = useLanguage();
   const live = status === "Live";
   const beta = status === "Beta";
   const color = live ? "var(--signal)" : beta ? "#63D7FF" : "#7a7a7a";
@@ -390,7 +435,7 @@ function StatusPill({ status }: { status: LabApp["status"] }) {
         className="inline-block w-1.5 h-1.5 rounded-full"
         style={{ background: color, boxShadow: live ? `0 0 8px ${color}` : "none" }}
       />
-      {status}
+      {t(statusKeys[status])}
     </span>
   );
 }
@@ -468,6 +513,8 @@ function DeckGrid({
   decks: readonly LabDeck[];
   onOpen: (deck: LabDeck) => void;
 }) {
+  const { t } = useLanguage();
+
   return (
     <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-7">
       {decks.map((deck, index) => (
@@ -495,19 +542,19 @@ function DeckGrid({
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-bone-muted">
-                  Image deck
+                  {t("lab.imageDeck")}
                 </p>
                 <h3 className="mt-3 font-sans text-[20px] md:text-[22px] font-medium leading-tight text-bone">
                   {deck.title}
                 </h3>
               </div>
               <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-bone-muted">
-                {deck.slides.length} pages
+                {deck.slides.length} {t("lab.pages")}
               </span>
             </div>
             <p className="mt-4 body-sm leading-[1.55]">{deck.description}</p>
             <span className="mt-6 inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase text-signal">
-              Open deck
+              {t("lab.openDeck")}
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M2 8L8 2M8 2H3M8 2V7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
               </svg>
@@ -520,6 +567,8 @@ function DeckGrid({
 }
 
 function EmptyArchive({ label }: { label: string }) {
+  const { t } = useLanguage();
+
   return (
     <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl">
       {Array.from({ length: 6 }).map((_, index) => (
@@ -535,7 +584,7 @@ function EmptyArchive({ label }: { label: string }) {
           }}
         >
           <span className="font-mono text-[10px] tracking-[0.24em] uppercase text-bone-muted">
-            {label} / slot {String(index + 1).padStart(2, "0")}
+            {label} / {t("lab.slot")} {String(index + 1).padStart(2, "0")}
           </span>
         </motion.div>
       ))}
@@ -544,6 +593,8 @@ function EmptyArchive({ label }: { label: string }) {
 }
 
 function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
+  const { t } = useLanguage();
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
@@ -571,7 +622,7 @@ function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
           onClick={onClose}
           className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-bone hover:text-signal transition-colors"
         >
-          Close
+          {t("lab.close")}
           <span className="grid place-items-center w-7 h-7 rounded-full border border-bone-line group-hover:border-signal transition-colors">
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
               <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.4" />
@@ -590,7 +641,7 @@ function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
           <ShinshokuInterviewRPG />
         ) : (
           <div className="h-full grid place-items-center">
-            <p className="body-lead">This experience isn't ready yet.</p>
+            <p className="body-lead">{t("lab.notReady")}</p>
           </div>
         )}
       </div>
@@ -754,6 +805,8 @@ function MediaOverlay({
   onNext: () => void;
   children: ReactNode;
 }) {
+  const { t } = useLanguage();
+
   return (
     <motion.div
       initial={{ opacity: 0, filter: "blur(8px)" }}
@@ -768,7 +821,7 @@ function MediaOverlay({
       <div className="absolute inset-x-0 top-0 z-20 flex h-[var(--nav-h)] items-center justify-between border-b border-bone-line bg-ink/70 px-[var(--gutter)] backdrop-blur-md">
         <div className="min-w-0">
           <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-bone-muted">
-            LAB archive
+            {t("lab.archive")}
           </p>
           <h2 className="mt-1 truncate font-sans text-[14px] font-medium text-bone md:text-[16px]">
             {title}
@@ -783,7 +836,7 @@ function MediaOverlay({
             onClick={onClose}
             className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-bone transition-colors hover:text-signal"
           >
-            Close
+            {t("lab.close")}
             <span className="grid h-8 w-8 place-items-center rounded-full border border-bone-line transition-colors group-hover:border-signal">
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path d="M1 1L10 10M10 1L1 10" stroke="currentColor" strokeWidth="1.4" />
@@ -798,7 +851,7 @@ function MediaOverlay({
           <button
             type="button"
             onClick={onPrev}
-            aria-label="Previous"
+            aria-label={t("lab.previous")}
             className="absolute left-5 z-20 hidden h-11 w-11 place-items-center rounded-full border border-bone-line bg-ink/60 text-bone backdrop-blur-md transition-colors hover:border-signal hover:text-signal md:grid"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -811,7 +864,7 @@ function MediaOverlay({
           <button
             type="button"
             onClick={onNext}
-            aria-label="Next"
+            aria-label={t("lab.next")}
             className="absolute right-5 z-20 hidden h-11 w-11 place-items-center rounded-full border border-bone-line bg-ink/60 text-bone backdrop-blur-md transition-colors hover:border-signal hover:text-signal md:grid"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

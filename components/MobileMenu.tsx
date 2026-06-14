@@ -6,6 +6,8 @@ import { navigation } from "@/data/navigation";
 import { socials, contact } from "@/data/socials";
 import { site } from "@/data/site";
 import { SocialIcon } from "./SocialIcon";
+import { LanguageToggle } from "./LanguageToggle";
+import { navTranslationKey, useLanguage } from "./LanguageProvider";
 
 type Props = { onClose: () => void };
 
@@ -23,6 +25,8 @@ const linkVariants = {
  * Lives over everything when open.
  */
 export function MobileMenu({ onClose }: Props) {
+  const { t } = useLanguage();
+
   return (
     <motion.div
       role="dialog"
@@ -61,7 +65,7 @@ export function MobileMenu({ onClose }: Props) {
                     item.accent ? "text-signal" : ""
                   }`}
                 >
-                  {item.label}
+                  {t(navTranslationKey(item.href))}
                 </Link>
               </motion.span>
             </li>
@@ -76,7 +80,10 @@ export function MobileMenu({ onClose }: Props) {
           className="border-t border-bone-line pt-6 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
           <div className="space-y-2">
-            <p className="h-eyebrow-dim">CONTACT</p>
+            <div className="flex flex-wrap items-center gap-4">
+              <p className="h-eyebrow-dim">{t("nav.contact")}</p>
+              <LanguageToggle />
+            </div>
             <a
               href={`mailto:${contact.email}`}
               className="font-display text-2xl tracking-tight hover:text-signal transition-colors"

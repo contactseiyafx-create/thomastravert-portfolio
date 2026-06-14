@@ -10,6 +10,8 @@ import { Logo } from "./Logo";
 import { CTAButton } from "./CTAButton";
 import { Burger } from "./Burger";
 import { MobileMenu } from "./MobileMenu";
+import { LanguageToggle } from "./LanguageToggle";
+import { navTranslationKey, useLanguage } from "./LanguageProvider";
 
 /**
  * Top navbar.
@@ -18,6 +20,7 @@ import { MobileMenu } from "./MobileMenu";
  */
 export function Navbar() {
   const pathname = usePathname();
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -77,7 +80,7 @@ export function Navbar() {
                         : "text-bone hover:text-bone"
                     }`}
                   >
-                    {item.label}
+                    {t(navTranslationKey(item.href))}
                   </Link>
                 </li>
               );
@@ -88,9 +91,12 @@ export function Navbar() {
           <div className="ml-auto md:ml-0 flex items-center gap-3">
             <div className="hidden sm:block">
               <CTAButton
-                label={site.cta.primary.label}
+                label={t("cta.create")}
                 href={site.cta.primary.href}
               />
+            </div>
+            <div className="hidden md:block">
+              <LanguageToggle compact />
             </div>
             <Burger open={open} onClick={() => setOpen((v) => !v)} />
           </div>

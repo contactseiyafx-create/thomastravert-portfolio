@@ -8,9 +8,11 @@ import { footerLinks, navigation } from "@/data/navigation";
 import { socials, contact } from "@/data/socials";
 import { SocialIcon } from "./SocialIcon";
 import { HoverReveal } from "./HoverReveal";
+import { navTranslationKey, useLanguage } from "./LanguageProvider";
 
 export function Footer() {
   const pathname = usePathname();
+  const { t } = useLanguage();
   // /2070 is a fullscreen archive plate — it owns the bottom of the viewport too.
   if (pathname?.startsWith("/2070")) return null;
 
@@ -21,7 +23,7 @@ export function Footer() {
         <div className="grid grid-cols-12 gap-6 items-end">
           <div className="col-span-12 lg:col-span-8">
             <HoverReveal y={16}>
-              <p className="h-eyebrow">LET'S CREATE</p>
+              <p className="h-eyebrow">{t("footer.letsCreate")}</p>
             </HoverReveal>
             <div className="overflow-hidden mt-4">
               <HoverReveal y={60} delay={0.1}>
@@ -35,7 +37,7 @@ export function Footer() {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-4 lg:text-right">
-            <p className="h-eyebrow-dim">LOCATION</p>
+            <p className="h-eyebrow-dim">{t("footer.location")}</p>
             <p className="mt-2 font-mono text-[12px] tracking-[0.18em] text-bone uppercase">
               {contact.location} · {contact.timezone}
             </p>
@@ -45,7 +47,7 @@ export function Footer() {
         {/* Middle row — link columns */}
         <div className="mt-20 grid grid-cols-12 gap-6 pt-12 border-t border-bone-line">
           <div className="col-span-6 md:col-span-3">
-            <p className="h-eyebrow-dim">SITEMAP</p>
+            <p className="h-eyebrow-dim">{t("footer.sitemap")}</p>
             <ul className="mt-4 space-y-2">
               {navigation.map((item) => (
                 <li key={item.href}>
@@ -53,7 +55,7 @@ export function Footer() {
                     href={item.href}
                     className="font-mono text-[12px] tracking-[0.16em] uppercase text-bone-dim hover:text-bone transition-colors duration-300"
                   >
-                    {item.label}
+                    {t(navTranslationKey(item.href))}
                   </Link>
                 </li>
               ))}
@@ -61,7 +63,7 @@ export function Footer() {
           </div>
 
           <div className="col-span-6 md:col-span-3">
-            <p className="h-eyebrow-dim">SOCIAL</p>
+            <p className="h-eyebrow-dim">{t("footer.social")}</p>
             <ul className="mt-4 space-y-2">
               {socials.map((s) => (
                 <li key={s.label}>
@@ -80,7 +82,7 @@ export function Footer() {
           </div>
 
           <div className="col-span-12 md:col-span-6 md:text-right">
-            <p className="h-eyebrow-dim">SAY HELLO</p>
+            <p className="h-eyebrow-dim">{t("footer.sayHello")}</p>
             <Link
               href={`mailto:${contact.email}`}
               className="mt-3 inline-block font-display text-2xl md:text-3xl tracking-tight hover:text-signal transition-colors"

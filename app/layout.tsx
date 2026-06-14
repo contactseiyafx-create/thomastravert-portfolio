@@ -8,6 +8,7 @@ import { SideRail } from "@/components/SideRail";
 import { Footer } from "@/components/Footer";
 import { PageTransition } from "@/components/PageTransition";
 import { Preloader } from "@/components/Preloader";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 /* ─────────────────────────────────────────────
    FONTS — single global typeface
@@ -76,14 +77,16 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${fontJp.variable}`}
     >
       <body className="bg-ink text-bone font-sans antialiased min-h-screen">
-        <Preloader />
-        <SmoothScroll />
-        <Navbar />
-        <SideRail />
-        <PageTransition>
-          <main className="relative">{children}</main>
-        </PageTransition>
-        <Footer />
+        <LanguageProvider>
+          <Preloader />
+          <SmoothScroll />
+          <Navbar />
+          <SideRail />
+          <PageTransition>
+            <main className="relative">{children}</main>
+          </PageTransition>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );
