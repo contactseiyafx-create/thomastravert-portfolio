@@ -171,10 +171,10 @@ export function NikeWildRunCaseStudy() {
             delay={0.08}
           />
           <EditorialImage
-            src="/projects/nike-wild-run/instagram-stories.jpg"
+            src="/projects/nike-wild-run/instagram-stories.gif"
             alt="Nike Wild Run Instagram stories advertising concepts"
-            width={1500}
-            height={843}
+            width={1920}
+            height={1080}
             delay={0.16}
           />
         </div>
@@ -246,6 +246,7 @@ function EditorialImage({
   delay: number;
 }) {
   const reduce = useReducedMotion();
+  const isGif = src.endsWith(".gif");
 
   return (
     <motion.figure
@@ -259,14 +260,25 @@ function EditorialImage({
       }}
       className="overflow-hidden bg-ink-700"
     >
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        sizes="(min-width: 1024px) 40vw, 100vw"
-        className="h-auto w-full"
-      />
+      {isGif ? (
+        <img
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          loading="lazy"
+          className="h-auto w-full"
+        />
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          sizes="(min-width: 1024px) 40vw, 100vw"
+          className="h-auto w-full"
+        />
+      )}
     </motion.figure>
   );
 }

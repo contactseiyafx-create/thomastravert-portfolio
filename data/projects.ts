@@ -480,9 +480,9 @@ export const projects: Project[] = [
         caption: "Social media advertising — campaign extensions for digital promotion.",
       },
       {
-        src: "/projects/nike-wild-run/instagram-stories.jpg",
+        src: "/projects/nike-wild-run/instagram-stories.gif",
         alt: "Nike Wild Run Instagram stories advertising concepts",
-        ratio: "1500/843",
+        ratio: "16/9",
         caption: "Instagram stories — story-format campaign suite.",
       },
     ],
