@@ -7,7 +7,7 @@
  */
 
 export type LabFolderId =
-  | "design-exploration"
+  | "apps"
   | "graphic-design"
   | "motion-design"
   | "carousels";
@@ -18,6 +18,18 @@ export type LabFolder = {
   sub: string;
   count: string;
   desc: string;
+};
+
+export type LabAppStatus = "Live" | "Beta" | "In development" | "Concept";
+
+export type LabApp = {
+  id: string;
+  name: string;
+  blurb: string;
+  status: LabAppStatus;
+  href: string;
+  glyph: string;
+  tint?: string;
 };
 
 export type LabArtwork = {
@@ -49,11 +61,11 @@ export const lab = {
 
   folders: [
     {
-      id: "design-exploration",
-      label: "DESIGN EXPLORATION",
-      sub: "VISUAL VAULT",
-      count: "00",
-      desc: "Loose experiments, editorial concepts and unfinished visual research.",
+      id: "apps",
+      label: "APPS",
+      sub: "CODED EXPERIENCES",
+      count: "02",
+      desc: "Interactive tools and experiments built inside the LAB.",
     },
     {
       id: "graphic-design",
@@ -78,7 +90,25 @@ export const lab = {
     },
   ] satisfies LabFolder[],
 
-  designExploration: [] satisfies LabArtwork[],
+  apps: [
+    {
+      id: "glyph-engine",
+      name: "Glyph Engine",
+      blurb: "A generative type toy — bend, scatter and warp letterforms in real time.",
+      status: "Live",
+      href: "glyph-engine",
+      glyph: "G",
+    },
+    {
+      id: "shinshoku-interview-rpg",
+      name: "SHINSHOKU Interview RPG",
+      blurb: "A Japanese job-interview trainer for creative roles, with XP, levels, and recruiter feedback.",
+      status: "Beta",
+      href: "shinshoku-interview-rpg",
+      glyph: "就",
+      tint: "#00E5FF",
+    },
+  ] satisfies LabApp[],
 
   graphicDesign: [
     {

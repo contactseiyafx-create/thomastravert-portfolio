@@ -5,10 +5,13 @@ import type { ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   lab,
+  type LabApp,
   type LabArtwork,
   type LabDeck,
   type LabFolderId,
 } from "@/data/lab";
+import { GlyphEngine } from "./GlyphEngine";
+import { ShinshokuInterviewRPG } from "./ShinshokuInterviewRPG";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const CINEMA = [0.65, 0, 0.35, 1] as const;
@@ -17,6 +20,7 @@ type OpenFolder = LabFolderId | null;
 
 export default function LabExperience() {
   const [open, setOpen] = useState<OpenFolder>(null);
+  const [launched, setLaunched] = useState<LabApp | null>(null);
   const [artworkIndex, setArtworkIndex] = useState<number | null>(null);
   const [activeDeck, setActiveDeck] = useState<LabDeck | null>(null);
   const reduce = useReducedMotion();
@@ -37,12 +41,19 @@ export default function LabExperience() {
             <FolderArchive
               key={open}
               folder={open}
+              onLaunchApp={setLaunched}
               onOpenArtwork={setArtworkIndex}
               onOpenDeck={setActiveDeck}
             />
           )}
         </AnimatePresence>
       </div>
+
+      <AnimatePresence>
+        {launched && (
+          <AppStage app={launched} onClose={() => setLaunched(null)} />
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {artworkIndex !== null && (
@@ -249,10 +260,12 @@ function Folder({
 
 function FolderArchive({
   folder,
+  onLaunchApp,
   onOpenArtwork,
   onOpenDeck,
 }: {
   folder: LabFolderId;
+  onLaunchApp: (app: LabApp) => void;
   onOpenArtwork: (index: number) => void;
   onOpenDeck: (deck: LabDeck) => void;
 }) {
@@ -270,6 +283,10 @@ function FolderArchive({
       <div className="mt-12 pt-10 border-t border-bone-line">
         <ArchiveHead label={folderData.label} sub={folderData.desc} />
 
+        {folder === "apps" && (
+          <AppsArchive onLaunch={onLaunchApp} />
+        )}
+
         {folder === "graphic-design" && (
           <ArtworkMasonry items={lab.graphicDesign} onOpen={onOpenArtwork} />
         )}
@@ -278,15 +295,103 @@ function FolderArchive({
           <DeckGrid decks={lab.carousels} onOpen={onOpenDeck} />
         )}
 
-        {folder === "design-exploration" && (
-          <EmptyArchive label="Design Exploration" />
-        )}
-
         {folder === "motion-design" && (
           <EmptyArchive label="Motion Design" />
         )}
       </div>
     </motion.section>
+  );
+}
+
+function AppsArchive({ onLaunch }: { onLaunch: (app: LabApp) => void }) {
+  return (
+    <div className="mt-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+      {lab.apps.map((app, index) => (
+        <AppTile key={app.id} app={app} index={index} onLaunch={onLaunch} />
+      ))}
+    </div>
+  );
+}
+
+function AppTile({
+  app,
+  index,
+  onLaunch,
+}: {
+  app: LabApp;
+  index: number;
+  onLaunch: (app: LabApp) => void;
+}) {
+  const tint = app.tint ?? "var(--signal)";
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 28 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: EASE }}
+      className="group relative border border-bone-line rounded-xl bg-ink-700/40 backdrop-blur-md p-6 flex flex-col gap-5 transition-colors duration-500 hover:border-bone-line/0"
+      style={{ ["--tint" as string]: tint }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ boxShadow: "inset 0 0 0 1px var(--tint), 0 0 40px -12px var(--tint)" }}
+      />
+      <div className="flex items-start justify-between">
+        <div
+          className="relative w-16 h-16 rounded-2xl grid place-items-center overflow-hidden border border-bone-line"
+          style={{
+            background:
+              "radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.06), rgba(5,5,5,0.6))",
+          }}
+        >
+          <span className="h-display text-[2rem] leading-none" style={{ color: "var(--tint)" }}>
+            {app.glyph}
+          </span>
+          <div
+            className="absolute -bottom-6 -right-6 w-14 h-14 rounded-full blur-2xl opacity-50"
+            style={{ background: "var(--tint)" }}
+          />
+        </div>
+        <StatusPill status={app.status} />
+      </div>
+      <div className="flex-1">
+        <h3 className="font-sans text-[17px] font-medium text-bone leading-snug">
+          {app.name}
+        </h3>
+        <p className="mt-2 body-sm leading-[1.55]">{app.blurb}</p>
+      </div>
+      <button
+        type="button"
+        onClick={() => onLaunch(app)}
+        className="group/btn inline-flex items-center justify-center gap-2 mt-1 py-3 rounded-lg border border-bone-line font-mono text-[11px] tracking-[0.2em] uppercase text-bone transition-colors duration-400 hover:text-ink"
+        style={{ position: "relative", overflow: "hidden" }}
+      >
+        <span
+          className="absolute inset-0 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={{ background: "var(--tint)" }}
+        />
+        <span className="relative z-10 flex items-center gap-2">
+          Launch
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M2 8L8 2M8 2H3M8 2V7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
+          </svg>
+        </span>
+      </button>
+    </motion.div>
+  );
+}
+
+function StatusPill({ status }: { status: LabApp["status"] }) {
+  const live = status === "Live";
+  const beta = status === "Beta";
+  const color = live ? "var(--signal)" : beta ? "#63D7FF" : "#7a7a7a";
+  return (
+    <span className="inline-flex items-center gap-2 font-mono text-[9px] tracking-[0.2em] uppercase text-bone-dim">
+      <span
+        className="inline-block w-1.5 h-1.5 rounded-full"
+        style={{ background: color, boxShadow: live ? `0 0 8px ${color}` : "none" }}
+      />
+      {status}
+    </span>
   );
 }
 
@@ -435,6 +540,61 @@ function EmptyArchive({ label }: { label: string }) {
         </motion.div>
       ))}
     </div>
+  );
+}
+
+function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      exit={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
+      transition={{ duration: 0.5, ease: CINEMA }}
+      className="fixed inset-0 z-[100] bg-ink"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${app.name} fullscreen`}
+    >
+      <div className="absolute top-0 inset-x-0 z-20 h-[var(--nav-h)] flex items-center justify-between px-[var(--gutter)] bg-ink/60 backdrop-blur-md border-b border-bone-line">
+        <span className="flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-bone-dim">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
+          THE LAB · {app.name}
+        </span>
+        <button
+          type="button"
+          onClick={onClose}
+          className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-bone hover:text-signal transition-colors"
+        >
+          Close
+          <span className="grid place-items-center w-7 h-7 rounded-full border border-bone-line group-hover:border-signal transition-colors">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.4" />
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <div
+        data-lenis-prevent
+        className="absolute inset-0 h-screen overflow-y-auto overscroll-contain pt-[var(--nav-h)]"
+      >
+        {app.id === "glyph-engine" ? (
+          <GlyphEngine />
+        ) : app.id === "shinshoku-interview-rpg" ? (
+          <ShinshokuInterviewRPG />
+        ) : (
+          <div className="h-full grid place-items-center">
+            <p className="body-lead">This experience isn't ready yet.</p>
+          </div>
+        )}
+      </div>
+    </motion.div>
   );
 }
 
