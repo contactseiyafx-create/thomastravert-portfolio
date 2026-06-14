@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
+import { motionDurations, premiumEase } from "./motionConfig";
 
 type Props = {
   children: React.ReactNode;
@@ -26,13 +27,24 @@ export function HoverReveal({
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
+  const reduce = useReducedMotion();
+  const hidden = reduce
+    ? { opacity: 0 }
+    : { opacity: 0, y: Math.min(y, 24), filter: "blur(6px)" };
+  const visible = reduce
+    ? { opacity: 1 }
+    : { opacity: 1, y: 0, filter: "blur(0px)" };
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y }}
-      animate={scroll && !inView ? { opacity: 0, y } : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, delay, ease: [0.16, 1, 0.3, 1] }}
+      initial={hidden}
+      animate={scroll && !inView ? hidden : visible}
+      transition={{
+        duration: reduce ? 0.18 : motionDurations.reveal,
+        delay: reduce ? 0 : delay,
+        ease: premiumEase,
+      }}
       className={className}
     >
       {children}

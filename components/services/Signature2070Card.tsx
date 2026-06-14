@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { services } from "@/data/services";
 import { useServiceText } from "./serviceText";
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 
 /* Dedicated palette for this card only — locked per brief */
 const BG = "#002048";
@@ -20,13 +21,14 @@ const WHITE = "#ffffff";
 export function Signature2070Card() {
   const s = services.signature;
   const text = useServiceText();
+  const reduce = useReducedMotion();
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: reduce ? 0.18 : motionDurations.media, ease: premiumEase }}
       className="relative w-full h-full overflow-hidden"
       style={{ backgroundColor: BG, color: ACCENT }}
       aria-labelledby="signature-2070-title"

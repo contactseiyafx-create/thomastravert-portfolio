@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { services } from "@/data/services";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useServiceText } from "./serviceText";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 
 /**
  * SERVICES HERO
@@ -20,6 +19,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function ServicesHero() {
   const h = services.hero;
   const text = useServiceText();
+  const reduce = useReducedMotion();
 
   return (
     <header className="relative">
@@ -28,9 +28,9 @@ export function ServicesHero() {
         <div className="col-span-12 lg:col-span-6 max-w-full">
           <div className="overflow-hidden">
             <motion.h1
-              initial={{ y: 80, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1.1, ease: EASE }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+              animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: reduce ? 0.18 : motionDurations.hero, ease: premiumEase }}
               className="h-display leading-[0.95] tracking-[-0.025em] text-bone break-words"
               style={{ fontSize: "clamp(3rem, 10vw, 8.5rem)" }}
             >

@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import type { Project } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useLanguage } from "@/components/LanguageProvider";
 import { translateProjectLabel, useProjectCopy } from "./projectCopy";
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 
 /**
  * Detail-page hero.
@@ -37,13 +38,14 @@ export function ProjectHero({
 }) {
   const { language, t } = useLanguage();
   const copy = useProjectCopy(project);
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
   // Gentle 6% parallax — the brief allows subtle parallax only.
-  const heroY = useTransform(scrollYProgress, [0, 1], ["-3%", "3%"]);
+  const heroY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-2%", "2%"]);
 
   const posLabel = `${String(position).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
 
@@ -124,10 +126,10 @@ export function ProjectHero({
       {/* HERO IMAGE */}
       <div ref={ref} className="page-x">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: reduce ? 0.18 : motionDurations.media, ease: premiumEase }}
           className="relative w-full overflow-hidden bg-ink-700"
           style={{ aspectRatio: project.hero.ratio ?? "16/9" }}
         >

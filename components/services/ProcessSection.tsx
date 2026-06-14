@@ -1,11 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { services } from "@/data/services";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useServiceText } from "./serviceText";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 
 /**
  * PROCESS — HOW I WORK
@@ -14,6 +13,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function ProcessSection() {
   const p = services.process;
   const text = useServiceText();
+  const reduce = useReducedMotion();
 
   return (
     <section className="pt-24 pb-16 border-t border-bone-line">
@@ -40,10 +40,14 @@ export function ProcessSection() {
         {p.steps.map((step, i) => (
           <motion.li
             key={step.index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.85, delay: 0.1 + i * 0.08, ease: EASE }}
+            transition={{
+              duration: reduce ? 0.18 : motionDurations.reveal,
+              delay: reduce ? 0 : 0.1 + i * 0.08,
+              ease: premiumEase,
+            }}
             className="
               group relative p-7 md:p-8 h-full
               border border-bone-line bg-ink/40

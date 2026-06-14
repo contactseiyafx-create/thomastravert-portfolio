@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useLanguage } from "@/components/LanguageProvider";
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 import { useProjectCopy } from "./projectCopy";
 
 /**
@@ -35,15 +36,15 @@ export function NextProject({ next }: { next: Project }) {
             sizes="100vw"
             className="
               object-cover
-              opacity-0 group-hover:opacity-40
-              scale-105 group-hover:scale-100
-              transition-[opacity,transform] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+              opacity-0 group-hover:opacity-35
+              scale-[1.025] group-hover:scale-100
+              transition-[opacity,transform] duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)]
             "
             aria-hidden
           />
           <div
             aria-hidden
-            className="absolute inset-0 bg-ink/60 group-hover:bg-ink/40 transition-colors duration-700"
+            className="absolute inset-0 bg-ink/60 group-hover:bg-ink/45 transition-colors duration-[350ms]"
           />
         </div>
 
@@ -67,8 +68,8 @@ export function NextProject({ next }: { next: Project }) {
             <motion.h2
               className="h-display text-[clamp(2.5rem,8.5vw,8rem)] leading-[0.95] tracking-[-0.02em] leading-[0.9]"
               initial={{ y: 0 }}
-              whileHover={{ y: -8 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -4 }}
+              transition={{ duration: motionDurations.hover, ease: premiumEase }}
             >
               {copy.title}
             </motion.h2>
@@ -91,7 +92,7 @@ export function NextProject({ next }: { next: Project }) {
                   height="14"
                   viewBox="0 0 14 14"
                   fill="none"
-                  className="transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                  className="transition-transform duration-[350ms] group-hover:translate-x-1 group-hover:-translate-y-0.5"
                 >
                   <path
                     d="M3 11L11 3M11 3H4M11 3V10"

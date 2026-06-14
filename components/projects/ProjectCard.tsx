@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { useLanguage } from "@/components/LanguageProvider";
 import { useProjectCopy } from "./projectCopy";
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 
 /* ─────────────────────────────────────────────
    PROJECT ROW
@@ -27,13 +28,13 @@ export function ProjectRow({ project, i = 0 }: RowProps) {
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{
-        duration: 0.9,
+        duration: motionDurations.reveal,
         delay: 0.1 + i * 0.08,
-        ease: [0.16, 1, 0.3, 1],
+        ease: premiumEase,
       }}
       className="project-row"
     >
@@ -135,7 +136,7 @@ export function ProjectGridCard({
         alt={project.thumbnail.alt}
         fill
         sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-        className="object-cover transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.05]"
+        className="object-cover transition-transform duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.035]"
       />
       {/* Bottom gradient — keeps the meta legible regardless of thumbnail */}
       <div
@@ -159,8 +160,8 @@ export function ProjectGridCard({
           <h3
             className="
               h-display text-[clamp(1.4rem,2.2vw,2rem)] leading-[0.95]
-              transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
-              group-hover:-translate-y-0.5
+              transition-transform duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]
+              group-hover:-translate-y-1
             "
           >
             {copy.title}
@@ -173,7 +174,7 @@ export function ProjectGridCard({
           <span
             className="
               inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[0.2em]
-              text-bone-dim group-hover:text-signal transition-colors duration-300
+              text-bone-dim group-hover:text-signal transition-colors duration-[300ms]
             "
           >
             {t("project.view")}
@@ -188,13 +189,13 @@ export function ProjectGridCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{
-        duration: 0.9,
+        duration: motionDurations.reveal,
         delay: i * 0.07,
-        ease: [0.16, 1, 0.3, 1],
+        ease: premiumEase,
       }}
     >
       {card}

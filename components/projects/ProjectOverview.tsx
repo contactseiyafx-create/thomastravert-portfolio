@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useLanguage } from "@/components/LanguageProvider";
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 import { useProjectCopy } from "./projectCopy";
 
 /**
@@ -16,6 +17,7 @@ import { useProjectCopy } from "./projectCopy";
 export function ProjectOverview({ project }: { project: Project }) {
   const { t } = useLanguage();
   const copy = useProjectCopy(project);
+  const reduce = useReducedMotion();
   const hasHighlights = !!copy.highlights && copy.highlights.length > 0;
 
   return (
@@ -89,18 +91,18 @@ export function ProjectOverview({ project }: { project: Project }) {
             {copy.highlights!.map((h, i) => (
               <motion.article
                 key={h.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+                whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
                 viewport={{ once: true, margin: "-10%" }}
                 transition={{
-                  duration: 0.8,
-                  delay: 0.1 + i * 0.08,
-                  ease: [0.16, 1, 0.3, 1],
+                  duration: reduce ? 0.18 : motionDurations.reveal,
+                  delay: reduce ? 0 : 0.1 + i * 0.08,
+                  ease: premiumEase,
                 }}
                 className="
                   group relative p-6 md:p-7
                   border border-bone-line bg-gradient-to-b from-ink-700 to-ink-800
-                  hover:border-signal/60 transition-colors duration-500
+                  hover:border-signal/60 transition-colors duration-[350ms]
                 "
               >
                 <span className="font-mono text-[10px] tracking-[0.22em] text-signal">

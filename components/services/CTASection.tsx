@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { services } from "@/data/services";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useServiceText } from "./serviceText";
-
-const EASE = [0.16, 1, 0.3, 1] as const;
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 
 /**
  * SERVICES CTA — large editorial ending.
@@ -15,6 +14,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function CTASection() {
   const c = services.cta;
   const text = useServiceText();
+  const reduce = useReducedMotion();
 
   return (
     <section className="pt-24 pb-12 border-t border-bone-line">
@@ -28,10 +28,10 @@ export function CTASection() {
       <div className="mt-8 grid grid-cols-12 gap-6 items-end">
         <div className="col-span-12 lg:col-span-9 overflow-hidden">
           <motion.h2
-            initial={{ y: 60, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+            whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 1.1, ease: EASE }}
+            transition={{ duration: reduce ? 0.18 : motionDurations.hero, ease: premiumEase }}
             className="h-display tracking-[-0.02em] leading-[0.92] text-bone whitespace-pre-line"
             style={{ fontSize: "clamp(2.6rem, 8vw, 6.5rem)" }}
           >

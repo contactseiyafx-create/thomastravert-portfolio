@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motionDurations, premiumEase } from "./motionConfig";
 
 /**
  * PRELOADER
@@ -15,12 +16,13 @@ import { AnimatePresence, motion } from "framer-motion";
  */
 
 const STORAGE_KEY = "tt.preloader.seen";
-const EASE = [0.16, 1, 0.3, 1] as const;
+const EASE = premiumEase;
 
 export function Preloader() {
   // `null` = SSR / not-yet-decided, prevents server/client mismatch flash.
   // `true` = show, `false` = skip (already seen this session).
   const [show, setShow] = useState<boolean | null>(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     // Client-only sessionStorage check.
@@ -52,7 +54,7 @@ export function Preloader() {
           key="preloader"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.55, ease: EASE }}
+          transition={{ duration: reduce ? 0.18 : motionDurations.modalOpen, ease: EASE }}
           // Sit above absolutely everything — Navbar, SideRail, Footer, etc.
           className="fixed inset-0 z-[100] bg-ink grid place-items-center pointer-events-none"
           aria-hidden
@@ -60,9 +62,9 @@ export function Preloader() {
           <div className="text-center px-6 max-w-[92vw]">
             {/* TRAVERT THOMAS */}
             <motion.h1
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12, filter: "blur(4px)" }}
+              animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: reduce ? 0.18 : 0.95, ease: EASE, delay: reduce ? 0 : 0.1 }}
               className="h-display tracking-[-0.02em] text-bone leading-[0.95]"
               style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
             >
@@ -71,9 +73,9 @@ export function Preloader() {
 
             {/* ART DIRECTOR / & SENIOR MULTIMEDIA DESIGNER — stacked */}
             <motion.p
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.5 }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 8, filter: "blur(4px)" }}
+              animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: reduce ? 0.18 : 0.85, ease: EASE, delay: reduce ? 0 : 0.55 }}
               className="
                 mt-5 font-mono text-[10px] sm:text-[11px]
                 tracking-[0.28em] uppercase text-bone-dim
@@ -87,14 +89,9 @@ export function Preloader() {
 
             {/* INITIALIZING… — blinking signal pink */}
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 1, 0.4, 1, 0.4, 1] }}
-              transition={{
-                duration: 1.1,
-                ease: "easeInOut",
-                delay: 0.85,
-                times: [0, 0.2, 0.45, 0.7, 0.85, 1],
-              }}
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 6, filter: "blur(3px)" }}
+              animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: reduce ? 0.18 : 0.75, ease: EASE, delay: reduce ? 0 : 0.95 }}
               className="
                 mt-9 inline-flex items-center gap-2.5
                 font-mono text-[10px] tracking-[0.32em] uppercase

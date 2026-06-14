@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { navigation } from "@/data/navigation";
 import { socials, contact } from "@/data/socials";
 import { site } from "@/data/site";
 import { SocialIcon } from "./SocialIcon";
 import { LanguageToggle } from "./LanguageToggle";
 import { navTranslationKey, useLanguage } from "./LanguageProvider";
+import { motionDurations, premiumEase, smoothEase } from "./motionConfig";
 
 type Props = { onClose: () => void };
 
@@ -16,7 +17,7 @@ const linkVariants = {
   visible: (i: number) => ({
     y: 0,
     opacity: 1,
-    transition: { delay: 0.18 + i * 0.06, duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+    transition: { delay: 0.18 + i * 0.08, duration: motionDurations.pageEnter, ease: premiumEase },
   }),
 };
 
@@ -26,6 +27,7 @@ const linkVariants = {
  */
 export function MobileMenu({ onClose }: Props) {
   const { t } = useLanguage();
+  const reduce = useReducedMotion();
 
   return (
     <motion.div
@@ -34,7 +36,7 @@ export function MobileMenu({ onClose }: Props) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: reduce ? 0.18 : motionDurations.modalClose, ease: premiumEase }}
       className="fixed inset-0 z-40 bg-ink"
     >
       {/* Background panel reveal */}
@@ -42,7 +44,7 @@ export function MobileMenu({ onClose }: Props) {
         initial={{ y: "-100%" }}
         animate={{ y: 0 }}
         exit={{ y: "-100%" }}
-        transition={{ duration: 0.8, ease: [0.65, 0, 0.35, 1] }}
+        transition={{ duration: reduce ? 0.18 : motionDurations.pageEnter, ease: smoothEase }}
         className="absolute inset-0 bg-ink-700"
       />
 
@@ -74,9 +76,9 @@ export function MobileMenu({ onClose }: Props) {
 
         {/* Footer block */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18, filter: "blur(4px)" }}
+          animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ delay: reduce ? 0 : 0.6, duration: reduce ? 0.18 : motionDurations.reveal, ease: premiumEase }}
           className="border-t border-bone-line pt-6 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
           <div className="space-y-2">

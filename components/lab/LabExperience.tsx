@@ -12,11 +12,12 @@ import {
   type LabFolderId,
 } from "@/data/lab";
 import { useLanguage, type TranslationKey } from "@/components/LanguageProvider";
+import { motionDurations, premiumEase, smoothEase } from "@/components/motionConfig";
 import { GlyphEngine } from "./GlyphEngine";
 import { ShinshokuInterviewRPG } from "./ShinshokuInterviewRPG";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
-const CINEMA = [0.65, 0, 0.35, 1] as const;
+const EASE = premiumEase;
+const CINEMA = smoothEase;
 
 type OpenFolder = LabFolderId | null;
 
@@ -149,7 +150,7 @@ function Intro() {
         transition={{ duration: 0.8, ease: EASE }}
         className="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] uppercase text-bone-dim"
       >
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal animate-pulse" />
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
         {t("lab.intro.eyebrow")}
       </motion.p>
 
@@ -226,33 +227,37 @@ function Folder({
 }) {
   const { t } = useLanguage();
   const copy = folderCopyKeys[data.id];
+  const reduce = useReducedMotion();
 
   return (
     <motion.button
       type="button"
       onClick={onClick}
       aria-expanded={active}
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: dimmed ? 0.42 : 1, y: 0 }}
-      transition={{ duration: 0.9, delay: 0.5 + index * 0.1, ease: EASE }}
-      whileHover={{ y: -8 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+      animate={reduce ? { opacity: dimmed ? 0.42 : 1 } : { opacity: dimmed ? 0.42 : 1, y: 0, filter: "blur(0px)" }}
+      transition={{
+        duration: reduce ? 0.18 : motionDurations.reveal,
+        delay: reduce ? 0 : 0.5 + index * 0.1,
+        ease: EASE,
+      }}
       className="group relative text-left focus-visible:outline-none"
     >
       <div className="relative">
         <div
-          className="relative ml-5 h-9 w-40 rounded-t-lg border border-b-0 border-bone-line bg-ink-700/60 backdrop-blur-sm transition-colors duration-500 group-hover:border-signal/50"
+          className="relative ml-5 h-9 w-40 rounded-t-lg border border-b-0 border-bone-line bg-ink-700/60 backdrop-blur-sm transition-[border-color,transform,background-color] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 group-hover:border-signal/45 group-hover:bg-ink-700/75"
           style={{ clipPath: "polygon(0 0, 82% 0, 100% 100%, 0 100%)" }}
         />
-        <div className="relative -mt-px aspect-[16/10] w-full rounded-lg rounded-tl-none border border-bone-line bg-ink-700/40 backdrop-blur-md overflow-hidden transition-all duration-500 group-hover:border-signal/50">
+        <div className="relative -mt-px aspect-[16/10] w-full rounded-lg rounded-tl-none border border-bone-line bg-ink-700/40 backdrop-blur-md overflow-hidden transition-[border-color,background-color] duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:border-signal/45 group-hover:bg-ink-700/55">
           <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-[350ms]"
             style={{
               background:
                 "radial-gradient(80% 80% at 30% 0%, rgba(255,46,136,0.10), transparent 70%)",
             }}
           />
           <div
-            className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"
+            className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"
             style={{
               background:
                 "linear-gradient(105deg, transparent 35%, rgba(255,255,255,0.05) 50%, transparent 65%)",
@@ -281,12 +286,13 @@ function Folder({
             <span className="flex items-center gap-2 font-mono text-[10px] tracking-[0.24em] uppercase text-signal">
               {active ? t("lab.closeFolder") : t("lab.openFolder")}
               <motion.svg
+                className="transition-transform duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1"
                 width="11"
                 height="11"
                 viewBox="0 0 11 11"
                 fill="none"
                 animate={{ rotate: active ? 90 : 0 }}
-                transition={{ duration: 0.5, ease: EASE }}
+                transition={{ duration: motionDurations.hover, ease: EASE }}
               >
                 <path d="M2 2L9 2L9 9" stroke="currentColor" strokeWidth="1.4" />
                 <path d="M9 2L2 9" stroke="currentColor" strokeWidth="1.4" />
@@ -478,9 +484,9 @@ function ArtworkMasonry({
           key={item.id}
           type="button"
           onClick={() => onOpen(index)}
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: (index % 8) * 0.04, ease: EASE }}
+          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: motionDurations.reveal, delay: (index % 8) * 0.05, ease: EASE }}
           className="group relative mb-5 block w-full overflow-hidden bg-ink text-left focus-visible:outline-none"
           style={{ breakInside: "avoid" }}
         >
@@ -491,10 +497,10 @@ function ArtworkMasonry({
               alt={item.title}
               loading="lazy"
               sizes="(min-width: 1280px) 23vw, (min-width: 768px) 45vw, 92vw"
-              className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.035] group-hover:opacity-100"
+              className="absolute inset-0 h-full w-full object-cover opacity-95 transition duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.025] group-hover:opacity-100"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            <div className="absolute bottom-0 left-0 right-0 translate-y-2 p-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent opacity-0 transition-opacity duration-[350ms] group-hover:opacity-100" />
+            <div className="absolute bottom-0 left-0 right-0 translate-y-1 p-4 opacity-0 transition-all duration-[350ms] group-hover:translate-y-0 group-hover:opacity-100">
               <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-bone">
                 {String(index + 1).padStart(2, "0")} · {item.title}
               </p>
@@ -522,9 +528,9 @@ function DeckGrid({
           key={deck.id}
           type="button"
           onClick={() => onOpen(deck)}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: index * 0.08, ease: EASE }}
+          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: motionDurations.reveal, delay: index * 0.08, ease: EASE }}
           className="group relative block w-full overflow-hidden rounded-2xl bg-ink-700/45 text-left backdrop-blur-md transition-opacity duration-500 hover:opacity-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-signal"
         >
           <div className="relative aspect-[4/5] overflow-hidden bg-ink">
@@ -534,7 +540,7 @@ function DeckGrid({
               alt={`${deck.title} thumbnail`}
               loading="lazy"
               sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 92vw"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045]"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/15 to-transparent opacity-80" />
           </div>
@@ -594,6 +600,7 @@ function EmptyArchive({ label }: { label: string }) {
 
 function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
   const { t } = useLanguage();
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -603,10 +610,10 @@ function AppStage({ app, onClose }: { app: LabApp; onClose: () => void }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
-      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-      exit={{ opacity: 0, scale: 1.04, filter: "blur(8px)" }}
-      transition={{ duration: 0.5, ease: CINEMA }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.98, filter: "blur(6px)" }}
+      animate={reduce ? { opacity: 1 } : { opacity: 1, scale: 1, filter: "blur(0px)" }}
+      exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.99, filter: "blur(4px)" }}
+      transition={{ duration: reduce ? 0.18 : motionDurations.modalOpen, ease: EASE }}
       className="fixed inset-0 z-[100] bg-ink"
       role="dialog"
       aria-modal="true"
@@ -658,6 +665,7 @@ function ArtworkLightbox({
 }) {
   const items = lab.graphicDesign as readonly LabArtwork[];
   const [currentIndex, setCurrentIndex] = useState(index);
+  const reduce = useReducedMotion();
   const total = items.length;
 
   const goTo = useCallback(
@@ -694,17 +702,17 @@ function ArtworkLightbox({
     >
       <motion.div
         key={item.id}
-        drag="x"
+        drag={reduce ? false : "x"}
         dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.12}
+        dragElastic={0.08}
         onDragEnd={(_, info) => {
           if (info.offset.x < -80) goNext();
           if (info.offset.x > 80) goPrev();
         }}
-        initial={{ opacity: 0, x: 36, scale: 0.985 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        exit={{ opacity: 0, x: -36, scale: 0.985 }}
-        transition={{ duration: 0.45, ease: EASE }}
+        initial={reduce ? { opacity: 0 } : { opacity: 0, x: 28, filter: "blur(4px)" }}
+        animate={reduce ? { opacity: 1 } : { opacity: 1, x: 0, filter: "blur(0px)" }}
+        exit={reduce ? { opacity: 0 } : { opacity: 0, x: -28, filter: "blur(4px)" }}
+        transition={{ duration: reduce ? 0.18 : motionDurations.carousel, ease: EASE }}
         className="relative flex h-full w-full touch-pan-y items-center justify-center"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -725,6 +733,7 @@ function ArtworkLightbox({
 
 function DeckViewer({ deck, onClose }: { deck: LabDeck; onClose: () => void }) {
   const [index, setIndex] = useState(0);
+  const reduce = useReducedMotion();
   const total = deck.slides.length;
 
   const goTo = useCallback(
@@ -761,17 +770,17 @@ function DeckViewer({ deck, onClose }: { deck: LabDeck; onClose: () => void }) {
     >
       <motion.div
         key={`${deck.id}-${index}`}
-        drag="x"
+        drag={reduce ? false : "x"}
         dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.12}
+        dragElastic={0.08}
         onDragEnd={(_, info) => {
           if (info.offset.x < -80) goNext();
           if (info.offset.x > 80) goPrev();
         }}
-        initial={{ opacity: 0, x: 36, scale: 0.985 }}
-        animate={{ opacity: 1, x: 0, scale: 1 }}
-        exit={{ opacity: 0, x: -36, scale: 0.985 }}
-        transition={{ duration: 0.45, ease: EASE }}
+        initial={reduce ? { opacity: 0 } : { opacity: 0, x: 28, filter: "blur(4px)" }}
+        animate={reduce ? { opacity: 1 } : { opacity: 1, x: 0, filter: "blur(0px)" }}
+        exit={reduce ? { opacity: 0 } : { opacity: 0, x: -28, filter: "blur(4px)" }}
+        transition={{ duration: reduce ? 0.18 : motionDurations.carousel, ease: EASE }}
         className="relative flex h-full w-full touch-pan-y items-center justify-center"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -806,13 +815,14 @@ function MediaOverlay({
   children: ReactNode;
 }) {
   const { t } = useLanguage();
+  const reduce = useReducedMotion();
 
   return (
     <motion.div
-      initial={{ opacity: 0, filter: "blur(8px)" }}
-      animate={{ opacity: 1, filter: "blur(0px)" }}
-      exit={{ opacity: 0, filter: "blur(8px)" }}
-      transition={{ duration: 0.45, ease: CINEMA }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, filter: "blur(6px)" }}
+      animate={reduce ? { opacity: 1 } : { opacity: 1, filter: "blur(0px)" }}
+      exit={reduce ? { opacity: 0 } : { opacity: 0, filter: "blur(4px)" }}
+      transition={{ duration: reduce ? 0.18 : motionDurations.modalOpen, ease: EASE }}
       className="fixed inset-0 z-[110] bg-ink/96 backdrop-blur-xl"
       role="dialog"
       aria-modal="true"
@@ -852,7 +862,7 @@ function MediaOverlay({
             type="button"
             onClick={onPrev}
             aria-label={t("lab.previous")}
-            className="absolute left-5 z-20 hidden h-11 w-11 place-items-center rounded-full border border-bone-line bg-ink/60 text-bone backdrop-blur-md transition-colors hover:border-signal hover:text-signal md:grid"
+            className="absolute left-5 z-20 hidden h-11 w-11 place-items-center rounded-full border border-bone-line bg-ink/60 text-bone opacity-80 backdrop-blur-md transition-[opacity,border-color,color] duration-[350ms] hover:border-signal hover:text-signal hover:opacity-100 md:grid"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M9 2L4 7L9 12" stroke="currentColor" strokeWidth="1.5" />
@@ -865,7 +875,7 @@ function MediaOverlay({
             type="button"
             onClick={onNext}
             aria-label={t("lab.next")}
-            className="absolute right-5 z-20 hidden h-11 w-11 place-items-center rounded-full border border-bone-line bg-ink/60 text-bone backdrop-blur-md transition-colors hover:border-signal hover:text-signal md:grid"
+            className="absolute right-5 z-20 hidden h-11 w-11 place-items-center rounded-full border border-bone-line bg-ink/60 text-bone opacity-80 backdrop-blur-md transition-[opacity,border-color,color] duration-[350ms] hover:border-signal hover:text-signal hover:opacity-100 md:grid"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M5 2L10 7L5 12" stroke="currentColor" strokeWidth="1.5" />
@@ -875,9 +885,15 @@ function MediaOverlay({
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex justify-center px-[var(--gutter)] pb-5 md:pb-7">
-        <span className="rounded-full border border-bone-line bg-ink/70 px-4 py-2 font-mono text-[10px] tracking-[0.18em] uppercase text-bone-dim backdrop-blur-md">
+        <motion.span
+          key={counter}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: reduce ? 0.18 : motionDurations.hover, ease: EASE }}
+          className="rounded-full border border-bone-line bg-ink/70 px-4 py-2 font-mono text-[10px] tracking-[0.18em] uppercase text-bone-dim backdrop-blur-md"
+        >
           {counter}
-        </span>
+        </motion.span>
       </div>
     </motion.div>
   );

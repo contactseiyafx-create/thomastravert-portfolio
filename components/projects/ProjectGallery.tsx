@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { MotionVideo, Project, ProjectImage } from "@/data/projects";
 import { HoverReveal } from "@/components/HoverReveal";
 import { useLanguage } from "@/components/LanguageProvider";
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 import { useProjectCopy } from "./projectCopy";
 
 /**
@@ -83,12 +84,14 @@ function FullWidthFrame({
   i: number;
   caption?: string;
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <motion.figure
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: reduce ? 0.18 : motionDurations.media, ease: premiumEase }}
       className="page-x"
     >
       <div
@@ -130,15 +133,17 @@ function SplitFrame({
   caption?: string;
   alt: string;
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <figure className="page-x">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
         {/* Image */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+          whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: reduce ? 0.18 : motionDurations.media, ease: premiumEase }}
           className={[
             "lg:col-span-8 relative overflow-hidden bg-ink-700",
             reverse ? "lg:order-2" : "lg:order-1",
@@ -247,12 +252,14 @@ function MotionVideoFrame({
   caption?: string;
   featured?: boolean;
 }) {
+  const reduce = useReducedMotion();
+
   return (
     <motion.figure
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.95, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: reduce ? 0.18 : motionDurations.media, ease: premiumEase }}
       className={featured ? "w-full" : "w-full lg:w-[72%]"}
     >
       <div className="relative aspect-video w-full overflow-hidden rounded-[18px] bg-ink-700 shadow-[0_30px_90px_rgba(0,0,0,0.32)]">
@@ -299,6 +306,7 @@ function MotionVideoFrame({
 
 export function ExternalLinkSection({ project }: { project: Project }) {
   const { t } = useLanguage();
+  const reduce = useReducedMotion();
   if (!project.externalUrl) return null;
   const isBehance = /behance\.net/i.test(project.externalUrl);
   const label = isBehance
@@ -311,11 +319,11 @@ export function ExternalLinkSection({ project }: { project: Project }) {
         href={project.externalUrl}
         target="_blank"
         rel="noopener noreferrer"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={reduce ? { opacity: 0 } : { opacity: 0, y: 20, filter: "blur(4px)" }}
+        whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="group relative flex items-center justify-between gap-6 border-t border-b border-bone-line py-8 hover:border-signal/60 transition-colors duration-500"
+        transition={{ duration: reduce ? 0.18 : motionDurations.reveal, ease: premiumEase }}
+        className="group relative flex items-center justify-between gap-6 border-t border-b border-bone-line py-8 hover:border-signal/60 transition-colors duration-[350ms]"
       >
         <span className="flex flex-col gap-2">
           <span className="h-eyebrow-dim">{t("project.external")}</span>

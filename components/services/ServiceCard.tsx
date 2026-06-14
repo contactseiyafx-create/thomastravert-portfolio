@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { ServiceCardData, CompactCardData } from "@/data/services";
 import { useServiceText } from "./serviceText";
+import { motionDurations, premiumEase } from "@/components/motionConfig";
 
 /* ─────────────────────────────────────────────
    STANDARD SERVICE CARD
@@ -16,16 +17,17 @@ export function ServiceCard({
   i?: number;
 }) {
   const text = useServiceText();
+  const reduce = useReducedMotion();
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{
-        duration: 0.85,
-        delay: 0.1 + i * 0.07,
-        ease: [0.16, 1, 0.3, 1],
+        duration: reduce ? 0.18 : motionDurations.reveal,
+        delay: reduce ? 0 : 0.1 + i * 0.08,
+        ease: premiumEase,
       }}
       className="
         group relative h-full p-7 md:p-8
@@ -133,16 +135,17 @@ export function CompactCard({
   i?: number;
 }) {
   const text = useServiceText();
+  const reduce = useReducedMotion();
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 24, filter: "blur(6px)" }}
+      whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{
-        duration: 0.85,
-        delay: 0.1 + i * 0.07,
-        ease: [0.16, 1, 0.3, 1],
+        duration: reduce ? 0.18 : motionDurations.reveal,
+        delay: reduce ? 0 : 0.1 + i * 0.08,
+        ease: premiumEase,
       }}
       className="
         group relative h-full p-7 md:p-8
