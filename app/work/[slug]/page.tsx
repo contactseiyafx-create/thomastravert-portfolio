@@ -19,6 +19,7 @@ export function generateStaticParams() {
       (p) =>
         p.slug !== "abelian" &&
         p.slug !== "atletec-zwift-racing-league" &&
+        p.slug !== "nike-wild-run" &&
         p.slug !== "venice-carnival",
     )
     .map((p) => ({ slug: p.slug }));

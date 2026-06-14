@@ -57,27 +57,27 @@ const development = [
 
 const social = [
   {
-    src: `${base}/social-victory.png`,
+    src: `${base}/social-victory.jpg`,
     title: "Victory Announcement",
     ratio: "16/9",
   },
   {
-    src: `${base}/social-defeat.png`,
+    src: `${base}/social-defeat.jpg`,
     title: "Defeat Announcement",
     ratio: "16/9",
   },
   {
-    src: `${base}/social-emea-ranking.png`,
+    src: `${base}/social-emea-ranking.jpg`,
     title: "Championship Standings",
     ratio: "16/9",
   },
   {
-    src: `${base}/social-individual-ranking.png`,
+    src: `${base}/social-individual-ranking.jpg`,
     title: "Individual Rider Ranking",
     ratio: "16/9",
   },
   {
-    src: `${base}/social-race-result.png`,
+    src: `${base}/social-race-result.jpg`,
     title: "Race Finish Result",
     ratio: "16/9",
   },
@@ -85,7 +85,7 @@ const social = [
 
 const campaign = [
   {
-    src: `${base}/campaign-next-race.png`,
+    src: `${base}/campaign-next-race.jpg`,
     title: "Next Race Poster",
     ratio: "1400/1980",
   },

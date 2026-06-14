@@ -12,7 +12,7 @@ const meta = [
 
 const posterSeries = [
   {
-    src: `${base}/official-poster.png`,
+    src: `${base}/official-poster.jpg`,
     title: "Official Venice Carnival poster",
     body: "Primary campaign artwork built around the illustrated mask and a warm theatrical field.",
     ratio: "1920/2675",
@@ -24,7 +24,7 @@ const posterSeries = [
     ratio: "2/3",
   },
   {
-    src: `${base}/poster-variation-warm.png`,
+    src: `${base}/poster-variation-warm.jpg`,
     title: "Warm color exploration",
     body: "A tighter composition focused on orange, purple and deep navy contrast.",
     ratio: "2/3",
@@ -45,13 +45,13 @@ const applications = [
     ratio: "1400/478",
   },
   {
-    src: `${base}/large-scale-mural.png`,
+    src: `${base}/large-scale-mural.jpg`,
     title: "Large-scale mural",
     body: "The hero artwork extended as environmental branding, using the mask as an architectural presence.",
     ratio: "3/2",
   },
   {
-    src: `${base}/official-poster.png`,
+    src: `${base}/official-poster.jpg`,
     title: "Street advertising",
     body: "The poster system translated to public display while keeping high contrast and immediate recognition.",
     ratio: "1920/2675",
@@ -225,7 +225,7 @@ function CreativeDirection() {
 
       <div className="page-x mt-12">
         <Figure
-          src={`${base}/mask-closeup.png`}
+          src={`${base}/mask-closeup.jpg`}
           title="Illustration detail"
           body="The mask is the identity's anchor: symmetrical, theatrical and decorative, with layered feathers and gold ornament used as visual rhythm."
           ratio="2/3"

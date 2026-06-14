@@ -15,6 +15,7 @@ export type ProjectCategory =
   | "CLIENT WORK"
   | "ART DIRECTION"
   | "GRAPHIC DESIGN"
+  | "CAMPAIGN DESIGN"
   | "MOTION"
   | "ILLUSTRATION"
   | "3D"
@@ -423,8 +424,91 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "xbox-wire",
+    slug: "nike-wild-run",
     index: "04",
+    title: "NIKE WILD RUN",
+    subtitle: "FICTIONAL ADVERTISING CAMPAIGN FOR NIKE WILD RUN",
+    category: "ART DIRECTION",
+    shortDescription:
+      "A FICTIONAL ADVERTISING CAMPAIGN\nBUILT AROUND THE ENERGY OF NIKE WILD RUN.",
+    longDescription:
+      "Nike Wild Run is a fictional campaign created to celebrate one of Nike's most expressive running collections. Inspired by the bold patterns, energetic color palettes and experimental spirit of the Wild Run apparel line, the project explores how a complete campaign ecosystem could extend across digital advertising, social media, retail environments and outdoor communication.",
+    year: "2020",
+    client: "Personal Conceptual Project",
+    role: ["Art Direction", "Graphic Design", "Campaign Design"],
+    deliverables: [
+      "Campaign key visuals",
+      "Social media advertising",
+      "Instagram stories",
+      "Outdoor billboards",
+      "Retail display concepts",
+    ],
+    thumbnail: {
+      src: "/projects/nike-wild-run/hero.jpg",
+      alt: "Nike Wild Run fictional advertising campaign hero visual",
+      ratio: "1168/813",
+    },
+    hero: {
+      src: "/projects/nike-wild-run/hero.jpg",
+      alt: "Nike Wild Run fictional advertising campaign hero visual",
+      ratio: "1168/813",
+    },
+    gallery: [
+      {
+        src: "/projects/nike-wild-run/campaign-system.jpg",
+        alt: "Nike Wild Run campaign system with product visuals and graphic patterns",
+        ratio: "1838/2600",
+        caption:
+          "Campaign system — torn-paper textures, high-contrast sports photography and layered graphic patterns.",
+      },
+      {
+        src: "/projects/nike-wild-run/outdoor-1.jpg",
+        alt: "Nike Wild Run outdoor banner concept on a street fence",
+        ratio: "584/438",
+        caption: "Outdoor application — street banner concept.",
+      },
+      {
+        src: "/projects/nike-wild-run/outdoor-2.jpg",
+        alt: "Nike Wild Run outdoor retail banner concept",
+        ratio: "584/438",
+        caption: "Outdoor application — retail window and urban placement.",
+      },
+      {
+        src: "/projects/nike-wild-run/social-media.jpg",
+        alt: "Nike Wild Run social media advertising layout",
+        ratio: "1420/1900",
+        caption: "Social media advertising — campaign extensions for digital promotion.",
+      },
+      {
+        src: "/projects/nike-wild-run/instagram-stories.jpg",
+        alt: "Nike Wild Run Instagram stories advertising concepts",
+        ratio: "1500/843",
+        caption: "Instagram stories — story-format campaign suite.",
+      },
+    ],
+    highlights: [
+      {
+        title: "BOLD PRODUCT ENERGY",
+        body: "The campaign turns apparel graphics into an expandable advertising system for retail, outdoor and social channels.",
+      },
+      {
+        title: "URBAN APPLICATIONS",
+        body: "Street banners and window concepts test how the graphic language performs at environmental scale.",
+      },
+      {
+        title: "SOCIAL-FIRST EXTENSIONS",
+        body: "Digital advertising and story formats extend the system without losing the raw campaign energy.",
+      },
+    ],
+    disclaimer:
+      "Personal conceptual project. This is a fictional advertising campaign created for portfolio purposes only.",
+    externalUrl: "https://www.behance.net/gallery/87594795/Nike-Wild-Run",
+    tags: ["ART DIRECTION", "GRAPHIC DESIGN", "CAMPAIGN DESIGN"],
+    featured: false,
+  },
+  {
+    slug: "xbox-wire",
+    index: "05",
     title: "XBOX WIRE",
     subtitle: "MONTHLY LIVE SHOW · IDENTITY & BROADCAST",
     category: "CLIENT WORK",
@@ -516,7 +600,7 @@ export const projects: Project[] = [
   },
   {
     slug: "atletec-zwift-racing-league",
-    index: "05",
+    index: "06",
     title: "ATLETEC ZWIFT RACING LEAGUE",
     subtitle: "ECYCLING · ESPORT · SEASON COMMUNICATION SYSTEM",
     category: "CLIENT WORK",
@@ -567,7 +651,7 @@ export const projects: Project[] = [
   },
   {
     slug: "luxury-garden",
-    index: "06",
+    index: "07",
     title: "LUXURY GARDEN",
     category: "ART DIRECTION",
     shortDescription:
@@ -633,7 +717,7 @@ export const projects: Project[] = [
   },
   {
     slug: "pewdiepie-rhinoshield",
-    index: "07",
+    index: "08",
     title: "PEWDIEPIE × RHINOSHIELD",
     subtitle: "JAPANESE VISUAL DIRECTION · CASE CAPSULE",
     category: "CLIENT WORK",
@@ -725,7 +809,7 @@ export const projects: Project[] = [
   },
   {
     slug: "venice-carnival",
-    index: "08",
+    index: "09",
     title: "VENICE CARNIVAL",
     subtitle: "PERSONAL PROJECT · CULTURAL IDENTITY EXPLORATION",
     category: "ART DIRECTION",
@@ -776,7 +860,7 @@ export const projects: Project[] = [
   },
   {
     slug: "atletec-tv-rebranding",
-    index: "09",
+    index: "10",
     title: "ATLETEC TV — REBRANDING",
     subtitle: "ESPORTS WEBTV · COMPLETE BRAND SYSTEM",
     category: "CLIENT WORK",
@@ -888,7 +972,7 @@ export const projects: Project[] = [
   },
   {
     slug: "daft-punk-remastered",
-    index: "10",
+    index: "11",
     title: "DAFT PUNK REMASTERED",
     subtitle: "ILLUSTRATION · ART DIRECTION · GRAPHIC DESIGN",
     category: "ART DIRECTION",
@@ -988,7 +1072,7 @@ export const projects: Project[] = [
   },
   {
     slug: "social-media-icons",
-    index: "11",
+    index: "12",
     title: "3D SOCIAL MEDIA ICONS",
     category: "3D",
     shortDescription:
@@ -1085,7 +1169,7 @@ export const projects: Project[] = [
   },
   {
     slug: "the-incredibles",
-    index: "12",
+    index: "13",
     title: "THE INCREDIBLES",
     subtitle: "ILLUSTRATED TRIBUTE",
     category: "ILLUSTRATION",
