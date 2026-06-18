@@ -272,14 +272,15 @@ export const projects: Project[] = [
     shortDescription:
       "FUTURISTIC DIGITAL BANKING\nEXPERIENCE & BRAND SYSTEM",
     longDescription:
-      "Nexbank is a near-future banking proposition built around a single object: a black metal card that thinks. The visual system rejects the friendly-pastel fintech trope and pushes towards quiet technology — embossed metal, micro-typography, and motion that behaves more like a luxury timepiece than a payment app.",
+      "Nexbank is a near-future, mobile-first banking proposition built around a single object: a black metal card that thinks. The experience is designed primarily for mobile, with a dark interface system connecting multi-currency management, activity dashboards, services, pricing and business tools. The visual language rejects the friendly-pastel fintech trope and pushes towards quiet technology — embossed metal, micro-typography and a precise orange signal.",
     year: "2026",
     client: "Nexbank (concept)",
     role: ["Art Direction", "UI Design", "CGI", "Motion Design"],
     deliverables: [
       "Brand identity",
       "Card design & CGI",
-      "Product UI",
+      "Mobile product UI",
+      "Responsive interface system",
       "Marketing site",
       "Motion design",
       "Product storytelling",
@@ -295,6 +296,18 @@ export const projects: Project[] = [
       ratio: "16/9",
     },
     gallery: [
+      {
+        src: "/projects/nexbank/mobile-ui-system.png",
+        alt: "Nexbank — mobile banking interface system across five smartphone screens",
+        ratio: "16/9",
+        caption: "Mobile UI system — onboarding, global services, platform features, pricing and business banking.",
+      },
+      {
+        src: "/projects/nexbank/mobile-dashboard-ui.png",
+        alt: "Nexbank — mobile dashboard interface with activity and investment views",
+        ratio: "1995/2619",
+        caption: "Mobile dashboard — account activity, app access and investment profile modules.",
+      },
       {
         src: "/projects/nexbank/1.png",
         alt: "Nexbank — card collection picker",
@@ -361,18 +374,27 @@ export const projects: Project[] = [
         shortDescription:
           "未来型デジタルバンキング\n体験設計とブランドシステム",
         longDescription:
-          "Nexbankは、思考するブラックメタルカードを中心に設計した近未来のバンキング構想です。親しみやすいパステル調のフィンテック表現から距離を置き、静かなテクノロジー、エンボス加工されたメタル、マイクロタイポグラフィ、そして高級時計のように振る舞うモーションを軸に、プレミアムな金融体験として構築しました。",
+          "Nexbankは、思考するブラックメタルカードを中心に設計した、モバイルファーストの近未来バンキング構想です。マルチカレンシー管理、アクティビティダッシュボード、サービス、料金プラン、法人向けツールを、ダークなモバイルUIシステムで統合しました。親しみやすいパステル調のフィンテック表現から距離を置き、静かなテクノロジー、マイクロタイポグラフィ、精密なオレンジのシグナルを軸に構築しています。",
         client: "Nexbank（コンセプト）",
         role: ["アートディレクション", "UIデザイン", "CGI", "モーションデザイン"],
         deliverables: [
           "ブランドアイデンティティ",
           "カードデザイン & CGI",
-          "プロダクトUI",
+          "モバイルプロダクトUI",
+          "レスポンシブインターフェースシステム",
           "マーケティングサイト",
           "モーションデザイン",
           "プロダクトストーリーテリング",
         ],
         gallery: [
+          {
+            caption:
+              "モバイルUIシステム — オンボーディング、グローバルサービス、機能、料金プラン、法人向けバンキング。",
+          },
+          {
+            caption:
+              "モバイルダッシュボード — 口座アクティビティ、アプリ導線、投資プロフィールの各モジュール。",
+          },
           {
             caption: "カードピッカー — Apple Card以降の体験を再解釈。",
           },
