@@ -173,7 +173,7 @@ export const abelian = {
     motion: {
       label: "MOTION · MULTILANGUAGE WEBSITE",
       videoTitle: "Abelian Multilanguage Website",
-      youtubeId: "tC8MxoJ5OR8",
+      youtubeId: "IZeEGZ3VF1s",
       caption:
         "Abelian website — multilingual digital experience designed for English, Japanese and Chinese audiences.",
     },
