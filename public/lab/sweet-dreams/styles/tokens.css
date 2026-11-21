@@ -1,0 +1,56 @@
+/* ==========================================================================
+   Sweet Dreams — design tokens, extracted from the Figma reference
+   (file "Sweet Dreams — H5 Campaign UI"). Edit here to re-skin the campaign.
+   ========================================================================== */
+:root {
+  /* Palette (Figma swatches) */
+  --c-midnight: #0f1442;
+  --c-indigo: #2e3485;
+  --c-periwinkle: #6466c6;
+  --c-lavender: #a796ff;
+  --c-haze: #cdb6ee;
+  --c-blush: #f8d3e6;
+  --c-moon: #fff1b8;
+  /* Supporting colours */
+  --c-ink: #2c2a6b;          /* text on light buttons */
+  --c-mist: #dad6ff;         /* subtitles */
+  --c-mist-2: #b4afea;       /* captions */
+  --c-gold: #ffe7a0;         /* active indicators */
+  --c-page: #0a0c2c;         /* outside the stage */
+
+  /* Typography */
+  --font-display: 'Fredoka', 'Zen Maru Gothic', system-ui, sans-serif;
+  --font-body: 'Nunito', 'Zen Maru Gothic', system-ui, sans-serif;
+  --fs-h1: 34px;
+  --fs-h1-hero: 40px;
+  --fs-h2: 26px;
+  --fs-sub: 16px;
+  --fs-btn: 19px;
+  --fs-caption: 13px;
+
+  /* Gradients */
+  --g-cta-moon: linear-gradient(100deg, #fff0b8 0%, #f8d3e6 52%, #c8b8ff 100%);
+  --g-cta-lavender: linear-gradient(100deg, #d9c9ff 0%, #a796ff 55%, #8b7bf5 100%);
+  --g-glass: linear-gradient(160deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.07));
+  --g-panel: linear-gradient(160deg, rgba(40, 44, 120, 0.78), rgba(26, 28, 84, 0.82));
+  --g-progress: linear-gradient(90deg, #ffe7a0, #f8c9e2);
+  --g-badge: linear-gradient(100deg, #fff0b8, #f8d3e6);
+
+  /* Shape */
+  --r-pill: 999px;
+  --r-card: 24px;
+  --r-panel: 32px;
+  --r-frame: 48px;
+  --h-cta: 60px;
+  --w-cta: 326px;
+
+  /* Elevation & glow */
+  --sh-cta-moon: 0 14px 30px -8px rgba(255, 214, 170, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --sh-cta-lavender: 0 0 0 6px rgba(185, 163, 255, 0.16), 0 0 46px rgba(185, 163, 255, 0.65), 0 14px 30px -8px rgba(120, 100, 240, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --sh-glass: 0 20px 40px -18px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  --sh-frame: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 40px 80px -20px rgba(0, 0, 0, 0.65), 0 0 120px -30px rgba(150, 140, 255, 0.45);
+
+  /* Motion */
+  --ease-soft: cubic-bezier(0.3, 1, 0.4, 1);
+  --ease-pop: cubic-bezier(0.3, 1.6, 0.5, 1);
+}
