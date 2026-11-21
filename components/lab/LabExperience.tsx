@@ -735,7 +735,13 @@ function CampaignGrid({
           className="overflow-hidden"
         >
           <div className="pt-6">
-            <SweetDreamsCaseStudy label={t("lab.caseStudy")} />
+            <SweetDreamsCaseStudy
+              label={t("lab.caseStudy")}
+              onPlay={() => {
+                const campaign = campaigns.find((c) => c.id === studyId);
+                if (campaign) play(campaign);
+              }}
+            />
           </div>
         </motion.div>
       )}
