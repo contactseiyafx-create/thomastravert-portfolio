@@ -16,6 +16,7 @@ import { useLanguage, type TranslationKey } from "@/components/LanguageProvider"
 import { motionDurations, premiumEase, smoothEase } from "@/components/motionConfig";
 import { GlyphEngine } from "./GlyphEngine";
 import { ShinshokuInterviewRPG } from "./ShinshokuInterviewRPG";
+import { SweetDreamsCaseStudy } from "./SweetDreamsCaseStudy";
 
 const EASE = premiumEase;
 const CINEMA = smoothEase;
@@ -600,6 +601,8 @@ function CampaignGrid({
   onPlay: (campaign: LabCampaign) => void;
 }) {
   const { t } = useLanguage();
+  const [studyId, setStudyId] = useState<string | null>(null);
+  const hasCaseStudy = (campaign: LabCampaign) => campaign.id === "sweet-dreams";
 
   // On phones the H5 is best played as its own page; on larger screens it opens in a phone stage.
   const play = (campaign: LabCampaign) => {
@@ -611,7 +614,8 @@ function CampaignGrid({
   };
 
   return (
-    <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-7 max-w-6xl">
+    <div className="mt-10 max-w-6xl">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-7">
       {campaigns.map((campaign, index) => (
         <motion.article
           key={campaign.id}
@@ -666,7 +670,37 @@ function CampaignGrid({
                 </span>
               ))}
             </div>
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => play(campaign)}
+                className="inline-flex items-center gap-2 rounded-lg border border-bone-line px-4 py-2.5 font-mono text-[10px] tracking-[0.22em] uppercase text-bone transition-colors duration-300 hover:border-signal hover:text-signal focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-signal"
+              >
+                <svg width="9" height="10" viewBox="0 0 9 10" fill="currentColor" aria-hidden="true">
+                  <path d="M0 0L9 5L0 10Z" />
+                </svg>
+                {t("lab.play")}
+              </button>
+              {hasCaseStudy(campaign) && (
+                <button
+                  type="button"
+                  onClick={() => setStudyId(studyId === campaign.id ? null : campaign.id)}
+                  aria-expanded={studyId === campaign.id}
+                  aria-controls={`case-study-${campaign.id}`}
+                  className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2.5 font-mono text-[10px] tracking-[0.22em] uppercase transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-signal ${
+                    studyId === campaign.id
+                      ? "border-signal bg-signal text-ink"
+                      : "border-bone-line text-bone hover:border-signal hover:text-signal"
+                  }`}
+                >
+                  <svg width="12" height="11" viewBox="0 0 12 11" fill="none" aria-hidden="true">
+                    <path d="M6 2.2C4.6 1.2 2.9 1 1 1.2V9.6C2.9 9.4 4.6 9.6 6 10.6M6 2.2C7.4 1.2 9.1 1 11 1.2V9.6C9.1 9.4 7.4 9.6 6 10.6M6 2.2V10.6" stroke="currentColor" strokeWidth="1.2" />
+                  </svg>
+                  {studyId === campaign.id ? t("lab.hideCaseStudy") : t("lab.viewCaseStudy")}
+                </button>
+              )}
+            </div>
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
               <a
                 href={campaign.href}
                 target="_blank"
@@ -687,6 +721,25 @@ function CampaignGrid({
           </div>
         </motion.article>
       ))}
+    </div>
+
+    <AnimatePresence>
+      {studyId && (
+        <motion.div
+          id={`case-study-${studyId}`}
+          key={studyId}
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.7, ease: CINEMA }}
+          className="overflow-hidden"
+        >
+          <div className="pt-6">
+            <SweetDreamsCaseStudy label={t("lab.caseStudy")} />
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
     </div>
   );
 }
