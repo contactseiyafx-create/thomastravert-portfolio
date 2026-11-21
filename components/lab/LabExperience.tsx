@@ -7,6 +7,7 @@ import {
   lab,
   type LabApp,
   type LabArtwork,
+  type LabCampaign,
   type LabDeck,
   type LabFolder,
   type LabFolderId,
@@ -29,6 +30,11 @@ const folderCopyKeys: Record<
     label: "lab.folder.apps.label",
     sub: "lab.folder.apps.sub",
     desc: "lab.folder.apps.desc",
+  },
+  campaigns: {
+    label: "lab.folder.campaigns.label",
+    sub: "lab.folder.campaigns.sub",
+    desc: "lab.folder.campaigns.desc",
   },
   "graphic-design": {
     label: "lab.folder.graphic-design.label",
@@ -59,6 +65,7 @@ export default function LabExperience() {
   const [launched, setLaunched] = useState<LabApp | null>(null);
   const [artworkIndex, setArtworkIndex] = useState<number | null>(null);
   const [activeDeck, setActiveDeck] = useState<LabDeck | null>(null);
+  const [activeCampaign, setActiveCampaign] = useState<LabCampaign | null>(null);
   const reduce = useReducedMotion();
 
   return (
@@ -80,6 +87,7 @@ export default function LabExperience() {
               onLaunchApp={setLaunched}
               onOpenArtwork={setArtworkIndex}
               onOpenDeck={setActiveDeck}
+              onOpenCampaign={setActiveCampaign}
             />
           )}
         </AnimatePresence>
@@ -97,6 +105,12 @@ export default function LabExperience() {
             index={artworkIndex}
             onClose={() => setArtworkIndex(null)}
           />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {activeCampaign && (
+          <CampaignStage campaign={activeCampaign} onClose={() => setActiveCampaign(null)} />
         )}
       </AnimatePresence>
 
@@ -197,7 +211,7 @@ function FolderRow({
   setOpen: (f: OpenFolder) => void;
 }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-7xl">
       {lab.folders.map((f, idx) => (
         <Folder
           key={f.id}
@@ -310,11 +324,13 @@ function FolderArchive({
   onLaunchApp,
   onOpenArtwork,
   onOpenDeck,
+  onOpenCampaign,
 }: {
   folder: LabFolderId;
   onLaunchApp: (app: LabApp) => void;
   onOpenArtwork: (index: number) => void;
   onOpenDeck: (deck: LabDeck) => void;
+  onOpenCampaign: (campaign: LabCampaign) => void;
 }) {
   const folderData = lab.folders.find((f) => f.id === folder);
   const { t } = useLanguage();
@@ -334,6 +350,10 @@ function FolderArchive({
 
         {folder === "apps" && (
           <AppsArchive onLaunch={onLaunchApp} />
+        )}
+
+        {folder === "campaigns" && (
+          <CampaignGrid campaigns={lab.campaigns} onPlay={onOpenCampaign} />
         )}
 
         {folder === "graphic-design" && (
@@ -569,6 +589,193 @@ function DeckGrid({
         </motion.button>
       ))}
     </div>
+  );
+}
+
+function CampaignGrid({
+  campaigns,
+  onPlay,
+}: {
+  campaigns: readonly LabCampaign[];
+  onPlay: (campaign: LabCampaign) => void;
+}) {
+  const { t } = useLanguage();
+
+  // On phones the H5 is best played as its own page; on larger screens it opens in a phone stage.
+  const play = (campaign: LabCampaign) => {
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches) {
+      window.open(campaign.href, "_blank", "noopener");
+      return;
+    }
+    onPlay(campaign);
+  };
+
+  return (
+    <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-7 max-w-6xl">
+      {campaigns.map((campaign, index) => (
+        <motion.article
+          key={campaign.id}
+          initial={{ opacity: 0, y: 24, filter: "blur(6px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: motionDurations.reveal, delay: index * 0.08, ease: EASE }}
+          className="group relative overflow-hidden rounded-2xl border border-bone-line bg-ink-700/45 backdrop-blur-md"
+        >
+          <button
+            type="button"
+            onClick={() => play(campaign)}
+            className="relative block w-full overflow-hidden bg-ink text-left focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-signal"
+            style={{ aspectRatio: campaign.ratio }}
+            aria-label={`${t("lab.play")} ${campaign.title}`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={campaign.thumbnail}
+              alt={`${campaign.title} — mobile screens`}
+              loading="lazy"
+              sizes="(min-width: 1024px) 45vw, 92vw"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.025]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
+            <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-full border border-bone-line bg-ink/60 px-4 py-2 font-mono text-[10px] tracking-[0.22em] uppercase text-bone backdrop-blur-md transition-colors duration-300 group-hover:border-signal group-hover:text-signal">
+              <svg width="9" height="10" viewBox="0 0 9 10" fill="currentColor" aria-hidden="true">
+                <path d="M0 0L9 5L0 10Z" />
+              </svg>
+              {t("lab.play")}
+            </span>
+          </button>
+          <div className="p-5 md:p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-bone-muted">
+                  {t("lab.h5Campaign")}{campaign.year ? ` · ${campaign.year}` : ""}
+                </p>
+                <h3 className="mt-3 font-sans text-[20px] md:text-[22px] font-medium leading-tight text-bone">
+                  {campaign.title}
+                </h3>
+              </div>
+              <StatusPill status={campaign.status} />
+            </div>
+            <p className="mt-4 body-sm leading-[1.55]">{campaign.blurb}</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {campaign.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-bone-line px-3 py-1 font-mono text-[9px] tracking-[0.18em] uppercase text-bone-dim"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <a
+                href={campaign.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.22em] uppercase text-signal"
+              >
+                {t("lab.openFullscreen")}
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                  <path d="M2 8L8 2M8 2H3M8 2V7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
+                </svg>
+              </a>
+              {campaign.note && (
+                <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-bone-muted">
+                  {campaign.note}
+                </span>
+              )}
+            </div>
+          </div>
+        </motion.article>
+      ))}
+    </div>
+  );
+}
+
+/** Desktop "phone stage": the H5 runs in an iframe at its 390×844 reference size, scaled to fit. */
+function CampaignStage({ campaign, onClose }: { campaign: LabCampaign; onClose: () => void }) {
+  const { t } = useLanguage();
+  const reduce = useReducedMotion();
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const fit = () => {
+      const nav = 72;
+      const s = Math.min(1, (window.innerHeight - nav - 56) / 844, (window.innerWidth - 32) / 390);
+      setScale(Math.max(0.5, s));
+    };
+    fit();
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", fit);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", fit);
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.98, filter: "blur(6px)" }}
+      animate={reduce ? { opacity: 1 } : { opacity: 1, scale: 1, filter: "blur(0px)" }}
+      exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.99, filter: "blur(4px)" }}
+      transition={{ duration: reduce ? 0.18 : motionDurations.modalOpen, ease: EASE }}
+      className="fixed inset-0 z-[100] bg-ink"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${campaign.title} — ${t("lab.h5Campaign")}`}
+    >
+      <div className="absolute top-0 inset-x-0 z-20 h-[var(--nav-h)] flex items-center justify-between gap-4 px-[var(--gutter)] bg-ink/60 backdrop-blur-md border-b border-bone-line">
+        <span className="flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] uppercase text-bone-dim">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-signal" />
+          THE LAB · {campaign.title}
+        </span>
+        <div className="flex items-center gap-6">
+          <a
+            href={campaign.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-bone hover:text-signal transition-colors"
+          >
+            {t("lab.openFullscreen")}
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M2 8L8 2M8 2H3M8 2V7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="square" />
+            </svg>
+          </a>
+          <button
+            type="button"
+            onClick={onClose}
+            className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.22em] uppercase text-bone hover:text-signal transition-colors"
+          >
+            {t("lab.close")}
+            <span className="grid place-items-center w-7 h-7 rounded-full border border-bone-line group-hover:border-signal transition-colors">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M1 1L9 9M9 1L1 9" stroke="currentColor" strokeWidth="1.4" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div className="absolute inset-0 pt-[var(--nav-h)] flex flex-col items-center justify-center gap-4">
+        <div
+          className="relative overflow-hidden rounded-[44px] border border-bone-line shadow-[0_40px_120px_-30px_rgba(167,150,255,0.45)]"
+          style={{ width: 390 * scale, height: 844 * scale }}
+        >
+          <iframe
+            src={campaign.href}
+            title={campaign.title}
+            width={390}
+            height={844}
+            allow="clipboard-write; web-share; autoplay"
+            className="absolute left-0 top-0 border-0 bg-ink"
+            style={{ width: 390, height: 844, transform: `scale(${scale})`, transformOrigin: "0 0" }}
+          />
+        </div>
+        <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-bone-muted">
+          {t("lab.playHint")}
+        </p>
+      </div>
+    </motion.div>
   );
 }
 

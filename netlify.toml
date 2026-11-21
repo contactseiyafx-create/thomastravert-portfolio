@@ -4,3 +4,16 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# LAB · Sweet Dreams (static H5 in /public): send folder URLs to the entry file
+[[redirects]]
+  from = "/lab/sweet-dreams"
+  to = "/lab/sweet-dreams/index.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/lab/sweet-dreams/"
+  to = "/lab/sweet-dreams/index.html"
+  status = 301
+  force = true

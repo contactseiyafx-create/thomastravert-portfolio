@@ -8,6 +8,7 @@
 
 export type LabFolderId =
   | "apps"
+  | "campaigns"
   | "graphic-design"
   | "motion-design"
   | "carousels";
@@ -30,6 +31,21 @@ export type LabApp = {
   href: string;
   glyph: string;
   tint?: string;
+};
+
+export type LabCampaign = {
+  id: string;
+  title: string;
+  year?: string;
+  blurb: string;
+  status: LabAppStatus;
+  /** Static H5 build served from /public (opens in the phone stage and full screen). */
+  href: string;
+  thumbnail: string;
+  /** width/height of the thumbnail, e.g. "1600/1292". */
+  ratio: string;
+  tags: string[];
+  note?: string;
 };
 
 export type LabArtwork = {
@@ -56,7 +72,7 @@ export const lab = {
     titleLines: ["THE", "LAB"],
     lead:
       "You found the room behind the portfolio. This is the R&D department — where ideas are prototyped, tools are built, and experiments live before they're ever finished.",
-    note: "Four folders. Open one and browse the archive.",
+    note: "Five folders. Open one and browse the archive.",
   },
 
   folders: [
@@ -66,6 +82,13 @@ export const lab = {
       sub: "CODED EXPERIENCES",
       count: "02",
       desc: "Interactive tools and experiments built inside the LAB.",
+    },
+    {
+      id: "campaigns",
+      label: "PLAYABLE CAMPAIGNS",
+      sub: "H5 EXPERIENCES",
+      count: "01",
+      desc: "Mobile-first interactive campaigns: mini-games, collectible rewards and shareable moments.",
     },
     {
       id: "graphic-design",
@@ -109,6 +132,22 @@ export const lab = {
       tint: "#00E5FF",
     },
   ] satisfies LabApp[],
+
+  campaigns: [
+    {
+      id: "sweet-dreams",
+      title: "Sweet Dreams",
+      year: "2026",
+      blurb:
+        "A 30-second bedtime ritual: calm the stars, move the moon, unlock a holographic Dream Card and share it.",
+      status: "Live",
+      href: "/lab/sweet-dreams/index.html",
+      thumbnail: "/lab/campaigns/sweet-dreams/thumb.jpg",
+      ratio: "1600/1292",
+      tags: ["H5", "GSAP", "React", "Holographic card", "GA4"],
+      note: "Unofficial fan-made concept",
+    },
+  ] satisfies LabCampaign[],
 
   graphicDesign: [
     {

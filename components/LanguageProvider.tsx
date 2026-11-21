@@ -98,10 +98,14 @@ const translations = {
     "lab.intro.eyebrow": "ACCESS GRANTED · PRIVATE ARCHIVE",
     "lab.intro.lead":
       "You found the room behind the portfolio. This is the R&D department — where ideas are prototyped, tools are built, and experiments live before they're ever finished.",
-    "lab.intro.note": "Four folders. Open one and browse the archive.",
+    "lab.intro.note": "Five folders. Open one and browse the archive.",
     "lab.folder.apps.label": "APPS",
     "lab.folder.apps.sub": "CODED EXPERIENCES",
     "lab.folder.apps.desc": "Interactive tools and experiments built inside the LAB.",
+    "lab.folder.campaigns.label": "PLAYABLE CAMPAIGNS",
+    "lab.folder.campaigns.sub": "H5 EXPERIENCES",
+    "lab.folder.campaigns.desc":
+      "Mobile-first interactive campaigns: mini-games, collectible rewards and shareable moments.",
     "lab.folder.graphic-design.label": "GRAPHIC DESIGN",
     "lab.folder.graphic-design.sub": "POSTERS · KEY VISUALS",
     "lab.folder.graphic-design.desc":
@@ -126,6 +130,10 @@ const translations = {
     "lab.next": "Next",
     "lab.notReady": "This experience isn't ready yet.",
     "lab.slot": "slot",
+    "lab.h5Campaign": "H5 campaign",
+    "lab.play": "Play",
+    "lab.openFullscreen": "Open full screen",
+    "lab.playHint": "Best on a phone · tap, drag and tilt",
     "status.live": "Live",
     "status.beta": "Beta",
     "status.in-development": "In development",
@@ -258,10 +266,14 @@ const translations = {
     "lab.intro.eyebrow": "アクセス許可 · プライベートアーカイブ",
     "lab.intro.lead":
       "ポートフォリオの奥にある制作実験室。ここではアイデアを試作し、ツールを作り、完成前の実験を保管しています。",
-    "lab.intro.note": "4つのフォルダから、気になるアーカイブを開いてください。",
+    "lab.intro.note": "5つのフォルダから、気になるアーカイブを開いてください。",
     "lab.folder.apps.label": "アプリ",
     "lab.folder.apps.sub": "コードで作る体験",
     "lab.folder.apps.desc": "LAB内で制作したインタラクティブツールと実験。",
+    "lab.folder.campaigns.label": "プレイアブル・キャンペーン",
+    "lab.folder.campaigns.sub": "H5 エクスペリエンス",
+    "lab.folder.campaigns.desc":
+      "ミニゲーム、コレクション報酬、シェアしたくなる瞬間をつくる、モバイルファーストのインタラクティブキャンペーン。",
     "lab.folder.graphic-design.label": "グラフィックデザイン",
     "lab.folder.graphic-design.sub": "ポスター · キービジュアル",
     "lab.folder.graphic-design.desc":
@@ -286,6 +298,10 @@ const translations = {
     "lab.next": "次へ",
     "lab.notReady": "この体験はまだ準備中です。",
     "lab.slot": "スロット",
+    "lab.h5Campaign": "H5キャンペーン",
+    "lab.play": "プレイ",
+    "lab.openFullscreen": "フルスクリーンで開く",
+    "lab.playHint": "スマホ推奨 · タップ・ドラッグ・傾けて遊べます",
     "status.live": "公開中",
     "status.beta": "ベータ",
     "status.in-development": "開発中",

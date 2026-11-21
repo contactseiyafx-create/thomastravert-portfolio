@@ -1,0 +1,57 @@
+{
+  "$readme": "Asset slots for the campaign. Change a path to swap an asset; set it to null to use the built-in placeholder. No rebuild needed — just redeploy the folder. See assets/README.md.",
+  "backgrounds": {
+    "welcome": "assets/backgrounds/welcome.svg",
+    "night": "assets/backgrounds/night.svg",
+    "dreams": "assets/backgrounds/dreams.svg"
+  },
+  "character": {
+    "model": null,
+    "animations": {
+      "idle": "Idle",
+      "breathe": "Breathe",
+      "blink": "Blink",
+      "happy": "Happy",
+      "fallAsleep": "FallAsleep",
+      "sleep": "Sleep",
+      "wakeUp": "WakeUp"
+    },
+    "transform": {
+      "scale": 1,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotationY": 0
+    },
+    "camera": {
+      "fov": 30,
+      "position": [
+        0,
+        1.1,
+        5.4
+      ],
+      "target": [
+        0,
+        0.8,
+        0
+      ]
+    },
+    "dracoDecoderPath": "https://www.gstatic.com/draco/versioned/decoders/1.5.7/"
+  },
+  "companion": {
+    "image": null
+  },
+  "card": {
+    "front": null,
+    "back": null,
+    "$note": "Your collectible card artwork (PNG/SVG/WebP, 600×848 or larger, 300:424 ratio). front replaces the Nubi Dream Card everywhere (reveal, holo, exports). null = built-in design."
+  },
+  "ui": {
+    "logo": null
+  },
+  "audio": {
+    "ambience": null
+  }
+}
